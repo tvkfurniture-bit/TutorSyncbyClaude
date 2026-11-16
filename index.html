@@ -235,6 +235,8 @@ const App = (function () {
   };
 
   /* ---------- helpers ---------- */
+  (function captureRef(){ try{ const q=location.search+(location.hash.indexOf('?')>-1?location.hash.slice(location.hash.indexOf('?')):''); const m=/[?&]ref=([A-Za-z0-9]{4,12})/.exec(q); if(m) localStorage.setItem('tutorsync_ref',m[1].toUpperCase()); }catch(e){} })();
+  function getRef(){ try{ return localStorage.getItem('tutorsync_ref')||''; }catch(e){ return ''; } }
   function esc(s){ if(s===null||s===undefined) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
   function parseArr(v){ if(Array.isArray(v)) return v; if(!v) return []; try{ const p=JSON.parse(v); return Array.isArray(p)?p:[String(v)]; }catch(e){ return String(v).split(',').map(s=>s.trim()).filter(Boolean); } }
   const inrFmt0 = new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0});
@@ -508,6 +510,7 @@ const App = (function () {
       faqItem('How do I pay the tuition fee?','You receive a monthly PDF invoice. In your portal you can scan the UPI QR code, pay from any UPI app, and submit the UTR. We verify it and issue a receipt.')+
       faqItem('How much commission does TutorSync charge?','A standard 8%–10% platform commission, calculated only on tuition fees actually collected. Registration is free.')+
       faqItem('What if I want to cancel or need a refund?','Raise a support request from your portal. Our Cancellation & Refund Policy page explains how cancellations and refunds are handled.')+
+      faqItem('Is there a referral programme?','Yes. Every student and tutor gets a personal referral code and share link in their portal. A referral counts once the new person is verified and makes their first payment. Any reward is confirmed by TutorSync and shown in your portal.')+
       faqItem('Is TutorSync an escrow or payment gateway?','No. TutorSync is a managed tuition coordination service, not a licensed payment gateway or escrow institution.')+
     '</div></section>'+
 
@@ -584,6 +587,7 @@ const App = (function () {
       '<div class="form-group"><label class="req" for="sr-budget">Monthly Budget (₹)</label><input id="sr-budget" type="number" inputmode="numeric" min="500" required placeholder="e.g., 4000" /></div>'+
       '<div class="form-group"><label for="sr-start">Preferred Start Date</label><input id="sr-start" type="date" /></div>'+
       '<div class="form-group full"><label for="sr-notes">Additional Requirements (Optional)</label><textarea id="sr-notes" rows="2" placeholder="Exam goals, language preference, trial class request, etc.">'+esc(pre.note||'')+'</textarea></div>'+
+      '<div class="form-group full"><label for="sr-ref">Referral Code (optional)</label><input id="sr-ref" maxlength="12" autocapitalize="characters" placeholder="e.g. S4K9XQ2" value="'+esc(getRef())+'" /></div>'+
       '<div class="form-group full"><label class="chip-label" style="border:none;background:none;padding:0"><input type="checkbox" id="sr-consent" /> <span>I agree to the <a href="#/privacy" target="_blank" rel="noopener">Privacy Policy</a> and consent to TutorSync contacting me by phone, WhatsApp or email.</span></label></div>'+
       '<div class="form-group full"><button type="submit" class="btn btn-primary btn-block">Submit Student Registration</button></div>'+
     '</div></form></div></div></section>';
@@ -611,7 +615,7 @@ const App = (function () {
         subjectsRequired:subs,preferredTutorGender:document.getElementById('sr-gender').value,teachingMode:mode,
         areaLocality:document.getElementById('sr-area').value,pinCode:document.getElementById('sr-pin').value.trim(),preferredDays:days,
         preferredTime:document.getElementById('sr-time').value,budgetPerMonth:document.getElementById('sr-budget').value,
-        preferredStartDate:document.getElementById('sr-start').value,additionalNotes:document.getElementById('sr-notes').value,consentAccepted:document.getElementById('sr-consent').checked
+        preferredStartDate:document.getElementById('sr-start').value,additionalNotes:document.getElementById('sr-notes').value,refCode:(document.getElementById('sr-ref')||{}).value||'',consentAccepted:document.getElementById('sr-consent').checked
       });
       document.getElementById('stu-reg-card').innerHTML='<div style="text-align:center;padding:1.5rem 0"><span class="badge badge-green">Registration Confirmed</span><h2 style="margin-top:.75rem">Student ID: '+esc(res.studentId)+'</h2><p>Thank you! A confirmation email has been sent. Our coordinator will verify your request before matching you with a tutor. Please save your Student ID.</p><button class="btn btn-primary" onclick="App.navigate(\'#/\')">Return to Home</button></div>';
       window.scrollTo(0,0);
@@ -646,6 +650,7 @@ const App = (function () {
       '<div class="form-group"><label for="tr-doc-url">Credential Document Link (Optional)</label><input id="tr-doc-url" type="url" inputmode="url" placeholder="Google Drive or portfolio link" /></div>'+
       '<div class="form-group"><label for="tr-doc-file">Or Upload Credential PDF/Image (&le; 1.5 MB)</label><input id="tr-doc-file" type="file" accept=".pdf,.jpg,.jpeg,.png" /></div>'+
       '<div class="form-group full"><label for="tr-upi">UPI ID for Future Payouts (Optional)</label><input id="tr-upi" placeholder="yourname@bank" autocapitalize="none" /><span class="help-text">You can also add or change this later in your Tutor Portal.</span></div>'+
+      '<div class="form-group full"><label for="tr-ref">Referral Code (optional)</label><input id="tr-ref" maxlength="12" autocapitalize="characters" placeholder="e.g. T7MW3PA" value="'+esc(getRef())+'" /></div>'+
       '<div class="form-group full"><label class="chip-label" style="border:none;background:none;padding:0"><input type="checkbox" id="tr-consent" /> <span>I agree to the <a href="#/privacy" target="_blank" rel="noopener">Privacy Policy</a> and <a href="#/terms" target="_blank" rel="noopener">Terms</a>, and understand a platform commission (8%–10%) applies on collected tuition.</span></label></div>'+
       '<div class="form-group full"><button type="submit" class="btn btn-accent btn-block">Submit Tutor Application</button></div>'+
     '</div></form></div></div></section>';
@@ -683,7 +688,7 @@ const App = (function () {
         teachingMode:mode,expectedMonthlyFee:document.getElementById('tr-fee').value,preferredLocations:document.getElementById('tr-locs').value,pinCodes:document.getElementById('tr-pins').value,
         maxTravelDistanceKm:document.getElementById('tr-dist').value,currentStudentCount:document.getElementById('tr-cur').value,availabilityDays:days,
         preferredTiming:document.getElementById('tr-time').value,languages:document.getElementById('tr-lang').value,shortBio:document.getElementById('tr-bio').value,
-        documentUrl:document.getElementById('tr-doc-url').value,documentBase64:b64,documentFileName:fname,documentMimeType:fmime,upiId:upi,consentAccepted:document.getElementById('tr-consent').checked
+        documentUrl:document.getElementById('tr-doc-url').value,documentBase64:b64,documentFileName:fname,documentMimeType:fmime,upiId:upi,refCode:(document.getElementById('tr-ref')||{}).value||'',consentAccepted:document.getElementById('tr-consent').checked
       });
       document.getElementById('tut-reg-card').innerHTML='<div style="text-align:center;padding:1.5rem 0"><span class="badge badge-green">Application Received</span><h2 style="margin-top:.75rem">Tutor ID: '+esc(res.tutorId)+'</h2><p>Thank you for applying to TutorSync. Our verification team will review your profile and contact you before matching. Please save your Tutor ID.</p><button class="btn btn-primary" onclick="App.navigate(\'#/\')">Return to Home</button></div>';
       window.scrollTo(0,0);
@@ -737,7 +742,7 @@ const App = (function () {
   async function renderStudentPortal(){
     if(!state.session||state.session.user.role!=='STUDENT') return navigate('#/login');
     document.getElementById('app-root').innerHTML='<section class="section"><div class="container"><div class="topbar-portal"><div style="display:flex;align-items:center;gap:.65rem"><span class="icon-badge" style="margin:0">'+EDU_ICONS.cap+'</span><div><h2 style="margin:0">Student / Parent Portal</h2><span class="help-text" style="word-break:break-all">'+esc(state.session.user.email)+' · '+esc(state.session.user.linkedEntityId)+'</span></div></div>'+
-      portalTabs('student',[['overview','Overview &amp; Schedule'],['invoices','Invoices &amp; Receipts'],['support','Support']])+'</div><div id="student-portal-body">'+skel(5)+'</div></div></section>';
+      portalTabs('student',[['overview','Overview &amp; Schedule'],['invoices','Invoices &amp; Receipts'],['refer','Refer &amp; Earn'],['support','Support']])+'</div><div id="student-portal-body">'+skel(5)+'</div></div></section>';
     const body=()=>document.getElementById('student-portal-body');
     try{
       if(state.portalTab==='overview'){
@@ -754,7 +759,7 @@ const App = (function () {
         '<div class="card" style="margin-bottom:1rem"><h3>Monthly Invoices</h3>'+(inv.invoices.length?'<div class="table-wrap"><table><thead><tr><th>Invoice #</th><th>Month</th><th>Total</th><th>Paid</th><th>Balance</th><th>Due</th><th>Status</th><th>Actions</th></tr></thead><tbody>'+
           inv.invoices.map(i=>'<tr><td><b>'+esc(i.InvoiceNumber)+'</b></td><td>'+esc(i.BillingMonth)+'</td><td>'+inr(i.TotalAmount)+'</td><td>'+inr(i.AmountPaid)+'</td><td><b>'+inr(i.BalanceDue)+'</b></td><td>'+esc(i.DueDate)+'</td><td>'+statusBadge(i.PaymentStatus)+'</td><td style="white-space:nowrap">'+(Number(i.BalanceDue)>0&&i.PaymentStatus!=='CANCELLED'?'<button class="btn btn-accent btn-sm" onclick="App.openPayModal(\''+esc(i.InvoiceId)+'\')">Pay via UPI</button> ':'')+(i.PdfUrl?'<a class="btn btn-outline btn-sm" href="'+esc(i.PdfUrl)+'" target="_blank" rel="noopener">PDF</a>':'')+'</td></tr>').join('')+'</tbody></table></div>':'<div class="empty-state">No invoices yet. Your first invoice is issued after tuition becomes active.</div>')+'</div>'+
         '<div class="card"><h3>Payment Receipts</h3>'+(pay.length?'<div class="table-wrap"><table><thead><tr><th>Receipt #</th><th>Date</th><th>Type</th><th>Amount</th><th>Method</th><th>Reference</th></tr></thead><tbody>'+pay.map(p=>'<tr><td><b>'+esc(p.ReceiptNumber)+'</b></td><td>'+esc(p.PaymentDate)+'</td><td>'+statusBadge(p.TransactionType)+'</td><td>'+inr(p.Amount)+'</td><td>'+esc(p.PaymentMethod)+'</td><td>'+esc(p.TransactionRef)+'</td></tr>').join('')+'</tbody></table></div>':'<div class="empty-state">No payment receipts yet. After you pay and submit your UTR, a receipt appears here once we verify it.</div>')+'</div>';
-      } else { const t=await apiCall('studentGetTickets',{},{allowRetry:true}); renderPortalTicketsView('student-portal-body','student',t); }
+      } else if(state.portalTab==='refer'){ await renderReferTab('student-portal-body','student'); } else { const t=await apiCall('studentGetTickets',{},{allowRetry:true}); renderPortalTicketsView('student-portal-body','student',t); }
     }catch(e){ const b=body(); if(b) b.innerHTML='<div class="card"><p class="badge badge-red">Could not load</p><p>'+esc(e.message)+'</p><button class="btn btn-outline btn-sm" onclick="App.navigate(\'#/student\')">Retry</button></div>'; }
   }
 
@@ -805,7 +810,7 @@ const App = (function () {
   async function renderTutorPortal(){
     if(!state.session||state.session.user.role!=='TUTOR') return navigate('#/login');
     document.getElementById('app-root').innerHTML='<section class="section"><div class="container"><div class="topbar-portal"><div style="display:flex;align-items:center;gap:.65rem"><span class="icon-badge" style="margin:0">'+EDU_ICONS.atom+'</span><div><h2 style="margin:0">Tutor Portal</h2><span class="help-text" style="word-break:break-all">'+esc(state.session.user.email)+' · '+esc(state.session.user.linkedEntityId)+'</span></div></div>'+
-      portalTabs('tutor',[['overview','Assignments'],['opportunities','Opportunities'],['earnings','Earnings'],['payout','Payout Profile'],['support','Support']])+'</div><div id="tutor-portal-body">'+skel(5)+'</div></div></section>';
+      portalTabs('tutor',[['overview','Assignments'],['opportunities','Opportunities'],['earnings','Earnings'],['payout','Payout Profile'],['refer','Refer &amp; Earn'],['support','Support']])+'</div><div id="tutor-portal-body">'+skel(5)+'</div></div></section>';
     const body=()=>document.getElementById('tutor-portal-body');
     try{
       if(state.portalTab==='overview'){
@@ -825,7 +830,7 @@ const App = (function () {
       } else if(state.portalTab==='payout'){
         const pp=await apiCall('tutorGetPayoutProfile',{},{allowRetry:true});
         body().innerHTML='<div class="card" style="max-width:560px"><h3>Payout Profile</h3><p class="help-text">Used only to pay your earnings. Payouts are never sent without a recorded UTR.</p><form onsubmit="App.savePayoutProfile(event)"><div class="form-group" style="margin-bottom:.8rem"><label for="pp-upi">UPI ID</label><input id="pp-upi" value="'+esc(pp.upiId)+'" placeholder="yourname@bank" autocapitalize="none" /></div><div class="form-group" style="margin-bottom:.8rem"><label for="pp-bank">Bank Details (optional)</label><textarea id="pp-bank" rows="3" placeholder="Account holder name, account number, IFSC">'+esc(pp.bankDetails)+'</textarea></div><button class="btn btn-primary" type="submit">Save Payout Profile</button></form></div>';
-      } else { const t=await apiCall('tutorGetTickets',{},{allowRetry:true}); renderPortalTicketsView('tutor-portal-body','tutor',t); }
+      } else if(state.portalTab==='refer'){ await renderReferTab('tutor-portal-body','tutor'); } else { const t=await apiCall('tutorGetTickets',{},{allowRetry:true}); renderPortalTicketsView('tutor-portal-body','tutor',t); }
     }catch(e){ const b=body(); if(b) b.innerHTML='<div class="card"><p class="badge badge-red">Could not load</p><p>'+esc(e.message)+'</p><button class="btn btn-outline btn-sm" onclick="App.navigate(\'#/tutor\')">Retry</button></div>'; }
   }
   async function savePayoutProfile(e){
@@ -873,7 +878,7 @@ const App = (function () {
   const ADMIN_NAV=[
     {group:'Overview',items:[{id:'gates',label:'Critical Gates Inbox'},{id:'dashboard',label:'Dashboard'}]},
     {group:'Participants & Matching',items:[{id:'verification',label:'Verification Queue'},{id:'students',label:'Students'},{id:'tutors',label:'Tutors'},{id:'matching',label:'Matching Engine'},{id:'assignments',label:'Tuition Assignments'}]},
-    {group:'Operations',items:[{id:'sessions',label:'Sessions & Attendance'},{id:'notifications',label:'Notifications & Tickets'}]},
+    {group:'Operations',items:[{id:'sessions',label:'Sessions & Attendance'},{id:'notifications',label:'Notifications & Tickets'},{id:'referrals',label:'Referrals'}]},
     {group:'Finance',items:[{id:'invoices',label:'Invoices'},{id:'payments',label:'Student Payments'},{id:'ledger',label:'Tutor Earnings'},{id:'commissions',label:'Commission Management'},{id:'payouts',label:'Tutor Payouts'}]},
     {group:'Governance',items:[{id:'reports',label:'Reports & CSV Export'},{id:'settings',label:'Settings & Automation'},{id:'audit',label:'Audit Log'}]}
   ];
@@ -892,7 +897,7 @@ const App = (function () {
     const c=document.getElementById('admin-main'); if(!c) return;
     c.innerHTML=skel(5); window.scrollTo(0,0);
     try{
-      const map={gates:renderAdminGates,dashboard:renderAdminDashboard,verification:renderAdminVerification,students:renderAdminStudents,tutors:renderAdminTutors,matching:renderAdminMatching,assignments:renderAdminAssignments,sessions:renderAdminSessions,invoices:renderAdminInvoices,payments:renderAdminPayments,ledger:renderAdminLedger,commissions:renderAdminCommissions,payouts:renderAdminPayouts,notifications:renderAdminNotificationsAndTickets,reports:renderAdminReports,settings:renderAdminSettings,audit:renderAdminAudit};
+      const map={gates:renderAdminGates,referrals:renderAdminReferrals,dashboard:renderAdminDashboard,verification:renderAdminVerification,students:renderAdminStudents,tutors:renderAdminTutors,matching:renderAdminMatching,assignments:renderAdminAssignments,sessions:renderAdminSessions,invoices:renderAdminInvoices,payments:renderAdminPayments,ledger:renderAdminLedger,commissions:renderAdminCommissions,payouts:renderAdminPayouts,notifications:renderAdminNotificationsAndTickets,reports:renderAdminReports,settings:renderAdminSettings,audit:renderAdminAudit};
       if(map[modId]) await map[modId](c);
     }catch(e){ c.innerHTML='<div class="card"><p class="badge badge-red">Error loading module</p><p>'+esc(e.message)+'</p><button class="btn btn-outline btn-sm" onclick="App.loadAdminModule(\''+modId+'\')">Retry</button></div>'; }
   }
@@ -925,13 +930,16 @@ const App = (function () {
   async function renderAdminGates(c){
     const g=await apiCall('adminGetGates',{},{allowRetry:true});
     const pct=Math.min(100,Math.round((g.gmail.used/Math.max(1,g.gmail.limit))*100)); const warn=pct>=80;
-    const total=g.tutorVetting.length+g.offerApprovals.length+g.utrClaims.length+g.payoutTransfers.length;
+    const total=g.tutorVetting.length+g.offerApprovals.length+g.utrClaims.length+g.payoutTransfers.length+(g.referralRewards||[]).length;
+    const rr=g.referralRewards||[];
+    const gate5='<div class="card" style="margin-top:1rem"><h3>Gate 5 — Referral Rewards ('+rr.length+')</h3><p class="help-text">Created only after a referred person\'s first verified payment. Approving does not move money; you record how the reward was given afterwards.</p>'+(rr.length?rr.map(x=>'<div class="gate-card"><div><b>'+inr(x.RewardAmount)+'</b> to '+esc(x.ReferrerName)+' <span class="help-text">('+esc(x.ReferrerRole)+')</span><br><span class="help-text">Referred '+esc(x.ReferredName)+' ('+esc(x.ReferredRole)+') · '+esc(x.RewardType)+' '+esc(x.RewardValue)+' · '+esc(x.ReferralId)+'</span></div><div style="display:flex;gap:.35rem;flex-wrap:wrap"><button class="btn btn-accent btn-sm" onclick="App.resolveReferral(\''+esc(x.ReferralId)+'\',\'APPROVE\')">Approve</button><button class="btn btn-danger btn-sm" onclick="App.resolveReferral(\''+esc(x.ReferralId)+'\',\'REJECT\')">Reject</button></div></div>').join(''):'<div class="empty-state">No referral rewards waiting.</div>')+'</div>';
+    
     c.innerHTML='<div class="topbar-portal"><div><h2 style="margin:0">Critical Gates Inbox</h2><span class="help-text">'+total+' item'+(total===1?'':'s')+' need your decision. Everything else runs on autopilot.</span></div><button class="btn btn-outline btn-sm" onclick="App.loadAdminModule(\'gates\')">Refresh</button></div>'+
     '<div class="card" style="margin-bottom:1rem'+(warn?';border-color:#f59e0b;background:#fffbeb':'')+'"><div style="display:flex;justify-content:space-between;gap:.5rem;flex-wrap:wrap;margin-bottom:.4rem"><b>Gmail daily sends</b><span>'+g.gmail.used+' / '+g.gmail.limit+'</span></div><div class="meter" role="progressbar" aria-valuenow="'+pct+'" aria-valuemin="0" aria-valuemax="100"><div style="width:'+pct+'%'+(warn?';background:#d97706':'')+'"></div></div>'+(warn?'<p class="help-text" style="margin:.4rem 0 0;color:#92400e">Close to the free Gmail limit. Automated emails pause near the cap; use the WhatsApp buttons for urgent messages.</p>':'<p class="help-text" style="margin:.4rem 0 0">Counted by TutorSync since this feature was enabled.</p>')+'</div>'+
     '<div class="card" style="margin-bottom:1rem"><h3>Gate 1 — Tutor Vetting ('+g.tutorVetting.length+')</h3>'+(g.tutorVetting.length?g.tutorVetting.map(t=>'<div class="gate-card"><div><b>'+esc(t.FullName)+'</b> <span class="help-text">'+esc(t.TutorId)+' · '+esc(t.Phone)+'</span><br><span class="badge '+(t.Score>=70?'badge-green':t.Score>=45?'badge-amber':'badge-red')+'">Profile '+t.Score+'%</span></div><div style="display:flex;gap:.35rem;flex-wrap:wrap">'+(t.wa?'<a class="btn btn-wa btn-sm" href="'+esc(t.wa)+'" target="_blank" rel="noopener">WhatsApp</a>':'')+'<button class="btn btn-accent btn-sm" onclick="App.verifyEntity(\'Tutors\',\''+esc(t.TutorId)+'\',\'VERIFIED\')">Verify</button><button class="btn btn-danger btn-sm" onclick="App.verifyEntity(\'Tutors\',\''+esc(t.TutorId)+'\',\'REJECTED\')">Reject</button></div></div>').join(''):'<div class="empty-state">No tutors waiting for vetting.</div>')+'</div>'+
     '<div class="card" style="margin-bottom:1rem"><h3>Gate 2 — Offer Approval ('+g.offerApprovals.length+')</h3><p class="help-text">Tutors who expressed interest. Creating an assignment sends the offer to both sides.</p>'+(g.offerApprovals.length?g.offerApprovals.map(m=>'<div class="gate-card"><div><b>'+esc(m.StudentName||m.StudentId)+'</b> ↔ <b>'+esc(m.TutorName||m.TutorId)+'</b><br><span class="help-text">'+esc(m.MatchId)+' · Score '+esc(m.Score)+'/100</span></div><button class="btn btn-accent btn-sm" onclick="App.openAssignmentModal(\''+esc(m.StudentId)+'\',\''+esc(m.TutorId)+'\',\''+esc(m.MatchId)+'\')">Create Offer</button></div>').join(''):'<div class="empty-state">No interested tutors waiting.</div>')+'</div>'+
     '<div class="card" style="margin-bottom:1rem"><h3>Gate 3 — UTR Reconciliation ('+g.utrClaims.length+')</h3><p class="help-text">Check each UTR in your bank/UPI statement before verifying. Verifying records the payment, issues a receipt and credits the tutor ledger.</p>'+(g.utrClaims.length?g.utrClaims.map(cl=>'<div class="gate-card"><div><b>'+inr(cl.Amount)+'</b> · UTR <code>'+esc(cl.Utr)+'</code><br><span class="help-text">'+esc(cl.ClaimId)+' · Invoice '+esc(cl.InvoiceId)+' · '+esc(cl.StudentId)+' · '+esc(String(cl.ClaimedAt).slice(0,16).replace('T',' '))+'</span>'+(cl.Note?'<br><span class="help-text">Note: '+esc(cl.Note)+'</span>':'')+'</div><div style="display:flex;gap:.35rem;flex-wrap:wrap"><button class="btn btn-accent btn-sm" onclick="App.verifyClaim(\''+esc(cl.ClaimId)+'\',\''+esc(cl.Utr)+'\','+Number(cl.Amount)+')">Verify UTR &amp; Reconcile</button><button class="btn btn-danger btn-sm" onclick="App.rejectClaim(\''+esc(cl.ClaimId)+'\')">Reject</button></div></div>').join(''):'<div class="empty-state">No payment claims waiting.</div>')+'</div>'+
-    '<div class="card"><h3>Gate 4 — Payout Transfers ('+g.payoutTransfers.length+')</h3><p class="help-text">Transfer the money from your own bank/UPI app, then enter the UTR and date. A payout is never marked PAID without them.</p>'+(g.payoutTransfers.length?g.payoutTransfers.map(p=>'<div class="gate-card"><div><b>'+inr(p.NetPayoutAmount)+'</b> to '+esc(p.TutorId)+' '+statusBadge(p.Status)+'<br><span class="help-text">'+esc(p.PayoutId)+' · '+esc(p.PeriodLabel)+'</span></div><div style="display:flex;gap:.35rem;flex-wrap:wrap">'+(p.Status==='PENDING'?'<button class="btn btn-outline btn-sm" onclick="App.approvePayout(\''+esc(p.PayoutId)+'\')">Approve</button>':'')+'<button class="btn btn-accent btn-sm" onclick="App.openMarkPaidModal(\''+esc(p.PayoutId)+'\','+Number(p.NetPayoutAmount)+')">Mark Paid</button></div></div>').join(''):'<div class="empty-state">No payouts waiting.</div>')+'</div>';
+    '<div class="card"><h3>Gate 4 — Payout Transfers ('+g.payoutTransfers.length+')</h3><p class="help-text">Transfer the money from your own bank/UPI app, then enter the UTR and date. A payout is never marked PAID without them.</p>'+(g.payoutTransfers.length?g.payoutTransfers.map(p=>'<div class="gate-card"><div><b>'+inr(p.NetPayoutAmount)+'</b> to '+esc(p.TutorId)+' '+statusBadge(p.Status)+'<br><span class="help-text">'+esc(p.PayoutId)+' · '+esc(p.PeriodLabel)+'</span></div><div style="display:flex;gap:.35rem;flex-wrap:wrap">'+(p.Status==='PENDING'?'<button class="btn btn-outline btn-sm" onclick="App.approvePayout(\''+esc(p.PayoutId)+'\')">Approve</button>':'')+'<button class="btn btn-accent btn-sm" onclick="App.openMarkPaidModal(\''+esc(p.PayoutId)+'\','+Number(p.NetPayoutAmount)+')">Mark Paid</button></div></div>').join(''):'<div class="empty-state">No payouts waiting.</div>')+'</div>'+gate5;
   }
   async function verifyClaim(claimId,utr,amount){
     if(!confirm('Confirm you have seen UTR '+utr+' for '+inr(amount)+' in your bank/UPI statement?')) return;
@@ -1250,11 +1258,58 @@ const App = (function () {
   async function installTriggersRemote(){ try{ await apiCall('adminInstallTriggers',{}); toast('Scheduled triggers installed.','success'); }catch(e){} }
   async function runTriggerManual(jobName){ if(!confirm('Run '+jobName+' now?')) return; try{ const res=await apiCall('adminRunTriggerManual',{jobName}); toast(jobName+' done: '+JSON.stringify(res),'success'); }catch(e){} }
 
+
+  /* ---------- Referrals ---------- */
+  function referralLink(code){ return location.origin+location.pathname+'?ref='+encodeURIComponent(code)+'#/'; }
+  function rewardText(type,value){
+    if(type==='FLAT') return 'You may earn '+inr(value)+' when someone you refer makes their first verified payment.';
+    if(type==='PERCENT') return 'You may earn '+value+'% of the first verified payment of each person you refer.';
+    return 'Referrals are tracked automatically. Any reward will be announced by TutorSync and shown here.';
+  }
+  async function renderReferTab(containerId,role){
+    const d=await apiCall(role+'GetReferral',{},{allowRetry:true});
+    state.myRef=d; const link=referralLink(d.code);
+    const counts={REGISTERED:0,CONVERTED:0,REWARD_PENDING:0,REWARD_APPROVED:0,REWARD_PAID:0,REWARD_REJECTED:0}; d.referrals.forEach(r=>{ if(counts[r.Status]!==undefined) counts[r.Status]++; });
+    const joined=d.referrals.length, paid=joined-counts.REGISTERED;
+    document.getElementById(containerId).innerHTML=
+    '<div class="grid-2"><div class="card"><h3>Refer &amp; Grow</h3>'+(d.enabled?'<p>'+esc(rewardText(d.rewardType,d.rewardValue))+'</p>'+
+      '<label>Your referral code</label><div style="display:flex;gap:.4rem;margin-bottom:.75rem"><input readonly value="'+esc(d.code)+'" aria-label="Referral code" style="font-weight:700;letter-spacing:.08em" /><button class="btn btn-outline btn-sm" onclick="App.copyText(\''+esc(d.code)+'\')">Copy</button></div>'+
+      '<label>Your share link</label><div style="display:flex;gap:.4rem;margin-bottom:.75rem"><input readonly value="'+esc(link)+'" aria-label="Referral link" /><button class="btn btn-outline btn-sm" onclick="App.copyText(\''+esc(link)+'\')">Copy</button></div>'+
+      '<div style="display:flex;gap:.5rem;flex-wrap:wrap"><button class="btn btn-wa" onclick="App.shareReferral(\'wa\')">Share on WhatsApp</button><button class="btn btn-outline" onclick="App.shareReferral(\'native\')">Share…</button></div>'+
+      '<p class="help-text" style="margin-top:.75rem">A referral counts as converted only after the new person is verified and makes their first payment. Referring yourself does not count.</p>':'<div class="empty-state">The referral programme is paused right now.</div>')+'</div>'+
+    '<div class="card"><h3>Your Referrals</h3><div class="kpi-grid" style="grid-template-columns:repeat(2,minmax(0,1fr))"><div class="kpi-card"><div class="kpi-label">Joined</div><div class="kpi-val">'+joined+'</div></div><div class="kpi-card"><div class="kpi-label">Converted</div><div class="kpi-val">'+paid+'</div></div></div>'+
+    (d.referrals.length?'<div class="table-wrap"><table><thead><tr><th>Date</th><th>Type</th><th>Status</th><th>Reward</th></tr></thead><tbody>'+d.referrals.map(r=>'<tr><td>'+esc(String(r.CreatedAt).slice(0,10))+'</td><td>'+esc(r.ReferredRole==='TUTOR'?'Tutor':'Student')+'</td><td>'+statusBadge(r.Status)+'</td><td>'+(Number(r.RewardAmount)>0?inr(r.RewardAmount):'—')+'</td></tr>').join('')+'</tbody></table></div>':'<div class="empty-state">No referrals yet. Share your link to get started.</div>')+'</div></div>';
+  }
+  function shareReferral(kind){
+    const d=state.myRef; if(!d) return; const link=referralLink(d.code);
+    const text='I use TutorSync for verified tutors and managed tuition. Register free here: '+link;
+    if(kind==='wa') window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank','noopener');
+    else if(navigator.share) navigator.share({title:'TutorSync',text:text,url:link}).catch(()=>{});
+    else copyText(text);
+  }
+  async function resolveReferral(referralId,decision){
+    let note='',reference='';
+    if(decision==='REJECT'){ note=prompt('Reason for rejecting this reward (recorded in the audit log):')||''; if(!note) return; }
+    else if(decision==='PAID'){ reference=prompt('How was the reward given? (UTR, credit note or invoice discount reference):')||''; if(!reference) return; }
+    else if(!confirm('Approve this referral reward? You will still record how it was given afterwards.')) return;
+    try{ await apiCall('adminResolveReferral',{referralId,decision,note,reference}); toast('Referral updated.','success'); loadAdminModule(state.adminModule); }catch(e){}
+  }
+  async function renderAdminReferrals(c){
+    const rows=await apiCall('adminListReferrals',{});
+    const pend=rows.filter(r=>r.Status==='REWARD_PENDING').length, tot=rows.filter(r=>['REWARD_APPROVED','REWARD_PAID'].indexOf(r.Status)!==-1).reduce((a,r)=>a+Number(r.RewardAmount||0),0);
+    c.innerHTML='<div class="topbar-portal"><h2 style="margin:0">Referrals</h2><button class="btn btn-outline btn-sm" onclick="App.loadAdminModule(\'settings\')">Reward Settings</button></div>'+
+    '<div class="kpi-grid"><div class="kpi-card"><div class="kpi-label">Total Referrals</div><div class="kpi-val">'+rows.length+'</div></div><div class="kpi-card"><div class="kpi-label">Rewards Waiting</div><div class="kpi-val">'+pend+'</div></div><div class="kpi-card"><div class="kpi-label">Approved / Paid Value</div><div class="kpi-val">'+inr(tot)+'</div></div></div>'+
+    '<p class="help-text">Reward amounts are set in the Settings sheet (REFERRAL_STUDENT_REWARD_TYPE / _VALUE and REFERRAL_TUTOR_REWARD_TYPE / _VALUE; types NONE, FLAT or PERCENT). Changes apply to future conversions only.</p><div id="tbl-referrals"></div>';
+    renderDataTable('tbl-referrals',{rows,filterField:'Status',filterOptions:['REGISTERED','CONVERTED','REWARD_PENDING','REWARD_APPROVED','REWARD_PAID','REWARD_REJECTED'],
+      columns:[{key:'ReferralId',label:'ID'},{key:'ReferrerName',label:'Referrer',render:r=>'<b>'+esc(r.ReferrerName)+'</b><br><span class="help-text">'+esc(r.ReferrerRole)+' · '+esc(r.ReferralCode)+'</span>'},{key:'ReferredName',label:'Referred',render:r=>esc(r.ReferredName)+'<br><span class="help-text">'+esc(r.ReferredRole)+'</span>'},{key:'Status',label:'Status',render:r=>statusBadge(r.Status)},{key:'RewardAmount',label:'Reward',num:true,render:r=>Number(r.RewardAmount)>0?inr(r.RewardAmount)+'<br><span class="help-text">'+esc(r.RewardType)+' '+esc(r.RewardValue)+'</span>':'—'},{key:'Reference',label:'Reference / Note',render:r=>esc(r.Reference||r.Note||'')}],
+      actions:r=>r.Status==='REWARD_PENDING'?'<div style="display:flex;gap:.3rem;flex-wrap:wrap"><button class="btn btn-accent btn-sm" onclick="App.resolveReferral(\''+esc(r.ReferralId)+'\',\'APPROVE\')">Approve</button><button class="btn btn-danger btn-sm" onclick="App.resolveReferral(\''+esc(r.ReferralId)+'\',\'REJECT\')">Reject</button></div>':(r.Status==='REWARD_APPROVED'?'<div style="display:flex;gap:.3rem;flex-wrap:wrap"><button class="btn btn-accent btn-sm" onclick="App.resolveReferral(\''+esc(r.ReferralId)+'\',\'PAID\')">Mark Given</button><button class="btn btn-outline btn-sm" onclick="App.resolveReferral(\''+esc(r.ReferralId)+'\',\'REJECT\')">Reject</button></div>':'—')});
+  }
+
   /* ---- Audit ---- */
   async function renderAdminAudit(c){
     const rows=await apiCall('adminGetAuditLogs',{});
     c.innerHTML='<div class="topbar-portal"><h2 style="margin:0">System &amp; Financial Audit Log</h2></div><div id="tbl-audit"></div>';
-    renderDataTable('tbl-audit',{rows,filterField:'EntityType',filterOptions:['Students','Tutors','Matches','Assignments','Sessions','Invoices','Payments','PaymentClaims','TutorLedger','Payouts','Settings','SupportTickets'],
+    renderDataTable('tbl-audit',{rows,filterField:'EntityType',filterOptions:['Students','Tutors','Matches','Assignments','Sessions','Invoices','Payments','PaymentClaims','Referrals','TutorLedger','Payouts','Settings','SupportTickets'],
       columns:[{key:'Timestamp',label:'UTC Time',render:r=>esc(String(r.Timestamp).slice(0,19).replace('T',' '))},{key:'ActorUserId',label:'Actor',render:r=>esc(r.ActorRole)+'<br><span class="help-text">'+esc(r.ActorUserId)+'</span>'},{key:'Action',label:'Action',render:r=>'<b>'+esc(r.Action)+'</b>'},{key:'EntityType',label:'Entity',render:r=>esc(r.EntityType)+' · '+esc(r.EntityId)},{key:'Reason',label:'Reason / Note'}]});
   }
 
@@ -1277,7 +1332,7 @@ const App = (function () {
     openGenerateInvoicesModal,submitGenerateInvoices,openRecordPaymentModal,submitRecordPayment,adjustInvoicePrompt,voidInvoicePrompt,resendInvoice,
     refundPrompt,adjustLedgerPrompt,createPayoutBatchPrompt,approvePayout,openMarkPaidModal,submitMarkPayoutPaid,
     openManualNotifyModal,submitManualNotify,resolveTicketPrompt,
-    runReport,exportCurrentReportCsv,saveSettings,installTriggersRemote,runTriggerManual
+    resolveReferral,shareReferral,runReport,exportCurrentReportCsv,saveSettings,installTriggersRemote,runTriggerManual
   };
 })();
 </script>
