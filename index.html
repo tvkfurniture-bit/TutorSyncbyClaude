@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0f2942" />
+<title>TutorSync — Managed Tutor–Student Matching &amp; Academic Coordination</title>
+<meta name="description" content="Free registration. Personally verified tutors and students, managed matching, transparent monthly billing across CBSE, ICSE and WB boards." />
+<style>
+:root{--bg:#fff;--surface:#f8fafc;--surface-alt:#f1f5f9;--primary:#0f2942;--primary-hover:#173b5e;--accent:#0284c7;--accent-light:#e0f2fe;--text:#0f172a;--text-muted:#475569;--border:#e2e8f0;--success:#16a34a;--success-bg:#dcfce7;--warning:#d97706;--warning-bg:#fef3c7;--danger:#dc2626;--danger-bg:#fee2e2;--radius:10px;--shadow-sm:0 1px 2px rgba(15,23,42,.05);--shadow-md:0 4px 14px rgba(15,23,42,.08);--font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;--safe-b:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--font);color:var(--text);background:var(--bg);line-height:1.55;font-size:15px;-webkit-font-smoothing:antialiased;overflow-x:hidden;font-variant-numeric:tabular-nums}
+body.has-cta{padding-bottom:calc(66px + var(--safe-b))}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+h1,h2,h3,h4{margin:0 0 .5rem;color:var(--primary);font-weight:700;line-height:1.25}
+p{margin:0 0 1rem;color:var(--text-muted)}
+img,svg{max-width:100%}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.hidden{display:none!important}
+.container{width:100%;max-width:1140px;margin:0 auto;padding:0 1rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;padding:.62rem 1.15rem;border-radius:8px;font-weight:600;font-size:.9rem;border:1px solid transparent;cursor:pointer;transition:background .15s,border-color .15s;font-family:inherit;white-space:nowrap;text-decoration:none!important;min-height:40px}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn-primary{background:var(--primary);color:#fff}.btn-primary:hover:not(:disabled){background:var(--primary-hover)}
+.btn-accent{background:var(--accent);color:#fff}.btn-accent:hover:not(:disabled){background:#0369a1}
+.btn-outline{background:#fff;color:var(--primary);border-color:var(--border)}.btn-outline:hover:not(:disabled){background:var(--surface);border-color:#cbd5e1}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-wa{background:#16a34a;color:#fff}
+.btn-sm{padding:.35rem .72rem;font-size:.8rem;border-radius:6px;min-height:34px}
+.btn-block{width:100%}
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;box-shadow:var(--shadow-sm);min-width:0}
+.badge{display:inline-block;padding:.2rem .55rem;border-radius:999px;font-size:.74rem;font-weight:600;text-transform:uppercase;letter-spacing:.02em;background:var(--surface-alt);color:var(--text-muted)}
+.badge-green{background:var(--success-bg);color:#166534}.badge-amber{background:var(--warning-bg);color:#92400e}.badge-red{background:var(--danger-bg);color:#991b1b}.badge-blue{background:var(--accent-light);color:#075985}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem}
+.form-group{display:flex;flex-direction:column;gap:.3rem;min-width:0}.form-group.full{grid-column:1/-1}
+label{font-size:.84rem;font-weight:600;color:var(--primary)}
+.req::after{content:" *";color:var(--danger)}
+input,select,textarea{width:100%;padding:.58rem .75rem;border:1px solid #cbd5e1;border-radius:7px;font-family:inherit;font-size:.92rem;color:var(--text);background:#fff;min-height:40px}
+input[type=checkbox],input[type=radio]{width:auto;min-height:0}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--accent-light);border-color:var(--accent)}
+.field-error{font-size:.78rem;color:var(--danger);min-height:1em}
+.chip-group{display:flex;flex-wrap:wrap;gap:.45rem}
+.chip-label{display:inline-flex;align-items:center;gap:.3rem;padding:.4rem .7rem;border:1px solid var(--border);border-radius:999px;font-size:.82rem;font-weight:500;cursor:pointer;background:var(--surface);user-select:none}
+.chip-label input{width:auto;margin:0}
+.help-text{font-size:.78rem;color:var(--text-muted)}
+.site-header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.97);backdrop-filter:blur(6px);border-bottom:1px solid var(--border)}
+.nav-bar{display:flex;align-items:center;justify-content:space-between;height:64px;gap:.75rem}
+.brand{display:flex;align-items:center;gap:.55rem;font-weight:800;font-size:1.18rem;color:var(--primary);cursor:pointer;flex-shrink:0}
+.brand-mark{width:34px;height:34px;border-radius:8px;background:var(--primary);color:#fff;display:grid;place-items:center;flex-shrink:0}
+.nav-links{display:flex;align-items:center;gap:1rem;font-size:.88rem;font-weight:500;white-space:nowrap}
+.nav-links a{color:var(--text-muted)}.nav-links a:hover{color:var(--primary);text-decoration:none}
+.nav-actions{display:flex;align-items:center;gap:.5rem}
+.mobile-menu-btn{display:none;background:#fff;border:1px solid var(--border);border-radius:8px;width:42px;height:40px;cursor:pointer;font-size:1.15rem;align-items:center;justify-content:center}
+.hero{padding:3.25rem 0 3rem;background-color:var(--surface);background-image:radial-gradient(#cbd5e1 .9px,transparent .9px);background-size:24px 24px;border-bottom:1px solid var(--border)}
+.hero-grid{display:grid;grid-template-columns:1.2fr .95fr;gap:2.25rem;align-items:center}
+.hero-pill{display:inline-flex;align-items:center;gap:.4rem;padding:.32rem .85rem;background:var(--accent-light);color:#0369a1;border-radius:999px;font-size:.8rem;font-weight:700;margin-bottom:1rem}
+.hero h1{font-size:clamp(1.75rem,3.6vw,2.7rem);margin-bottom:.9rem}
+.hero p{font-size:1.04rem;margin-bottom:1.45rem}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:.7rem;margin-bottom:1.35rem}
+.einstein-quote{display:flex;align-items:flex-start;gap:.7rem;background:#fff;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:8px;padding:.75rem .95rem;font-size:.85rem;color:var(--text-muted)}
+.chalkboard-card{background:var(--primary);color:#f8fafc;border-radius:14px;border:4px solid #1e3a5f;padding:1.1rem;box-shadow:var(--shadow-md)}
+.chalkboard-caption{display:flex;justify-content:space-between;gap:.5rem;flex-wrap:wrap;margin-top:.75rem;padding-top:.65rem;border-top:1px dashed rgba(226,232,240,.25);font-size:.78rem;color:#cbd5e1}
+.gallery-header{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.15rem;flex-wrap:wrap}
+.gallery-controls{display:flex;gap:.45rem;align-items:center;flex-wrap:wrap}
+.scroll-track{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:.75rem;scrollbar-width:thin;scrollbar-color:#cbd5e1 transparent;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.scroll-track::-webkit-scrollbar{height:7px}.scroll-track::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:99px}
+.edu-slide{flex:0 0 300px;scroll-snap-align:start;background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:var(--shadow-sm);display:flex;flex-direction:column}
+.edu-slide-art{background:var(--surface);border-bottom:1px solid var(--border);padding:.85rem;display:flex;align-items:center;justify-content:center;height:168px}
+.edu-slide-body{padding:1rem}.edu-slide-body h4{margin-bottom:.3rem;font-size:.98rem}.edu-slide-body p{margin:0;font-size:.84rem}
+.dir-card{flex:0 0 315px;scroll-snap-align:start;background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.05rem;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;justify-content:space-between;gap:.75rem}
+.dir-modal-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.85rem}.dir-modal-grid .dir-card{flex:none;width:100%}
+.dir-meta{font-size:.83rem;color:var(--text-muted);display:flex;flex-direction:column;gap:.25rem}
+.dir-tags{display:flex;flex-wrap:wrap;gap:.3rem;margin:.35rem 0}
+.dir-tag{font-size:.74rem;background:var(--surface-alt);color:var(--primary);padding:.18rem .5rem;border-radius:999px;font-weight:600}
+.section{padding:3.1rem 0}.section-alt{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.section-head{text-align:center;max-width:660px;margin:0 auto 2rem}
+.grid-4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.1rem}.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.1rem}.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem}
+.icon-badge{width:38px;height:38px;border-radius:9px;background:var(--accent-light);color:var(--primary);display:inline-flex;align-items:center;justify-content:center;margin-bottom:.75rem;flex-shrink:0}
+.step-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:.65rem}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--primary);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:.82rem}
+.faq-item{border:1px solid var(--border);border-radius:8px;background:#fff;margin-bottom:.65rem;overflow:hidden}
+.faq-q{width:100%;text-align:left;background:none;border:none;padding:.95rem 1.1rem;font-weight:600;font-size:.95rem;color:var(--primary);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:.75rem;font-family:inherit;min-height:48px}
+.faq-a{padding:0 1.1rem 1rem;color:var(--text-muted);font-size:.9rem;display:none}.faq-item.open .faq-a{display:block}
+.site-footer{padding:2.5rem 0 1.5rem;background:var(--primary);color:#cbd5e1;font-size:.86rem}
+.site-footer a{color:#e2e8f0;display:block;padding:.2rem 0}.site-footer h4{color:#fff;font-size:.9rem;margin-bottom:.6rem}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:1.5rem}
+.footer-bottom{margin-top:1.5rem;padding-top:1rem;border-top:1px solid rgba(226,232,240,.2);font-size:.78rem;color:#94a3b8}
+.trust-list{list-style:none;padding:0;margin:0;display:grid;gap:.6rem}
+.trust-list li{display:flex;gap:.6rem;align-items:flex-start;color:var(--text-muted);font-size:.9rem}
+.trust-list li::before{content:"✓";color:var(--success);font-weight:800;flex-shrink:0}
+.mobile-cta{position:fixed;left:0;right:0;bottom:0;z-index:45;display:none;gap:.5rem;padding:.6rem .75rem calc(.6rem + var(--safe-b));background:rgba(255,255,255,.98);border-top:1px solid var(--border);box-shadow:0 -4px 14px rgba(15,23,42,.08)}
+.mobile-cta .btn{flex:1}
+.portal-shell{display:flex;min-height:calc(100vh - 64px);background:var(--surface)}
+.sidebar{width:248px;flex-shrink:0;background:#fff;border-right:1px solid var(--border);padding:1rem .75rem;display:flex;flex-direction:column;gap:.25rem}
+.sidebar-group{font-size:.72rem;font-weight:700;text-transform:uppercase;color:var(--text-muted);padding:.75rem .65rem .3rem;letter-spacing:.04em}
+.side-btn{width:100%;text-align:left;background:none;border:none;border-radius:7px;padding:.6rem .75rem;font-size:.88rem;font-weight:500;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-family:inherit;min-height:40px}
+.side-btn:hover{background:var(--surface);color:var(--primary)}.side-btn.active{background:var(--accent-light);color:var(--primary);font-weight:700}
+.sidebar-overlay{position:fixed;inset:64px 0 0 0;background:rgba(15,23,42,.4);z-index:48;display:none}
+.main-area{flex:1;min-width:0;padding:1.5rem}
+.topbar-portal{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.8rem;margin-bottom:1.25rem;padding-bottom:.85rem;border-bottom:1px solid var(--border)}
+.tabs-row{display:flex;gap:.4rem;flex-wrap:wrap}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:.85rem;margin-bottom:1.25rem}
+.kpi-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:.95rem 1rem;border-top:3px solid var(--primary);min-width:0}
+.kpi-label{font-size:.76rem;font-weight:600;color:var(--text-muted);text-transform:uppercase}
+.kpi-val{font-size:1.4rem;font-weight:800;color:var(--primary);margin:.2rem 0;word-break:break-word}
+.kpi-sub{font-size:.78rem;color:var(--text-muted)}
+.table-toolbar{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:space-between;align-items:center;margin-bottom:.85rem}
+.table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;background:#fff;border:1px solid var(--border);border-radius:var(--radius)}
+table{width:100%;border-collapse:collapse;font-size:.86rem}
+th{background:var(--surface);text-align:left;padding:.7rem .85rem;font-weight:600;color:var(--primary);border-bottom:1px solid var(--border);white-space:nowrap;cursor:pointer}
+td{padding:.68rem .85rem;border-bottom:1px solid var(--border);vertical-align:top}
+tr:last-child td{border-bottom:none}.num{text-align:right}
+.pagination{display:flex;justify-content:space-between;align-items:center;margin-top:.75rem;font-size:.84rem;color:var(--text-muted);gap:.5rem;flex-wrap:wrap}
+.modal-backdrop{position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:100;display:flex;align-items:center;justify-content:center;padding:1rem}
+.modal-box{background:#fff;border-radius:12px;width:100%;max-width:780px;max-height:90vh;display:flex;flex-direction:column;box-shadow:var(--shadow-md);overflow:hidden}
+.modal-head{padding:1rem 1.25rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:.75rem}
+.modal-body{padding:1.25rem;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.modal-foot{padding:.85rem 1.25rem;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:.6rem;background:var(--surface)}
+#toast-container{position:fixed;top:.75rem;right:.75rem;left:.75rem;z-index:200;display:flex;flex-direction:column;gap:.5rem;max-width:380px;margin-left:auto;pointer-events:none}
+.toast{background:#fff;border:1px solid var(--border);border-left:4px solid var(--primary);padding:.8rem 1rem;border-radius:8px;box-shadow:var(--shadow-md);font-size:.88rem;pointer-events:auto;word-break:break-word}
+.toast.success{border-left-color:var(--success)}.toast.error{border-left-color:var(--danger)}
+.loader-overlay{position:fixed;inset:0;background:rgba(255,255,255,.68);z-index:150;display:flex;align-items:center;justify-content:center;font-weight:600;color:var(--primary)}
+.spinner{width:28px;height:28px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .7s linear infinite;margin-right:.6rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+.skel{background:linear-gradient(90deg,#eef2f7 25%,#f8fafc 50%,#eef2f7 75%);background-size:200% 100%;animation:sh 1.2s infinite;border-radius:8px;height:18px;margin:.5rem 0}
+@keyframes sh{to{background-position:-200% 0}}
+.score-bar{width:80px;height:7px;background:var(--surface-alt);border-radius:99px;overflow:hidden;display:inline-block;vertical-align:middle;margin-right:6px}.score-fill{height:100%;background:var(--accent)}
+.empty-state{text-align:center;padding:2rem 1rem;color:var(--text-muted)}
+.qr-box{display:flex;justify-content:center;padding:1rem;background:#fff;border:1px solid var(--border);border-radius:10px;margin:.5rem 0}
+.gate-card{border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:8px;padding:.8rem 1rem;margin-bottom:.6rem;background:#fff;display:flex;justify-content:space-between;gap:.75rem;flex-wrap:wrap;align-items:center}
+.meter{height:8px;background:var(--surface-alt);border-radius:99px;overflow:hidden}.meter>div{height:100%;background:var(--accent)}
+.legal p{color:var(--text-muted)}
+@media(max-width:960px){
+.hero-grid{grid-template-columns:1fr}.grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-3{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr 1fr}
+.nav-links{display:none}.mobile-menu-btn{display:inline-flex}
+.sidebar{position:fixed;left:-270px;top:64px;bottom:0;z-index:49;transition:left .2s;box-shadow:var(--shadow-md);overflow-y:auto}.sidebar.open{left:0}
+.sidebar.open~.main-area{}}
+@media(max-width:720px){
+body{font-size:15px}
+input,select,textarea{font-size:16px}
+.form-grid,.grid-2,.grid-4,.dir-modal-grid,.footer-grid{grid-template-columns:1fr}
+.main-area{padding:1rem}.section{padding:2.25rem 0}.hero{padding:2rem 0}
+.edu-slide,.dir-card{flex:0 0 82vw;max-width:300px}
+.modal-backdrop{padding:0;align-items:flex-end}.modal-box{max-width:100%;max-height:94vh;border-radius:14px 14px 0 0}
+.mobile-cta.show{display:flex}
+.nav-actions .btn{padding:.35rem .6rem;font-size:.78rem}
+.hero-ctas .btn{flex:1 1 100%}
+#toast-container{top:auto;bottom:calc(72px + var(--safe-b))}
+.kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:380px){.brand span:last-child{font-size:1.02rem}.nav-actions #nav-login-btn{display:none}}
+</style>
+</head>
+<body>
+<div id="toast-container" aria-live="polite"></div>
+<div id="loader" class="loader-overlay hidden" role="status"><div class="spinner"></div><span>Processing...</span></div>
+
+<header class="site-header">
+  <div class="container nav-bar">
+    <div class="brand" onclick="App.navigate('#/')" role="link" tabindex="0" aria-label="TutorSync home">
+      <span class="brand-mark" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
+      <span>TutorSync</span>
+    </div>
+    <nav class="nav-links" id="public-nav" aria-label="Primary">
+      <a href="#/" onclick="App.openDirectoryModal('tutors');return false;">Browse Tutors &amp; Needs</a>
+      <a href="#/" onclick="App.scrollToSection('how-it-works');return false;">How It Works</a>
+      <a href="#/" onclick="App.scrollToSection('benefits');return false;">Benefits</a>
+      <a href="#/" onclick="App.scrollToSection('process');return false;">Process</a>
+      <a href="#/" onclick="App.scrollToSection('faq');return false;">FAQ</a>
+      <a href="#/" onclick="App.scrollToSection('contact');return false;">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="btn btn-outline btn-sm" id="nav-login-btn" onclick="App.navigate('#/login')">Portal Login</button>
+      <button class="btn btn-primary btn-sm" id="nav-find-btn" onclick="App.navigate('#/register-student')">Find a Tutor</button>
+      <button class="btn btn-outline btn-sm hidden" id="nav-portal-btn" onclick="App.goToMyPortal()">My Portal</button>
+      <button class="btn btn-outline btn-sm hidden" id="nav-logout-btn" onclick="App.logout()">Logout</button>
+      <button class="mobile-menu-btn" onclick="App.toggleMobileMenu()" aria-label="Open menu">&#9776;</button>
+    </div>
+  </div>
+</header>
+
+<main id="app-root"></main>
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="App.closeSidebar()"></div>
+<div class="mobile-cta" id="mobile-cta">
+  <button class="btn btn-primary" onclick="App.navigate('#/register-student')">Find a Tutor</button>
+  <button class="btn btn-accent" onclick="App.navigate('#/register-tutor')">Join as Tutor</button>
+</div>
+
+<div id="modal-backdrop" class="modal-backdrop hidden" onclick="if(event.target===this) App.closeModal()" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-box">
+    <div class="modal-head"><h3 id="modal-title" style="margin:0">Modal</h3><button class="btn btn-outline btn-sm" onclick="App.closeModal()" aria-label="Close dialog">Close</button></div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-foot hidden" id="modal-foot"></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" async></script>
+<script>
+/**
+ * TUTORSYNC FRONTEND (GitHub Pages single-file SPA) — Autopilot edition
+ * Backend: Google Apps Script (CORS-safe text/plain POST, redirect follow).
+ */
+window.TUTORSYNC_CONFIG = {
+  DEFAULT_API_URL: 'https://script.google.com/macros/s/AKfycbyh_gy3jeJGosnIqDx7iyrCDd5R5sR3GMTsm4PWrVYRxWKfvnw5aJGwuZxaw-Wxd6ifkw/exec',
+  STORAGE_API_KEY: 'tutorsync_gas_url',
+  STORAGE_SESSION_KEY: 'tutorsync_session'
+};
+
+const App = (function () {
+  const state = {
+    apiUrl: window.TUTORSYNC_CONFIG.DEFAULT_API_URL || localStorage.getItem(window.TUTORSYNC_CONFIG.STORAGE_API_KEY) || '',
+    session: (function(){ try { return JSON.parse(sessionStorage.getItem(window.TUTORSYNC_CONFIG.STORAGE_SESSION_KEY) || 'null'); } catch (e) { return null; } })(),
+    publicConfig: {
+      boards: ['CBSE','ICSE','WB','OTHER'], modes: ['ONLINE','OFFLINE','HYBRID'],
+      classes: ['Class 1','Class 2','Class 3','Class 4','Class 5','Class 6','Class 7','Class 8','Class 9','Class 10','Class 11','Class 12','Undergraduate','Competitive Exams'],
+      subjects: ['Mathematics','Science','Physics','Chemistry','Biology','English','Bengali','Hindi','History','Geography','Computer Science','Economics','Accountancy','Business Studies','All Subjects'],
+      supportEmail: '', supportWhatsApp: ''
+    },
+    publicDirectory: { tutors: [], students: [], loaded: false },
+    dirTab: 'tutors', dirQuery: '', dirMode: '',
+    prefillStudent: null, prefillTutor: null,
+    adminModule: 'gates', adminCache: {}, portalTab: 'overview'
+  };
+
+  const EDU_ICONS = {
+    atom: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="1.8" fill="currentColor"/><ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(30 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(-30 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(90 12 12)"/></svg>',
+    book: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
+    cap: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>',
+    compass: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>',
+    shield: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>',
+    clock: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+    search: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',
+    einsteinBadge: '<svg width="34" height="34" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.8"/><path d="M14 21c0-6 4.5-10 10-10s10 4 10 10c1.5 0 2.5 1.2 2.5 2.6 0 1.4-1 2.4-2.3 2.4-.6 4.2-4.6 7.5-10.2 7.5s-9.6-3.3-10.2-7.5c-1.3 0-2.3-1-2.3-2.4C11.5 22.2 12.5 21 14 21z" fill="#fff" stroke="#0f2942" stroke-width="1.7"/><path d="M13 18c-1.5-2.5 1-6.5 4.5-6.5 1-2.2 4-3.5 6.5-3.5 3 0 5.5 1.3 6.5 3.5 3.5 0 6 4 4.5 6.5" stroke="#0f2942" stroke-width="1.8" stroke-linecap="round"/><circle cx="20" cy="21.5" r="1.2" fill="#0f2942"/><circle cx="28" cy="21.5" r="1.2" fill="#0f2942"/><path d="M17.5 26.5c2 2.2 11 2.2 13 0" stroke="#0f2942" stroke-width="2" stroke-linecap="round"/><path d="M16 36c2-2.5 14-2.5 16 0" stroke="#0284c7" stroke-width="2" stroke-linecap="round"/></svg>',
+    einsteinChalkboard: '<svg viewBox="0 0 420 250" width="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Einstein inspired academic chalkboard"><rect x="4" y="4" width="412" height="242" rx="10" fill="#0b2239" stroke="#38bdf8" stroke-opacity="0.35" stroke-width="1.5"/><text x="24" y="42" fill="#e0f2fe" font-family="Georgia,serif" font-size="22" font-weight="bold">E = mc²</text><text x="24" y="72" fill="#94a3b8" font-family="Georgia,serif" font-size="14">a² + b² = c²  ·  ∑ f(x)  ·  π ≈ 3.14159</text><path d="M24 115 Q 65 80, 105 115 T 186 115" fill="none" stroke="#38bdf8" stroke-width="2" stroke-dasharray="4 3"/><circle cx="105" cy="115" r="3.5" fill="#38bdf8"/><g transform="translate(88,182)" stroke="#bae6fd" stroke-width="1.4" fill="none"><circle cx="0" cy="0" r="4.5" fill="#38bdf8" stroke="none"/><ellipse cx="0" cy="0" rx="34" ry="13" transform="rotate(25)"/><ellipse cx="0" cy="0" rx="34" ry="13" transform="rotate(-25)"/><ellipse cx="0" cy="0" rx="34" ry="13" transform="rotate(90)"/></g><g transform="translate(310,122)"><circle cx="0" cy="-10" r="56" fill="#133252" stroke="#38bdf8" stroke-opacity="0.45" stroke-width="1.5"/><path d="M-34 -18 C-44 -34, -26 -54, -8 -50 C0 -60, 18 -56, 22 -44 C38 -44, 46 -26, 34 -14" fill="none" stroke="#e2e8f0" stroke-width="3" stroke-linecap="round"/><ellipse cx="0" cy="-12" rx="23" ry="27" fill="#0f2942" stroke="#e2e8f0" stroke-width="2"/><circle cx="-8" cy="-17" r="2.2" fill="#e2e8f0"/><circle cx="8" cy="-17" r="2.2" fill="#e2e8f0"/><path d="M-12 -19 Q-8 -22 -4 -19 M4 -19 Q8 -22 12 -19" stroke="#cbd5e1" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M-14 -4 C-8 -9, 8 -9, 14 -4 C9 1, -9 1, -14 -4 Z" fill="#e2e8f0"/><path d="M-24 26 L-10 16 L0 25 L10 16 L24 26" fill="none" stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><text x="-38" y="64" fill="#cbd5e1" font-family="sans-serif" font-size="11" font-weight="600">CURIOSITY · CLARITY</text></g></svg>'
+  };
+
+  /* ---------- helpers ---------- */
+  function esc(s){ if(s===null||s===undefined) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+  function parseArr(v){ if(Array.isArray(v)) return v; if(!v) return []; try{ const p=JSON.parse(v); return Array.isArray(p)?p:[String(v)]; }catch(e){ return String(v).split(',').map(s=>s.trim()).filter(Boolean); } }
+  const inrFmt0 = new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0});
+  const inrFmt2 = new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',minimumFractionDigits:2,maximumFractionDigits:2});
+  function inr(n){ const v=Number(n||0); return Number.isInteger(v)?inrFmt0.format(v):inrFmt2.format(v); }
+  function skel(n){ let h=''; for(let i=0;i<(n||4);i++) h+='<div class="skel" style="width:'+(60+((i*17)%40))+'%"></div>'; return '<div class="card">'+h+'</div>'; }
+  function isBool(v){ return v===true||v==='TRUE'; }
+  function waLink(phone,text){ const d=String(phone||'').replace(/\D/g,'').slice(-10); return d.length===10?'https://wa.me/91'+d+'?text='+encodeURIComponent(text||''):''; }
+  function waBtn(phone,text,label){ const l=waLink(phone,text); return l?'<a class="btn btn-wa btn-sm" href="'+esc(l)+'" target="_blank" rel="noopener">'+esc(label||'WhatsApp')+'</a>':''; }
+  const PHONE_RE = /^[6-9]\d{9}$/;
+  function cleanPhone(v){ let d=String(v||'').replace(/\D/g,''); if(d.length===12&&d.indexOf('91')===0) d=d.slice(2); if(d.length===11&&d[0]==='0') d=d.slice(1); return d; }
+
+  function statusBadge(status){
+    const s=String(status||'').toUpperCase(); let cls='';
+    if(['ACTIVE','VERIFIED','PAID','COMPLETED','RESOLVED','SENT','TRIAL_COMPLETED'].indexOf(s)!==-1) cls='badge-green';
+    else if(['NEW','UNDER_REVIEW','PROPOSED','OFFERED','ACCEPTED','PARTIALLY_PAID','PENDING','APPROVED','IN_PROGRESS','SHORTLISTED','ISSUED','TRIAL_SCHEDULED'].indexOf(s)!==-1) cls='badge-blue';
+    else if(['ON_HOLD','SCHEDULED','SUGGESTED','OPEN','IN_BATCH'].indexOf(s)!==-1) cls='badge-amber';
+    else if(['REJECTED','CANCELLED','OVERDUE','FAILED','LOCKED','DISABLED'].indexOf(s)!==-1) cls='badge-red';
+    return '<span class="badge '+cls+'">'+esc(s)+'</span>';
+  }
+  function toast(msg,type){ const c=document.getElementById('toast-container'); const el=document.createElement('div'); el.className='toast '+(type||''); el.setAttribute('role',type==='error'?'alert':'status'); el.textContent=msg; c.appendChild(el); setTimeout(()=>{ if(el.parentNode) el.parentNode.removeChild(el); },4800); }
+  function setLoading(f){ document.getElementById('loader').classList.toggle('hidden',!f); }
+
+  async function apiCall(action,payload,opts){
+    const options=opts||{};
+    if(!state.apiUrl){ if(!options.suppressErrorToast) toast('Service endpoint is not configured yet. Please contact support.','error'); throw new Error('Backend API URL is not configured.'); }
+    if(!options.silent) setLoading(true);
+    const controller=new AbortController(); const timer=setTimeout(()=>controller.abort(),35000);
+    const bodyStr=JSON.stringify({action:action,sessionToken:state.session?state.session.sessionToken:'',payload:payload||{}});
+    try{
+      let res;
+      try{ res=await fetch(state.apiUrl,{method:'POST',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:bodyStr,signal:controller.signal}); }
+      catch(netErr){ if(options.allowRetry){ res=await fetch(state.apiUrl,{method:'POST',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:bodyStr}); } else throw netErr; }
+      const json=await res.json();
+      if(!json.ok){
+        if(json.code==='UNAUTHORIZED'&&state.session){ state.session=null; sessionStorage.removeItem(window.TUTORSYNC_CONFIG.STORAGE_SESSION_KEY); updateNav(); navigate('#/login'); }
+        throw new Error(json.message||'Server request failed.');
+      }
+      return json.data;
+    }catch(err){
+      const msg=err.name==='AbortError'?'Request timed out. Please try again.':(err.message||'Network error.');
+      if(!options.suppressErrorToast) toast(msg,'error');
+      throw err;
+    }finally{ clearTimeout(timer); if(!options.silent) setLoading(false); }
+  }
+
+  function openModal(title,bodyHtml,footHtml){
+    document.getElementById('modal-title').textContent=title;
+    document.getElementById('modal-body').innerHTML=bodyHtml;
+    const foot=document.getElementById('modal-foot');
+    if(footHtml){ foot.innerHTML=footHtml; foot.classList.remove('hidden'); } else { foot.innerHTML=''; foot.classList.add('hidden'); }
+    document.getElementById('modal-backdrop').classList.remove('hidden');
+    document.body.style.overflow='hidden';
+  }
+  function closeModal(){ document.getElementById('modal-backdrop').classList.add('hidden'); document.body.style.overflow=''; }
+
+  async function loadPublicConfig(){
+    if(!state.apiUrl) return;
+    try{ const cfg=await apiCall('getPublicConfig',{},{silent:true,suppressErrorToast:true,allowRetry:true}); if(cfg) state.publicConfig=Object.assign(state.publicConfig,cfg); }catch(e){}
+    updateFooterSupport();
+  }
+
+  async function loadPublicDirectory(force){
+    const track=document.getElementById('dir-scroll-track');
+    if(!state.apiUrl){ if(track) track.innerHTML='<div class="card" style="width:100%">Directory unavailable right now.</div>'; return state.publicDirectory; }
+    if(state.publicDirectory.loaded&&!force) return state.publicDirectory;
+    try{
+      const data=await apiCall('publicGetDirectory',{},{silent:true,suppressErrorToast:true,allowRetry:true});
+      if(data){ state.publicDirectory={tutors:data.tutors||[],students:data.students||[],loaded:true}; renderDirectoryStrip(); }
+    }catch(e){ const t=document.getElementById('dir-scroll-track'); if(t) t.innerHTML='<div class="card" style="width:100%;color:var(--danger)">Could not load the directory. Please refresh in a moment.</div>'; }
+    return state.publicDirectory;
+  }
+
+  function isPublicRoute(){ const h=location.hash||'#/'; return !(h.indexOf('#/admin')===0||h.indexOf('#/student')===0||h.indexOf('#/tutor')===0||h.indexOf('#/login')===0); }
+  function updateNav(){
+    const loggedIn=!!(state.session&&state.session.sessionToken);
+    document.getElementById('nav-login-btn').classList.toggle('hidden',loggedIn);
+    document.getElementById('nav-find-btn').classList.toggle('hidden',loggedIn);
+    document.getElementById('nav-portal-btn').classList.toggle('hidden',!loggedIn);
+    document.getElementById('nav-logout-btn').classList.toggle('hidden',!loggedIn);
+    document.getElementById('public-nav').classList.toggle('hidden',loggedIn&&location.hash.indexOf('#/admin')===0);
+    const showCta=!loggedIn&&isPublicRoute()&&(location.hash||'#/').indexOf('#/register')!==0;
+    document.getElementById('mobile-cta').classList.toggle('show',showCta);
+    document.body.classList.toggle('has-cta',showCta&&window.innerWidth<=720);
+  }
+  function navigate(hash){ closeModal(); closeSidebar(); if(location.hash===hash) renderRoute(); else location.hash=hash; window.scrollTo(0,0); }
+  function goToMyPortal(){ if(!state.session) return navigate('#/login'); const r=state.session.user.role; if(r==='ADMIN') navigate('#/admin'); else if(r==='STUDENT') navigate('#/student'); else if(r==='TUTOR') navigate('#/tutor'); }
+  async function logout(){
+    try{ if(state.apiUrl&&state.session) await apiCall('authLogout',{},{silent:true,suppressErrorToast:true}); }catch(e){}
+    state.session=null; sessionStorage.removeItem(window.TUTORSYNC_CONFIG.STORAGE_SESSION_KEY); closeModal(); updateNav(); toast('Logged out successfully.','success'); navigate('#/');
+  }
+  function scrollToSection(id){
+    closeModal();
+    const go=()=>{ const el=document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); };
+    if(location.hash&&location.hash!=='#/'&&location.hash!==''){ location.hash='#/'; setTimeout(go,150); } else go();
+  }
+  function scrollTrack(id,dir){ const t=document.getElementById(id); if(t) t.scrollBy({left:dir*320,behavior:'smooth'}); }
+  function closeSidebar(){ const sb=document.getElementById('admin-sidebar'); if(sb) sb.classList.remove('open'); document.getElementById('sidebar-overlay').style.display='none'; }
+  function toggleMobileMenu(){
+    const sb=document.getElementById('admin-sidebar');
+    if(sb){ const open=!sb.classList.contains('open'); sb.classList.toggle('open',open); document.getElementById('sidebar-overlay').style.display=open&&window.innerWidth<=960?'block':'none'; return; }
+    const loggedIn=!!(state.session&&state.session.sessionToken);
+    const L=(label,js)=>'<button class="btn btn-outline btn-block" style="justify-content:flex-start" onclick="'+js+'">'+label+'</button>';
+    openModal('Menu','<div style="display:flex;flex-direction:column;gap:.5rem">'+
+      L('Home',"App.navigate('#/')")+L('Browse Tutors &amp; Needs',"App.closeModal();App.openDirectoryModal('tutors')")+
+      L('How It Works',"App.scrollToSection('how-it-works')")+L('Benefits',"App.scrollToSection('benefits')")+
+      L('Process',"App.scrollToSection('process')")+L('FAQ',"App.scrollToSection('faq')")+L('Contact',"App.scrollToSection('contact')")+
+      (loggedIn?'<button class="btn btn-primary btn-block" onclick="App.closeModal();App.goToMyPortal()">My Portal</button><button class="btn btn-outline btn-block" onclick="App.logout()">Logout</button>'
+        :'<button class="btn btn-primary btn-block" onclick="App.navigate(\'#/register-student\')">Find a Tutor (Free)</button><button class="btn btn-accent btn-block" onclick="App.navigate(\'#/register-tutor\')">Join as a Tutor (Free)</button><button class="btn btn-outline btn-block" onclick="App.navigate(\'#/login\')">Portal Login</button>')+
+      '</div>');
+  }
+
+  function renderRoute(){
+    updateNav();
+    const h=location.hash||'#/';
+    if(h==='#/'||h==='') renderLanding();
+    else if(h==='#/register-student') renderStudentRegistration();
+    else if(h==='#/register-tutor') renderTutorRegistration();
+    else if(h==='#/login') renderLogin();
+    else if(h==='#/student') renderStudentPortal();
+    else if(h==='#/tutor') renderTutorPortal();
+    else if(h==='#/admin') renderAdminShell();
+    else if(h==='#/privacy') renderLegal('privacy');
+    else if(h==='#/terms') renderLegal('terms');
+    else if(h==='#/refund-policy') renderLegal('refund');
+    else renderLanding();
+  }
+
+  /* ---------- Footer ---------- */
+  function supportHtml(){
+    const c=state.publicConfig; const parts=[];
+    if(c.supportEmail) parts.push('<a href="mailto:'+esc(c.supportEmail)+'">'+esc(c.supportEmail)+'</a>');
+    const wa=waLink(c.supportWhatsApp,'Hello TutorSync, I need some help.');
+    if(wa) parts.push('<a href="'+esc(wa)+'" target="_blank" rel="noopener">WhatsApp Support</a>');
+    return parts.length?parts.join(''):'<span style="color:#94a3b8">Use the contact form on the home page.</span>';
+  }
+  function updateFooterSupport(){ const el=document.getElementById('ft-support'); if(el) el.innerHTML=supportHtml(); }
+  function renderFooter(){
+    return '<footer class="site-footer"><div class="container"><div class="footer-grid">'+
+      '<div><strong style="color:#fff;font-size:1.05rem">TutorSync</strong><p style="color:#cbd5e1;margin:.5rem 0 0;font-size:.84rem">Managed tuition coordination service. TutorSync is <b>not</b> a licensed payment gateway or escrow institution. All matches are subject to verification and availability.</p></div>'+
+      '<div><h4>Quick Navigation</h4><a href="#/register-student">Find a Tutor</a><a href="#/register-tutor">Join as a Tutor</a><a href="#/" onclick="App.openDirectoryModal(\'tutors\');return false;">Browse Directory</a><a href="#/login">Portal Login</a></div>'+
+      '<div><h4>Platform Policies</h4><a href="#/privacy">Privacy Policy</a><a href="#/terms">Terms of Service</a><a href="#/refund-policy">Cancellation &amp; Refund Policy</a></div>'+
+      '<div><h4>Support Info</h4><div id="ft-support">'+supportHtml()+'</div></div>'+
+      '</div><div class="footer-bottom">&copy; '+new Date().getFullYear()+' TutorSync. Registration is free for students and tutors.</div></div></footer>';
+  }
+
+  /* ---------- Public directory ---------- */
+  function filterDirectoryItems(tab,query,mode){
+    const q=(query||'').toLowerCase().trim(); const m=(mode||'').toUpperCase();
+    const list=tab==='tutors'?state.publicDirectory.tutors:state.publicDirectory.students;
+    return list.filter(it=>{
+      if(m&&String(it.teachingMode).toUpperCase()!==m) return false;
+      if(!q) return true;
+      const hay=[it.refCode,it.qualifications,it.classGrade,it.board,it.generalArea,it.shortBio,it.teachingMode,(it.subjects||[]).join(' '),(it.classesGrades||[]).join(' '),(it.boardExpertise||[]).join(' ')].join(' ').toLowerCase();
+      return hay.indexOf(q)!==-1;
+    });
+  }
+  function renderDirCardHtml(it,tab){
+    if(tab==='tutors') return '<div class="dir-card"><div><div style="display:flex;justify-content:space-between;align-items:center;gap:.4rem;margin-bottom:.4rem"><span class="badge badge-green">Verified Tutor</span><span class="badge badge-blue">'+esc(it.teachingMode)+'</span></div>'+
+      '<h4 style="margin-bottom:.2rem">'+esc(it.qualifications||'Qualified Educator')+'</h4><div class="dir-meta"><span><b>Ref:</b> '+esc(it.refCode)+' · '+esc(it.experienceYears)+' yrs exp.</span><span><b>Area:</b> '+esc(it.generalArea||'Flexible')+'</span><span><b>Expected Fee:</b> '+inr(it.expectedMonthlyFee)+'/mo</span></div>'+
+      '<div class="dir-tags">'+(it.subjects||[]).slice(0,4).map(s=>'<span class="dir-tag">'+esc(s)+'</span>').join('')+(it.boardExpertise||[]).map(b=>'<span class="dir-tag">'+esc(b)+'</span>').join('')+'</div>'+
+      (it.shortBio?'<p style="font-size:.8rem;margin:.35rem 0 0">'+esc(it.shortBio)+'</p>':'')+'</div>'+
+      '<button class="btn btn-primary btn-sm btn-block" onclick="App.requestMatchFromDir(\''+esc(it.refCode)+'\','+esc(JSON.stringify(it.subjects||[]))+')">Request This Tutor</button></div>';
+    return '<div class="dir-card"><div><div style="display:flex;justify-content:space-between;align-items:center;gap:.4rem;margin-bottom:.4rem"><span class="badge badge-blue">Verified Requirement</span><span class="badge">'+esc(it.teachingMode)+'</span></div>'+
+      '<h4 style="margin-bottom:.2rem">'+esc(it.classGrade)+' · '+esc(it.board)+'</h4><div class="dir-meta"><span><b>Ref:</b> '+esc(it.refCode)+'</span><span><b>Location:</b> '+esc(it.generalArea||'Online')+'</span><span><b>Schedule:</b> '+esc((it.preferredDays||[]).join(', '))+(it.preferredTime?' · '+esc(it.preferredTime):'')+'</span><span><b>Budget:</b> '+inr(it.budgetPerMonth)+'/mo</span></div>'+
+      '<div class="dir-tags">'+(it.subjects||[]).slice(0,5).map(s=>'<span class="dir-tag">'+esc(s)+'</span>').join('')+'</div></div>'+
+      '<button class="btn btn-accent btn-sm btn-block" onclick="App.applyTeachFromDir(\''+esc(it.refCode)+'\')">Apply to Teach</button></div>';
+  }
+  function renderDirectoryStrip(){
+    const track=document.getElementById('dir-scroll-track'); if(!track) return;
+    if(!state.publicDirectory.loaded){ track.innerHTML='<div class="dir-card"><div class="skel"></div><div class="skel" style="width:70%"></div><div class="skel" style="width:85%"></div></div><div class="dir-card"><div class="skel"></div><div class="skel" style="width:70%"></div><div class="skel" style="width:85%"></div></div>'; return; }
+    const f=filterDirectoryItems(state.dirTab,state.dirQuery,state.dirMode);
+    if(!f.length){ track.innerHTML='<div class="card" style="width:100%;text-align:center"><p style="margin-bottom:.6rem">'+(state.dirTab==='tutors'?'No verified tutors match your filter right now — or new tutors are under review.':'No unassigned verified student requirements match right now.')+'</p><button class="btn btn-primary btn-sm" onclick="App.navigate(\''+(state.dirTab==='tutors'?'#/register-student':'#/register-tutor')+'\')">'+(state.dirTab==='tutors'?'Post Your Requirement Free':'Register as Tutor Free')+'</button></div>'; return; }
+    track.innerHTML=f.slice(0,15).map(it=>renderDirCardHtml(it,state.dirTab)).join('');
+  }
+  function setDirTab(tab,inModal){
+    state.dirTab=tab;
+    if(inModal) drawDirectoryModalBody();
+    else{ const bt=document.getElementById('dir-tab-tutors'),bs=document.getElementById('dir-tab-students'); if(bt&&bs){ bt.className='btn btn-sm '+(tab==='tutors'?'btn-primary':'btn-outline'); bs.className='btn btn-sm '+(tab==='students'?'btn-primary':'btn-outline'); } renderDirectoryStrip(); }
+  }
+  function onDirFilterChange(inModal){
+    const q=document.getElementById(inModal?'dm-q':'dir-q'), m=document.getElementById(inModal?'dm-mode':'dir-mode');
+    state.dirQuery=q?q.value:''; state.dirMode=m?m.value:'';
+    if(inModal) drawDirectoryModalResults(); else renderDirectoryStrip();
+  }
+  async function openDirectoryModal(tab){
+    if(tab) state.dirTab=tab;
+    openModal('Browse Verified Tutors & Open Student Needs','<div id="dir-modal-root">'+skel(5)+'</div>');
+    await loadPublicDirectory(false); drawDirectoryModalBody();
+  }
+  function drawDirectoryModalBody(){
+    const root=document.getElementById('dir-modal-root'); if(!root) return;
+    root.innerHTML='<p class="help-text" style="margin-bottom:.75rem">Privacy-protected directory: names, phone numbers and emails stay private until TutorSync verifies and confirms a match.</p>'+
+      '<div style="display:flex;gap:.45rem;margin-bottom:.85rem;flex-wrap:wrap"><button class="btn btn-sm '+(state.dirTab==='tutors'?'btn-primary':'btn-outline')+'" onclick="App.setDirTab(\'tutors\',true)">Verified Tutors Available ('+state.publicDirectory.tutors.length+')</button><button class="btn btn-sm '+(state.dirTab==='students'?'btn-primary':'btn-outline')+'" onclick="App.setDirTab(\'students\',true)">Students Looking for Tutors ('+state.publicDirectory.students.length+')</button></div>'+
+      '<div style="display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap"><input id="dm-q" type="search" value="'+esc(state.dirQuery)+'" placeholder="Search subject, class, board, PIN, or area..." aria-label="Search directory" style="flex:1;min-width:180px" oninput="App.onDirFilterChange(true)" />'+
+      '<select id="dm-mode" aria-label="Teaching mode" style="width:150px" onchange="App.onDirFilterChange(true)"><option value="">All Modes</option><option value="ONLINE"'+(state.dirMode==='ONLINE'?' selected':'')+'>Online</option><option value="OFFLINE"'+(state.dirMode==='OFFLINE'?' selected':'')+'>Offline</option><option value="HYBRID"'+(state.dirMode==='HYBRID'?' selected':'')+'>Hybrid</option></select></div><div id="dm-results"></div>';
+    drawDirectoryModalResults();
+  }
+  function drawDirectoryModalResults(){
+    const box=document.getElementById('dm-results'); if(!box) return;
+    const list=filterDirectoryItems(state.dirTab,state.dirQuery,state.dirMode);
+    if(!list.length){ box.innerHTML='<div class="empty-state">No matching '+(state.dirTab==='tutors'?'verified tutors':'student needs')+' found.<br><br><button class="btn btn-primary btn-sm" onclick="App.navigate(\''+(state.dirTab==='tutors'?'#/register-student':'#/register-tutor')+'\')">'+(state.dirTab==='tutors'?'Register Your Requirement Free':'Register as Tutor Free')+'</button></div>'; return; }
+    box.innerHTML='<div class="dir-modal-grid">'+list.map(it=>renderDirCardHtml(it,state.dirTab)).join('')+'</div>';
+  }
+  function requestMatchFromDir(ref,subjects){ closeModal(); state.prefillStudent={note:'Interested in matching with Verified Tutor Ref: '+ref,subjects:subjects||[]}; navigate('#/register-student'); }
+  function applyTeachFromDir(ref){
+    closeModal();
+    if(state.session&&state.session.user.role==='TUTOR'){ state.portalTab='opportunities'; return navigate('#/tutor'); }
+    state.prefillTutor={note:'Interested in teaching Student Ref: '+ref}; navigate('#/register-tutor');
+  }
+
+  /* ---------- Landing ---------- */
+  function getEduSlides(){ return [
+    {title:'Conceptual STEM & Physics Mastery',desc:'Encouraging deep reasoning — inspired by Einstein’s habit of questioning first principles in Mathematics and Science.',svg:'<svg viewBox="0 0 240 130" width="220" height="120"><rect x="10" y="10" width="220" height="110" rx="8" fill="#0f2942"/><text x="24" y="42" fill="#38bdf8" font-family="Georgia,serif" font-size="18" font-weight="bold">E = mc²</text><text x="24" y="64" fill="#cbd5e1" font-family="Georgia,serif" font-size="12">F = ma  ·  v = u + at</text><circle cx="176" cy="65" r="26" fill="none" stroke="#38bdf8" stroke-width="1.5"/><ellipse cx="176" cy="65" rx="34" ry="12" transform="rotate(30 176 65)" fill="none" stroke="#e2e8f0" stroke-width="1.3"/><ellipse cx="176" cy="65" rx="34" ry="12" transform="rotate(-30 176 65)" fill="none" stroke="#e2e8f0" stroke-width="1.3"/><circle cx="176" cy="65" r="4" fill="#38bdf8"/><text x="24" y="98" fill="#94a3b8" font-size="11">Physics · Chemistry · Math</text></svg>'},
+    {title:'Personalized 1-on-1 Home Tuition',desc:'Matched by locality and 6-digit PIN code for focused offline mentoring on your preferred days and timing.',svg:'<svg viewBox="0 0 240 130" width="220" height="120"><rect x="20" y="18" width="200" height="94" rx="10" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><path d="M55 92 L55 54 L90 32 L125 54 L125 92 Z" fill="#fff" stroke="#0f2942" stroke-width="2"/><rect x="82" y="66" width="16" height="26" fill="#0284c7"/><rect x="145" y="44" width="56" height="44" rx="5" fill="#fff" stroke="#0f2942" stroke-width="1.6"/><line x1="154" y1="58" x2="192" y2="58" stroke="#0284c7" stroke-width="2"/><line x1="154" y1="70" x2="184" y2="70" stroke="#94a3b8" stroke-width="2"/></svg>'},
+    {title:'Interactive Online & Hybrid Study',desc:'Structured digital sessions with clear weekly schedules, attendance confirmations and progress notes.',svg:'<svg viewBox="0 0 240 130" width="220" height="120"><rect x="35" y="18" width="170" height="84" rx="8" fill="#0f2942"/><rect x="44" y="26" width="152" height="68" rx="4" fill="#fff"/><path d="M22 104 H218 L208 114 H32 Z" fill="#cbd5e1"/><circle cx="84" cy="54" r="12" fill="#e0f2fe" stroke="#0f2942" stroke-width="1.5"/><path d="M68 78 C68 68, 100 68, 100 78" fill="#0284c7"/><rect x="116" y="42" width="66" height="36" rx="4" fill="#f8fafc" stroke="#cbd5e1"/><text x="124" y="63" fill="#0f2942" font-size="11" font-weight="bold">∫ f(x) dx</text></svg>'},
+    {title:'Indian Board Alignment (CBSE / ICSE / WB)',desc:'Tutors vetted for board syllabi, Class 1–12 milestones, undergraduate and competitive preparation.',svg:'<svg viewBox="0 0 240 130" width="220" height="120"><rect x="38" y="24" width="68" height="82" rx="5" fill="#fff" stroke="#0f2942" stroke-width="2"/><rect x="134" y="24" width="68" height="82" rx="5" fill="#fff" stroke="#0f2942" stroke-width="2"/><path d="M106 24 L120 30 L134 24 V106 L120 100 L106 106 Z" fill="#e0f2fe" stroke="#0f2942" stroke-width="1.8"/><text x="50" y="54" fill="#0284c7" font-size="11" font-weight="bold">CBSE</text><text x="50" y="72" fill="#0f2942" font-size="11" font-weight="bold">ICSE</text><text x="50" y="90" fill="#475569" font-size="11" font-weight="bold">WB</text><path d="M150 56 L160 66 L184 44" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round"/></svg>'},
+    {title:'Competitive & Analytical Prep',desc:'Building logic and problem-solving foundations step by step, with transparent billing and verified attendance.',svg:'<svg viewBox="0 0 240 130" width="220" height="120"><polygon points="48,100 120,24 120,100" fill="#e0f2fe" stroke="#0f2942" stroke-width="2"/><rect x="108" y="88" width="12" height="12" fill="none" stroke="#0284c7" stroke-width="1.6"/><circle cx="172" cy="64" r="32" fill="#fff" stroke="#0f2942" stroke-width="2"/><line x1="172" y1="64" x2="198" y2="46" stroke="#0284c7" stroke-width="2"/><text x="148" y="108" fill="#475569" font-family="Georgia,serif" font-size="12">π · θ · ∑ · √x</text></svg>'}
+  ]; }
+  function faqItem(q,a){ return '<div class="faq-item"><button type="button" class="faq-q" aria-expanded="false" onclick="const p=this.parentElement;p.classList.toggle(\'open\');this.setAttribute(\'aria-expanded\',p.classList.contains(\'open\'))"><span>'+esc(q)+'</span><span aria-hidden="true">+</span></button><div class="faq-a">'+esc(a)+'</div></div>'; }
+
+  function renderLanding(){
+    const slides=getEduSlides();
+    document.getElementById('app-root').innerHTML=
+    '<section class="hero"><div class="container hero-grid"><div>'+
+      '<span class="hero-pill">'+EDU_ICONS.cap+' 100% Free Registration · Personally Verified &amp; Managed</span>'+
+      '<h1>Curated Tutor Matching &amp; Structured Academic Guidance</h1>'+
+      '<p>TutorSync connects students and parents with verified tutors while personally managing matching, scheduling, fee transparency and ongoing tuition coordination — with zero upfront charges.</p>'+
+      '<div class="hero-ctas"><button class="btn btn-primary" onclick="App.navigate(\'#/register-student\')">Find Your Tutor (Free)</button><button class="btn btn-accent" onclick="App.navigate(\'#/register-tutor\')">Join as a Tutor (Free)</button><button class="btn btn-outline" onclick="App.openDirectoryModal(\'tutors\')">'+EDU_ICONS.search+' Browse Live Directory</button></div>'+
+      '<div class="einstein-quote"><div style="flex-shrink:0">'+EDU_ICONS.einsteinBadge+'</div><div><em>&ldquo;Education is not the learning of facts, but the training of the mind to think.&rdquo;</em><br><strong style="color:var(--primary)">— Albert Einstein</strong> · Our focus: conceptual clarity and right-fit mentorship.</div></div>'+
+    '</div><div class="chalkboard-card">'+EDU_ICONS.einsteinChalkboard+'<div class="chalkboard-caption"><span>Verified Tutors · CBSE / ICSE / WB</span><span>Online · Offline · Hybrid</span></div></div></div></section>'+
+
+    '<section class="section section-alt" id="live-directory"><div class="container"><div class="gallery-header"><div><h2 style="margin-bottom:.25rem">Live Verified Tutors &amp; Tuition Needs</h2><p style="margin:0">Search or scroll verified openings. Personal contact info stays protected until matched.</p></div>'+
+      '<div class="gallery-controls"><button type="button" class="btn btn-outline btn-sm" onclick="App.openDirectoryModal(App.getDirTab())">'+EDU_ICONS.search+' Open Full Search Modal</button><button type="button" class="btn btn-outline btn-sm" onclick="App.scrollTrack(\'dir-scroll-track\',-1)" aria-label="Scroll left">&larr;</button><button type="button" class="btn btn-outline btn-sm" onclick="App.scrollTrack(\'dir-scroll-track\',1)" aria-label="Scroll right">&rarr;</button></div></div>'+
+      '<div style="display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-bottom:1rem"><button id="dir-tab-tutors" class="btn btn-sm '+(state.dirTab==='tutors'?'btn-primary':'btn-outline')+'" onclick="App.setDirTab(\'tutors\',false)">Verified Tutors Available</button><button id="dir-tab-students" class="btn btn-sm '+(state.dirTab==='students'?'btn-primary':'btn-outline')+'" onclick="App.setDirTab(\'students\',false)">Students Looking for Tutors</button>'+
+      '<input id="dir-q" type="search" value="'+esc(state.dirQuery)+'" placeholder="Search subject, class, board, PIN, area..." aria-label="Search directory" style="flex:1;min-width:180px" oninput="App.onDirFilterChange(false)" />'+
+      '<select id="dir-mode" aria-label="Teaching mode" style="width:140px" onchange="App.onDirFilterChange(false)"><option value="">All Modes</option><option value="ONLINE"'+(state.dirMode==='ONLINE'?' selected':'')+'>Online</option><option value="OFFLINE"'+(state.dirMode==='OFFLINE'?' selected':'')+'>Offline</option><option value="HYBRID"'+(state.dirMode==='HYBRID'?' selected':'')+'>Hybrid</option></select></div>'+
+      '<div class="scroll-track" id="dir-scroll-track"></div></div></section>'+
+
+    '<section class="section" id="learning-showcase"><div class="container"><div class="gallery-header"><div><h2 style="margin-bottom:.25rem">Learning Focus &amp; Study Modes</h2><p style="margin:0">Swipe or use the arrows to explore how TutorSync structures every subject and learning format.</p></div><div class="gallery-controls"><button type="button" class="btn btn-outline btn-sm" onclick="App.scrollTrack(\'edu-scroll-track\',-1)" aria-label="Scroll left">&larr;</button><button type="button" class="btn btn-outline btn-sm" onclick="App.scrollTrack(\'edu-scroll-track\',1)" aria-label="Scroll right">&rarr;</button></div></div>'+
+      '<div class="scroll-track" id="edu-scroll-track">'+slides.map(s=>'<div class="edu-slide"><div class="edu-slide-art">'+s.svg+'</div><div class="edu-slide-body"><h4>'+esc(s.title)+'</h4><p>'+esc(s.desc)+'</p></div></div>').join('')+'</div></div></section>'+
+
+    '<section class="section section-alt" id="how-it-works"><div class="container"><div class="section-head"><h2>How TutorSync Works</h2><p>A guided, transparent process managed end-to-end by our coordination team.</p></div><div class="grid-4">'+
+      [['1',EDU_ICONS.book,'Submit Request Free','Students share learning goals, board, schedule and monthly budget. Tutors submit qualifications, subjects and availability.'],
+       ['2',EDU_ICONS.shield,'Manual Verification','Every student requirement and tutor profile is personally reviewed and verified before any matching begins.'],
+       ['3',EDU_ICONS.atom,'Curated Matching','We evaluate subject fit, locality/PIN code, timing and budget to propose suitable tutor arrangements for mutual confirmation.'],
+       ['4',EDU_ICONS.compass,'Managed Tuition','Track attendance, clear monthly invoices, verified payments and transparent support through your dedicated portal.']
+      ].map(c=>'<div class="card"><div class="step-row"><span class="step-num">'+c[0]+'</span><span class="icon-badge" style="margin:0">'+c[1]+'</span></div><h3>'+c[2]+'</h3><p style="margin:0">'+c[3]+'</p></div>').join('')+'</div></div></section>'+
+
+    '<section class="section" id="benefits"><div class="container"><div class="section-head"><h2>Designed for Both Families &amp; Educators</h2><p>Accountability, fee clarity and structured coordination without unmoderated marketplace clutter.</p></div><div class="grid-2">'+
+      '<div class="card"><div class="icon-badge">'+EDU_ICONS.cap+'</div><h3>Benefits for Students &amp; Parents</h3><ul style="padding-left:1.2rem;color:var(--text-muted);margin:.75rem 0 0"><li><b>Zero Registration Fee:</b> submit tuition requirements completely free.</li><li><b>Verified Tutors Only:</b> tutors are screened before introduction.</li><li><b>Budget &amp; Schedule Alignment:</b> matched to your days, mode (Online/Offline/Hybrid) and monthly budget.</li><li><b>Clear Billing &amp; Receipts:</b> itemised monthly PDF invoices, UPI payment and official receipts.</li><li><b>Ongoing Oversight:</b> a support desk for schedule changes or quality concerns.</li></ul></div>'+
+      '<div class="card"><div class="icon-badge">'+EDU_ICONS.atom+'</div><h3>Benefits for Tutors</h3><ul style="padding-left:1.2rem;color:var(--text-muted);margin:.75rem 0 0"><li><b>Free Onboarding:</b> no listing charges, lead fees or subscription costs.</li><li><b>Verified Student Leads:</b> only pre-verified requirements are shared.</li><li><b>Transparent Commission:</b> standard 8%–10% platform fee, deducted only from collected tuition.</li><li><b>Receipts &amp; Statements:</b> log sessions, track monthly earnings, download payout statements.</li><li><b>Quality Protection:</b> written assignment terms confirmed by both parties before starting.</li></ul></div></div></div></section>'+
+
+    '<section class="section section-alt" id="process"><div class="container"><div class="section-head"><h2>Managed Tuition, Trial &amp; Demo Process</h2><p>From first call to monthly settlement — every step is confirmed and recorded.</p></div><div class="grid-3">'+
+      [[EDU_ICONS.shield,'Verification First','We call or WhatsApp you to confirm requirements, identity and availability before anything is shared.'],
+       [EDU_ICONS.clock,'1-Hour Trial / Demo Class','Where agreed, a 1-hour trial class is scheduled before monthly tuition begins, so both sides can check the fit.'],
+       [EDU_ICONS.compass,'Dual Confirmation','Tuition starts only after both the student/parent and the tutor confirm the fee, schedule and terms in their portals.'],
+       [EDU_ICONS.book,'Attendance Tracking','Tutors log sessions; students confirm attendance. Monthly invoices follow the confirmed schedule.'],
+       [EDU_ICONS.atom,'UPI Payment &amp; Reconciliation','Pay by UPI using the invoice QR code, then submit your UTR. We verify it against our records and issue a receipt.'],
+       [EDU_ICONS.cap,'Reconciled Tutor Settlement','Commission is calculated only on fees actually collected. Tutor payouts are paid after reconciliation, with a statement.']
+      ].map(c=>'<div class="card"><div class="icon-badge">'+c[0]+'</div><h3 style="font-size:1rem">'+c[1]+'</h3><p style="margin:0;font-size:.88rem">'+c[2]+'</p></div>').join('')+'</div></div></section>'+
+
+    '<section class="section" id="trust"><div class="container" style="max-width:880px"><div class="section-head"><h2>Trust &amp; Transparency Standards</h2><p>What we commit to — and what we will never do.</p></div><div class="card"><ul class="trust-list">'+
+      '<li>No fake testimonials. We publish reviews only when real families and tutors have given them.</li><li>No fabricated student counts or statistics. We show only live, verified directory entries.</li><li>No fake tutor profiles. Every tutor listed has been manually reviewed.</li><li>Personal names, phone numbers and emails are never shown publicly.</li><li>Registration is free. The only charge is a disclosed 8%–10% commission on tuition actually collected.</li><li>TutorSync is a managed coordination service. It is <b>not</b> a licensed payment gateway, bank or escrow institution, and match scores do not guarantee academic results.</li></ul></div></div></section>'+
+
+    '<section class="section section-alt" id="faq"><div class="container" style="max-width:780px"><div class="section-head"><h2>Frequently Asked Questions</h2></div>'+
+      faqItem('Is registration really free for students and tutors?','Yes. Joining TutorSync as a student/parent or as a tutor has zero registration, listing or subscription charges.')+
+      faqItem('How does TutorSync verify participants?','After you submit the form, our coordinator reviews your details and contacts you by phone or WhatsApp to confirm requirements, identity and availability before any matching.')+
+      faqItem('Why are names and phone numbers hidden in the public directory?','To protect students and tutors from spam and scraping. Contact details are shared only after both parties confirm a matched assignment.')+
+      faqItem('Is there a demo or trial class?','Where agreed, a 1-hour trial/demo class can be scheduled before monthly tuition starts. Monthly billing begins only after both sides confirm.')+
+      faqItem('How do I pay the tuition fee?','You receive a monthly PDF invoice. In your portal you can scan the UPI QR code, pay from any UPI app, and submit the UTR. We verify it and issue a receipt.')+
+      faqItem('How much commission does TutorSync charge?','A standard 8%–10% platform commission, calculated only on tuition fees actually collected. Registration is free.')+
+      faqItem('What if I want to cancel or need a refund?','Raise a support request from your portal. Our Cancellation & Refund Policy page explains how cancellations and refunds are handled.')+
+      faqItem('Is TutorSync an escrow or payment gateway?','No. TutorSync is a managed tuition coordination service, not a licensed payment gateway or escrow institution.')+
+    '</div></section>'+
+
+    '<section class="section" id="contact"><div class="container" style="max-width:680px"><div class="section-head"><h2>Contact &amp; Support</h2><p>Have a question before registering? Send a message to our coordination desk.</p></div><div class="card"><form onsubmit="App.submitPublicContact(event)"><div class="form-grid">'+
+      '<div class="form-group"><label class="req" for="cnt-name">Your Name</label><input id="cnt-name" required autocomplete="name" /></div><div class="form-group"><label class="req" for="cnt-email">Email Address</label><input id="cnt-email" type="email" required autocomplete="email" inputmode="email" /></div>'+
+      '<div class="form-group"><label for="cnt-phone">Phone / WhatsApp</label><input id="cnt-phone" type="tel" inputmode="numeric" autocomplete="tel" /></div><div class="form-group"><label for="cnt-cat">Topic</label><select id="cnt-cat"><option value="GENERAL">General Inquiry</option><option value="MATCHING">Tutor Matching</option><option value="BILLING">Billing &amp; Fees</option></select></div>'+
+      '<div class="form-group full"><label class="req" for="cnt-msg">Message</label><textarea id="cnt-msg" rows="3" required></textarea></div><div class="form-group full"><button type="submit" class="btn btn-primary">Send Support Message</button></div></div></form></div></div></section>'+
+    renderFooter();
+    renderDirectoryStrip(); loadPublicDirectory(false);
+  }
+
+  async function submitPublicContact(e){
+    e.preventDefault();
+    try{
+      const res=await apiCall('publicSubmitContact',{name:document.getElementById('cnt-name').value,email:document.getElementById('cnt-email').value,phone:document.getElementById('cnt-phone').value,category:document.getElementById('cnt-cat').value,message:document.getElementById('cnt-msg').value});
+      toast('Support inquiry submitted ('+res.ticketId+'). We will reply by email.','success'); e.target.reset();
+    }catch(err){}
+  }
+
+  function renderLegal(type){
+    const titles={privacy:'Privacy Policy',terms:'Terms of Service',refund:'Cancellation & Refund Policy'};
+    const bodies={
+      privacy:'<p><b>1. Data collection &amp; minimisation:</b> TutorSync collects only what is needed to verify participants, match tutors with students, coordinate schedules and manage billing and payouts.</p><p><b>2. Protection of contact details:</b> phone numbers, WhatsApp numbers, emails and addresses are never published. They are shared only with a verified matched counterpart after assignment confirmation.</p><p><b>3. Consent &amp; communication:</b> by registering you consent to verification calls, WhatsApp coordination messages and transactional emails (invoices, receipts, payout statements).</p><p><b>4. Credentials:</b> optional credential files are stored privately and are visible only to administrators for verification.</p><p><b>5. Payment details:</b> a tutor’s UPI ID or bank details, if provided, are used only to settle payouts.</p><p><b>6. Retention &amp; deletion:</b> financial ledgers and invoices are retained for record-keeping. You may request archival of your profile through Support.</p>',
+      terms:'<p><b>1. Managed service role:</b> TutorSync is a managed tutor–student coordination service. Match scores reflect profile alignment and do not guarantee academic results.</p><p><b>2. Free registration:</b> registration is free for students and tutors. A platform commission (8%–10% standard) is deducted only from tuition fees actually collected under a confirmed assignment.</p><p><b>3. Payments &amp; settlements:</b> TutorSync is not a licensed payment gateway or escrow service. Payments are reconciled against issued invoices using the UTR you submit, and tutor payouts are made manually after reconciliation.</p><p><b>4. Confirmation:</b> tuition starts only after the student/parent and the tutor both confirm the fee, schedule and terms.</p><p><b>5. Conduct:</b> participants agree to route the assigned tuition and its billing through TutorSync for the duration of the active assignment.</p>',
+      refund:'<p><b>1. Trial / demo class:</b> where a trial class is arranged, either side may decide not to continue after it without any monthly charge for the trial hour beyond what was agreed in writing.</p><p><b>2. Cancelling tuition:</b> either party may request cancellation through the portal support desk. Sessions already held and confirmed are billable.</p><p><b>3. Refunds:</b> if a student paid for sessions that were not held (cancelled by the tutor or by TutorSync), the unused portion is refunded after review. Refunds are recorded as a reversal against the original payment.</p><p><b>4. Timing:</b> refunds are processed manually after reconciliation. Please allow a reasonable period and keep your UTR / receipt number handy.</p><p><b>5. Disputes:</b> raise a Quality / Dispute ticket from your portal. Decisions are recorded in the audit log.</p><p><b>6. Tutor payouts on refund:</b> if a refund is made, the matching tutor earnings and commission are reversed so that commission is only ever kept on fees that stay collected.</p>'};
+    document.getElementById('app-root').innerHTML='<section class="section"><div class="container legal" style="max-width:780px"><button class="btn btn-outline btn-sm" onclick="App.navigate(\'#/\')" style="margin-bottom:1rem">&larr; Back to Home</button><div class="card"><h2>'+titles[type]+'</h2>'+bodies[type]+'<p class="help-text">Last updated: '+new Date().getFullYear()+'. Contact Support for questions about this policy.</p></div></div></section>'+renderFooter();
+  }
+
+  /* ========================================================================
+   * REGISTRATION FORMS
+   * ======================================================================== */
+  function renderMultiChips(group,items,pre){ pre=pre||[]; return items.map(i=>'<label class="chip-label"><input type="checkbox" name="'+group+'" value="'+esc(i)+'"'+(pre.indexOf(i)!==-1?' checked':'')+'/> '+esc(i)+'</label>').join(''); }
+  function getCheckedValues(group){ return Array.from(document.querySelectorAll('input[name="'+group+'"]:checked')).map(el=>el.value); }
+  function setFieldError(id,msg){ const el=document.getElementById(id+'-err'); if(el) el.textContent=msg||''; const inp=document.getElementById(id); if(inp) inp.setAttribute('aria-invalid',msg?'true':'false'); }
+  function validatePhoneField(id){ const el=document.getElementById(id); if(!el) return true; const v=cleanPhone(el.value); const ok=PHONE_RE.test(v); setFieldError(id,ok||!el.value?'':'Enter a valid 10-digit Indian mobile number (starts with 6–9).'); return ok; }
+
+  let pinTimer=null;
+  async function lookupPin(pinId,areaId,hintId){
+    const pin=(document.getElementById(pinId).value||'').trim(); const hint=document.getElementById(hintId);
+    if(!/^\d{6}$/.test(pin)){ if(hint) hint.textContent=''; return; }
+    clearTimeout(pinTimer);
+    pinTimer=setTimeout(async function(){
+      try{
+        const ctl=new AbortController(); const t=setTimeout(()=>ctl.abort(),5000);
+        const r=await fetch('https://api.postalpincode.in/pincode/'+pin,{signal:ctl.signal}); clearTimeout(t);
+        const j=await r.json(); const po=j&&j[0]&&j[0].Status==='Success'&&j[0].PostOffice&&j[0].PostOffice[0];
+        if(po){
+          if(hint) hint.textContent='📍 '+po.Name+', '+po.District+', '+po.State;
+          const a=document.getElementById(areaId); if(a&&!a.value) a.value=po.Name+', '+po.District;
+        } else if(hint) hint.textContent='';
+      }catch(e){ if(hint) hint.textContent=''; }
+    },350);
+  }
+
+  function renderStudentRegistration(){
+    const cfg=state.publicConfig; const pre=state.prefillStudent||{}; state.prefillStudent=null;
+    document.getElementById('app-root').innerHTML='<section class="section"><div class="container" style="max-width:740px"><button class="btn btn-outline btn-sm" onclick="App.navigate(\'#/\')" style="margin-bottom:1rem">&larr; Back</button><div class="card" id="stu-reg-card">'+
+    '<div style="display:flex;align-items:center;gap:.65rem;margin-bottom:.5rem"><span class="icon-badge" style="margin:0">'+EDU_ICONS.cap+'</span><div><h2 style="margin:0">Student / Parent Registration (Free)</h2><span class="help-text">Verified matching tailored to your board, locality and monthly budget.</span></div></div>'+
+    '<form onsubmit="App.submitStudentReg(event)" style="margin-top:1rem" novalidate><input type="text" id="sr-trap" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" /><div class="form-grid">'+
+      '<div class="form-group"><label class="req" for="sr-name">Student / Parent Full Name</label><input id="sr-name" required autocomplete="name" /></div>'+
+      '<div class="form-group"><label class="req" for="sr-email">Email Address</label><input id="sr-email" type="email" required autocomplete="email" inputmode="email" /></div>'+
+      '<div class="form-group"><label class="req" for="sr-phone">Mobile Phone (10-digit)</label><input id="sr-phone" type="tel" inputmode="numeric" maxlength="14" required placeholder="9876543210" autocomplete="tel" onblur="App.validatePhoneField(\'sr-phone\')" /><span class="field-error" id="sr-phone-err"></span></div>'+
+      '<div class="form-group"><label class="req" for="sr-wa">WhatsApp Number</label><input id="sr-wa" type="tel" inputmode="numeric" maxlength="14" required placeholder="Same or alternate 10-digit" onblur="App.validatePhoneField(\'sr-wa\')" /><span class="field-error" id="sr-wa-err"></span></div>'+
+      '<div class="form-group"><label class="req" for="sr-class">Class / Grade</label><select id="sr-class" required><option value="">Select Class</option>'+cfg.classes.map(c=>'<option value="'+esc(c)+'">'+esc(c)+'</option>').join('')+'</select></div>'+
+      '<div class="form-group"><label class="req" for="sr-board">Education Board</label><select id="sr-board" required onchange="document.getElementById(\'sr-board-other-wrap\').classList.toggle(\'hidden\',this.value!==\'OTHER\')">'+cfg.boards.map(b=>'<option value="'+esc(b)+'">'+esc(b)+'</option>').join('')+'</select></div>'+
+      '<div class="form-group full hidden" id="sr-board-other-wrap"><label class="req" for="sr-board-other">Specify Board / Exam Name</label><input id="sr-board-other" /></div>'+
+      '<div class="form-group full"><label class="req">Subjects Required</label><div class="chip-group">'+renderMultiChips('sr-sub',cfg.subjects,pre.subjects)+'</div></div>'+
+      '<div class="form-group"><label class="req" for="sr-mode">Preferred Teaching Mode</label><select id="sr-mode" required onchange="App.toggleStudentLocationFields()"><option value="OFFLINE">Offline (Home / In-Person)</option><option value="ONLINE">Online</option><option value="HYBRID">Hybrid</option></select></div>'+
+      '<div class="form-group"><label for="sr-gender">Preferred Tutor Gender (Optional)</label><select id="sr-gender"><option value="ANY">No Preference</option><option value="FEMALE">Female</option><option value="MALE">Male</option></select></div>'+
+      '<div class="form-group" id="sr-pin-wrap"><label class="req" for="sr-pin">6-Digit PIN Code</label><input id="sr-pin" inputmode="numeric" maxlength="6" placeholder="700091" oninput="App.lookupPin(\'sr-pin\',\'sr-area\',\'sr-pin-hint\')" /><span class="help-text" id="sr-pin-hint"></span></div>'+
+      '<div class="form-group" id="sr-loc-wrap"><label class="req" for="sr-area">Area / Locality</label><input id="sr-area" placeholder="e.g., Salt Lake Sector 2" /></div>'+
+      '<div class="form-group full"><label class="req">Preferred Tuition Days</label><div class="chip-group">'+renderMultiChips('sr-days',['Mon','Tue','Wed','Thu','Fri','Sat','Sun'])+'</div></div>'+
+      '<div class="form-group"><label class="req" for="sr-time">Preferred Time Window</label><input id="sr-time" required placeholder="e.g., 5:00 PM - 7:30 PM" /></div>'+
+      '<div class="form-group"><label class="req" for="sr-budget">Monthly Budget (₹)</label><input id="sr-budget" type="number" inputmode="numeric" min="500" required placeholder="e.g., 4000" /></div>'+
+      '<div class="form-group"><label for="sr-start">Preferred Start Date</label><input id="sr-start" type="date" /></div>'+
+      '<div class="form-group full"><label for="sr-notes">Additional Requirements (Optional)</label><textarea id="sr-notes" rows="2" placeholder="Exam goals, language preference, trial class request, etc.">'+esc(pre.note||'')+'</textarea></div>'+
+      '<div class="form-group full"><label class="chip-label" style="border:none;background:none;padding:0"><input type="checkbox" id="sr-consent" /> <span>I agree to the <a href="#/privacy" target="_blank" rel="noopener">Privacy Policy</a> and consent to TutorSync contacting me by phone, WhatsApp or email.</span></label></div>'+
+      '<div class="form-group full"><button type="submit" class="btn btn-primary btn-block">Submit Student Registration</button></div>'+
+    '</div></form></div></div></section>';
+  }
+  function toggleStudentLocationFields(){ const on=document.getElementById('sr-mode').value==='ONLINE'; document.getElementById('sr-loc-wrap').classList.toggle('hidden',on); document.getElementById('sr-pin-wrap').classList.toggle('hidden',on); }
+
+  async function submitStudentReg(e){
+    e.preventDefault();
+    const subs=getCheckedValues('sr-sub'), days=getCheckedValues('sr-days'); const mode=document.getElementById('sr-mode').value;
+    const name=document.getElementById('sr-name').value.trim(), email=document.getElementById('sr-email').value.trim();
+    if(name.length<2) return toast('Please enter the student/parent name.','error');
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return toast('Please enter a valid email address.','error');
+    if(!validatePhoneField('sr-phone')||!validatePhoneField('sr-wa')) return toast('Please enter valid 10-digit Indian mobile numbers.','error');
+    if(!document.getElementById('sr-class').value) return toast('Please select the class / grade.','error');
+    if(!subs.length) return toast('Please select at least one subject.','error');
+    if(mode!=='ONLINE'){ if(!document.getElementById('sr-area').value.trim()) return toast('Area / locality is required for offline or hybrid tuition.','error'); if(!/^\d{6}$/.test(document.getElementById('sr-pin').value.trim())) return toast('Please enter a valid 6-digit PIN code.','error'); }
+    if(!days.length) return toast('Please select preferred tuition days.','error');
+    if(!(Number(document.getElementById('sr-budget').value)>0)) return toast('Please enter your monthly budget.','error');
+    if(!document.getElementById('sr-consent').checked) return toast('Please accept the privacy policy to continue.','error');
+    try{
+      const res=await apiCall('publicRegisterStudent',{
+        websiteTrap:document.getElementById('sr-trap').value,name:name,email:email,
+        phone:cleanPhone(document.getElementById('sr-phone').value),whatsapp:cleanPhone(document.getElementById('sr-wa').value),
+        classGrade:document.getElementById('sr-class').value,board:document.getElementById('sr-board').value,boardOther:document.getElementById('sr-board-other').value,
+        subjectsRequired:subs,preferredTutorGender:document.getElementById('sr-gender').value,teachingMode:mode,
+        areaLocality:document.getElementById('sr-area').value,pinCode:document.getElementById('sr-pin').value.trim(),preferredDays:days,
+        preferredTime:document.getElementById('sr-time').value,budgetPerMonth:document.getElementById('sr-budget').value,
+        preferredStartDate:document.getElementById('sr-start').value,additionalNotes:document.getElementById('sr-notes').value,consentAccepted:document.getElementById('sr-consent').checked
+      });
+      document.getElementById('stu-reg-card').innerHTML='<div style="text-align:center;padding:1.5rem 0"><span class="badge badge-green">Registration Confirmed</span><h2 style="margin-top:.75rem">Student ID: '+esc(res.studentId)+'</h2><p>Thank you! A confirmation email has been sent. Our coordinator will verify your request before matching you with a tutor. Please save your Student ID.</p><button class="btn btn-primary" onclick="App.navigate(\'#/\')">Return to Home</button></div>';
+      window.scrollTo(0,0);
+    }catch(err){}
+  }
+
+  function renderTutorRegistration(){
+    const cfg=state.publicConfig; const pre=state.prefillTutor||{}; state.prefillTutor=null;
+    document.getElementById('app-root').innerHTML='<section class="section"><div class="container" style="max-width:780px"><button class="btn btn-outline btn-sm" onclick="App.navigate(\'#/\')" style="margin-bottom:1rem">&larr; Back</button><div class="card" id="tut-reg-card">'+
+    '<div style="display:flex;align-items:center;gap:.65rem;margin-bottom:.5rem"><span class="icon-badge" style="margin:0">'+EDU_ICONS.atom+'</span><div><h2 style="margin:0">Join TutorSync as a Tutor (Free)</h2><span class="help-text">Verified tutors receive curated student opportunities with transparent commission.</span></div></div>'+
+    '<form onsubmit="App.submitTutorReg(event)" style="margin-top:1rem" novalidate><input type="text" id="tr-trap" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" /><div class="form-grid">'+
+      '<div class="form-group"><label class="req" for="tr-name">Full Name</label><input id="tr-name" required autocomplete="name" /></div>'+
+      '<div class="form-group"><label class="req" for="tr-email">Email Address</label><input id="tr-email" type="email" required autocomplete="email" inputmode="email" /></div>'+
+      '<div class="form-group"><label class="req" for="tr-phone">Mobile Phone (10-digit)</label><input id="tr-phone" type="tel" inputmode="numeric" maxlength="14" required onblur="App.validatePhoneField(\'tr-phone\')" /><span class="field-error" id="tr-phone-err"></span></div>'+
+      '<div class="form-group"><label class="req" for="tr-wa">WhatsApp Number</label><input id="tr-wa" type="tel" inputmode="numeric" maxlength="14" required onblur="App.validatePhoneField(\'tr-wa\')" /><span class="field-error" id="tr-wa-err"></span></div>'+
+      '<div class="form-group"><label for="tr-gender">Gender (Optional)</label><select id="tr-gender"><option value="PREFER_NOT_TO_SAY">Prefer not to say</option><option value="FEMALE">Female</option><option value="MALE">Male</option><option value="OTHER">Other</option></select></div>'+
+      '<div class="form-group"><label class="req" for="tr-exp">Teaching Experience (Years)</label><input id="tr-exp" type="number" inputmode="decimal" min="0" step="0.5" required /></div>'+
+      '<div class="form-group full"><label class="req" for="tr-qual">Qualifications &amp; Degrees</label><input id="tr-qual" required placeholder="e.g., M.Sc. Mathematics, B.Ed." /></div>'+
+      '<div class="form-group full"><label class="req">Subjects You Teach</label><div class="chip-group">'+renderMultiChips('tr-sub',cfg.subjects)+'</div></div>'+
+      '<div class="form-group full"><label class="req">Classes / Grades Taught</label><div class="chip-group">'+renderMultiChips('tr-cls',cfg.classes)+'</div></div>'+
+      '<div class="form-group full"><label class="req">Board Expertise</label><div class="chip-group">'+renderMultiChips('tr-brd',cfg.boards)+'</div></div>'+
+      '<div class="form-group"><label class="req" for="tr-mode">Teaching Mode</label><select id="tr-mode" required onchange="App.toggleTutorLocFields()"><option value="HYBRID">Hybrid (Online &amp; Offline)</option><option value="OFFLINE">Offline Only</option><option value="ONLINE">Online Only</option></select></div>'+
+      '<div class="form-group"><label class="req" for="tr-fee">Expected Monthly Fee (₹)</label><input id="tr-fee" type="number" inputmode="numeric" min="500" required placeholder="e.g., 4500" /></div>'+
+      '<div class="form-group" id="tr-loc-wrap"><label class="req" for="tr-locs">Preferred Areas / Localities</label><input id="tr-locs" placeholder="e.g., Ballygunge, Gariahat" /></div>'+
+      '<div class="form-group" id="tr-pin-wrap"><label class="req" for="tr-pins">Serviceable PIN Codes (comma-separated)</label><input id="tr-pins" inputmode="numeric" placeholder="700019, 700029" oninput="App.lookupTutorPin()" /><span class="help-text" id="tr-pin-hint"></span></div>'+
+      '<div class="form-group"><label for="tr-dist">Travel Radius (km)</label><input id="tr-dist" type="number" inputmode="numeric" min="0" value="5" /></div>'+
+      '<div class="form-group"><label for="tr-cur">Students Currently Teaching</label><input id="tr-cur" type="number" inputmode="numeric" min="0" value="0" /></div>'+
+      '<div class="form-group full"><label class="req">Availability Days</label><div class="chip-group">'+renderMultiChips('tr-days',['Mon','Tue','Wed','Thu','Fri','Sat','Sun'])+'</div></div>'+
+      '<div class="form-group"><label class="req" for="tr-time">Preferred Timing Window</label><input id="tr-time" required placeholder="e.g., Weekdays 4-8 PM" /></div>'+
+      '<div class="form-group"><label class="req" for="tr-lang">Languages Spoken (comma-separated)</label><input id="tr-lang" required placeholder="English, Bengali, Hindi" /></div>'+
+      '<div class="form-group full"><label class="req" for="tr-bio">Short Teaching Introduction</label><textarea id="tr-bio" rows="3" required placeholder="Briefly describe your teaching methodology and strengths.">'+esc(pre.note?pre.note+' — ':'')+'</textarea></div>'+
+      '<div class="form-group"><label for="tr-doc-url">Credential Document Link (Optional)</label><input id="tr-doc-url" type="url" inputmode="url" placeholder="Google Drive or portfolio link" /></div>'+
+      '<div class="form-group"><label for="tr-doc-file">Or Upload Credential PDF/Image (&le; 1.5 MB)</label><input id="tr-doc-file" type="file" accept=".pdf,.jpg,.jpeg,.png" /></div>'+
+      '<div class="form-group full"><label for="tr-upi">UPI ID for Future Payouts (Optional)</label><input id="tr-upi" placeholder="yourname@bank" autocapitalize="none" /><span class="help-text">You can also add or change this later in your Tutor Portal.</span></div>'+
+      '<div class="form-group full"><label class="chip-label" style="border:none;background:none;padding:0"><input type="checkbox" id="tr-consent" /> <span>I agree to the <a href="#/privacy" target="_blank" rel="noopener">Privacy Policy</a> and <a href="#/terms" target="_blank" rel="noopener">Terms</a>, and understand a platform commission (8%–10%) applies on collected tuition.</span></label></div>'+
+      '<div class="form-group full"><button type="submit" class="btn btn-accent btn-block">Submit Tutor Application</button></div>'+
+    '</div></form></div></div></section>';
+  }
+  function toggleTutorLocFields(){ const on=document.getElementById('tr-mode').value==='ONLINE'; document.getElementById('tr-loc-wrap').classList.toggle('hidden',on); document.getElementById('tr-pin-wrap').classList.toggle('hidden',on); }
+  function lookupTutorPin(){
+    const parts=(document.getElementById('tr-pins').value||'').split(',').map(s=>s.trim()).filter(Boolean); const last=parts[parts.length-1]||''; const hint=document.getElementById('tr-pin-hint');
+    if(!/^\d{6}$/.test(last)){ hint.textContent=''; return; }
+    clearTimeout(pinTimer); pinTimer=setTimeout(async function(){
+      try{ const ctl=new AbortController(); const t=setTimeout(()=>ctl.abort(),5000); const r=await fetch('https://api.postalpincode.in/pincode/'+last,{signal:ctl.signal}); clearTimeout(t); const j=await r.json(); const po=j&&j[0]&&j[0].Status==='Success'&&j[0].PostOffice&&j[0].PostOffice[0]; hint.textContent=po?('📍 '+last+': '+po.Name+', '+po.District):''; }catch(e){ hint.textContent=''; }
+    },350);
+  }
+  function readFileAsBase64(file){ return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=rej; r.readAsDataURL(file); }); }
+
+  async function submitTutorReg(e){
+    e.preventDefault();
+    const subs=getCheckedValues('tr-sub'),cls=getCheckedValues('tr-cls'),brds=getCheckedValues('tr-brd'),days=getCheckedValues('tr-days'); const mode=document.getElementById('tr-mode').value;
+    const email=document.getElementById('tr-email').value.trim();
+    if(document.getElementById('tr-name').value.trim().length<2) return toast('Please enter your full name.','error');
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return toast('Please enter a valid email address.','error');
+    if(!validatePhoneField('tr-phone')||!validatePhoneField('tr-wa')) return toast('Please enter valid 10-digit Indian mobile numbers.','error');
+    if(!subs.length||!cls.length||!brds.length||!days.length) return toast('Please select subjects, classes, boards and availability days.','error');
+    if(mode!=='ONLINE'&&!document.getElementById('tr-locs').value.trim()&&!document.getElementById('tr-pins').value.trim()) return toast('Enter preferred areas or PIN codes for offline/hybrid teaching.','error');
+    if(!(Number(document.getElementById('tr-fee').value)>0)) return toast('Please enter your expected monthly fee.','error');
+    const upi=document.getElementById('tr-upi').value.trim();
+    if(upi&&!/^[a-zA-Z0-9._-]{2,}@[a-zA-Z]{2,}$/.test(upi)) return toast('Enter a valid UPI ID like name@bank, or leave it blank.','error');
+    if(!document.getElementById('tr-consent').checked) return toast('Please accept the privacy policy and terms to continue.','error');
+    const fi=document.getElementById('tr-doc-file'); let b64='',fname='',fmime='';
+    if(fi.files&&fi.files[0]){ const f=fi.files[0]; if(f.size>1550000) return toast('File size must be under 1.5 MB.','error'); b64=await readFileAsBase64(f); fname=f.name; fmime=f.type; }
+    try{
+      const res=await apiCall('publicRegisterTutor',{
+        websiteTrap:document.getElementById('tr-trap').value,fullName:document.getElementById('tr-name').value.trim(),email:email,
+        phone:cleanPhone(document.getElementById('tr-phone').value),whatsapp:cleanPhone(document.getElementById('tr-wa').value),gender:document.getElementById('tr-gender').value,
+        experienceYears:document.getElementById('tr-exp').value,qualifications:document.getElementById('tr-qual').value,subjects:subs,classesGrades:cls,boardExpertise:brds,
+        teachingMode:mode,expectedMonthlyFee:document.getElementById('tr-fee').value,preferredLocations:document.getElementById('tr-locs').value,pinCodes:document.getElementById('tr-pins').value,
+        maxTravelDistanceKm:document.getElementById('tr-dist').value,currentStudentCount:document.getElementById('tr-cur').value,availabilityDays:days,
+        preferredTiming:document.getElementById('tr-time').value,languages:document.getElementById('tr-lang').value,shortBio:document.getElementById('tr-bio').value,
+        documentUrl:document.getElementById('tr-doc-url').value,documentBase64:b64,documentFileName:fname,documentMimeType:fmime,upiId:upi,consentAccepted:document.getElementById('tr-consent').checked
+      });
+      document.getElementById('tut-reg-card').innerHTML='<div style="text-align:center;padding:1.5rem 0"><span class="badge badge-green">Application Received</span><h2 style="margin-top:.75rem">Tutor ID: '+esc(res.tutorId)+'</h2><p>Thank you for applying to TutorSync. Our verification team will review your profile and contact you before matching. Please save your Tutor ID.</p><button class="btn btn-primary" onclick="App.navigate(\'#/\')">Return to Home</button></div>';
+      window.scrollTo(0,0);
+    }catch(err){}
+  }
+
+  /* ========================================================================
+   * AUTH
+   * ======================================================================== */
+  function renderLogin(){
+    if(state.session) return goToMyPortal();
+    document.getElementById('app-root').innerHTML='<section class="section"><div class="container" style="max-width:440px"><div class="card">'+
+    '<div style="display:flex;align-items:center;gap:.65rem;margin-bottom:.4rem">'+EDU_ICONS.einsteinBadge+'<div><h2 style="margin:0">TutorSync Portal Login</h2><span class="help-text">Students, Tutors &amp; Administrators</span></div></div>'+
+    '<div class="tabs-row" style="margin:1rem 0"><button type="button" class="btn btn-primary btn-sm" id="tab-pass" onclick="App.switchAuthMode(\'password\')">Password Login</button><button type="button" class="btn btn-outline btn-sm" id="tab-otp" onclick="App.switchAuthMode(\'otp\')">OTP Login</button><button type="button" class="btn btn-outline btn-sm" id="tab-act" onclick="App.switchAuthMode(\'activate\')">Activate / Reset</button></div>'+
+    '<form onsubmit="App.submitAuth(event)"><input type="hidden" id="auth-mode" value="password" />'+
+    '<div class="form-group" style="margin-bottom:.8rem"><label class="req" for="auth-email">Registered Email</label><input id="auth-email" type="email" required placeholder="you@example.com" autocomplete="username" inputmode="email" /></div>'+
+    '<div class="form-group" id="auth-pass-wrap" style="margin-bottom:.8rem"><label class="req" for="auth-pass">Password</label><input id="auth-pass" type="password" autocomplete="current-password" /></div>'+
+    '<div class="form-group hidden" id="auth-otp-wrap" style="margin-bottom:.8rem"><label class="req" for="auth-otp">6-Digit Verification Code</label><div style="display:flex;gap:.4rem"><input id="auth-otp" maxlength="6" inputmode="numeric" autocomplete="one-time-code" placeholder="123456" /><button type="button" class="btn btn-outline btn-sm" onclick="App.requestLoginOtp()">Send Code</button></div></div>'+
+    '<div class="form-group hidden" id="auth-newpass-wrap" style="margin-bottom:.8rem"><label class="req" for="auth-newpass">Set New Password (min 8 chars)</label><input id="auth-newpass" type="password" minlength="8" autocomplete="new-password" /></div>'+
+    '<button type="submit" class="btn btn-primary btn-block" id="auth-submit-btn">Sign In</button></form></div></div></section>';
+  }
+  function switchAuthMode(mode){
+    document.getElementById('auth-mode').value=mode;
+    ['pass:password','otp:otp','act:activate'].forEach(s=>{ const p=s.split(':'); document.getElementById('tab-'+p[0]).className='btn btn-sm '+(mode===p[1]?'btn-primary':'btn-outline'); });
+    document.getElementById('auth-pass-wrap').classList.toggle('hidden',mode!=='password');
+    document.getElementById('auth-otp-wrap').classList.toggle('hidden',mode==='password');
+    document.getElementById('auth-newpass-wrap').classList.toggle('hidden',mode!=='activate');
+    document.getElementById('auth-submit-btn').textContent=mode==='activate'?'Activate & Sign In':'Sign In';
+  }
+  async function requestLoginOtp(){
+    const email=document.getElementById('auth-email').value.trim(); if(!email) return toast('Enter your registered email first.','error');
+    try{ const res=await apiCall('authRequestOtp',{email:email}); toast(res.message||'Verification code sent.','success'); }catch(e){}
+  }
+  async function submitAuth(e){
+    e.preventDefault();
+    const mode=document.getElementById('auth-mode').value, email=document.getElementById('auth-email').value.trim();
+    try{
+      let data;
+      if(mode==='activate') data=await apiCall('authActivateAccount',{email:email,otp:document.getElementById('auth-otp').value.trim(),newPassword:document.getElementById('auth-newpass').value});
+      else data=await apiCall('authLogin',{email:email,password:mode==='password'?document.getElementById('auth-pass').value:'',otp:mode==='otp'?document.getElementById('auth-otp').value.trim():''});
+      state.session=data; sessionStorage.setItem(window.TUTORSYNC_CONFIG.STORAGE_SESSION_KEY,JSON.stringify(data));
+      state.portalTab='overview'; state.adminModule='gates'; updateNav(); toast('Signed in as '+data.user.role,'success'); goToMyPortal();
+    }catch(err){}
+  }
+
+  /* ========================================================================
+   * STUDENT PORTAL
+   * ======================================================================== */
+  function portalTabs(role,tabs){ return '<div class="tabs-row">'+tabs.map(t=>'<button class="btn btn-sm '+(state.portalTab===t[0]?'btn-primary':'btn-outline')+'" onclick="App.setPortalTab(\''+t[0]+'\',\''+role+'\')">'+t[1]+'</button>').join('')+'</div>'; }
+
+  async function renderStudentPortal(){
+    if(!state.session||state.session.user.role!=='STUDENT') return navigate('#/login');
+    document.getElementById('app-root').innerHTML='<section class="section"><div class="container"><div class="topbar-portal"><div style="display:flex;align-items:center;gap:.65rem"><span class="icon-badge" style="margin:0">'+EDU_ICONS.cap+'</span><div><h2 style="margin:0">Student / Parent Portal</h2><span class="help-text" style="word-break:break-all">'+esc(state.session.user.email)+' · '+esc(state.session.user.linkedEntityId)+'</span></div></div>'+
+      portalTabs('student',[['overview','Overview &amp; Schedule'],['invoices','Invoices &amp; Receipts'],['support','Support']])+'</div><div id="student-portal-body">'+skel(5)+'</div></div></section>';
+    const body=()=>document.getElementById('student-portal-body');
+    try{
+      if(state.portalTab==='overview'){
+        const d=await apiCall('studentGetDashboard',{},{allowRetry:true});
+        body().innerHTML='<div class="kpi-grid"><div class="kpi-card"><div class="kpi-label">Status</div><div class="kpi-val">'+statusBadge(d.profile.Status)+'</div><div class="kpi-sub">'+esc(d.profile.ClassGrade)+' · '+esc(d.profile.Board)+'</div></div><div class="kpi-card"><div class="kpi-label">Assignments</div><div class="kpi-val">'+d.assignments.length+'</div><div class="kpi-sub">Offered / Active</div></div><div class="kpi-card"><div class="kpi-label">Open Invoices</div><div class="kpi-val">'+d.invoices.filter(i=>Number(i.BalanceDue)>0).length+'</div><div class="kpi-sub">Pending balance</div></div></div>'+
+        '<div class="card" style="margin-bottom:1rem"><h3>Tuition Assignments</h3>'+(d.assignments.length?'<div class="table-wrap"><table><thead><tr><th>Assignment</th><th>Tutor</th><th>Subjects</th><th>Monthly Fee</th><th>Status</th><th>Action</th></tr></thead><tbody>'+
+          d.assignments.map(a=>'<tr><td><b>'+esc(a.AssignmentId)+'</b><br><span class="help-text">'+esc(a.TeachingMode)+' · '+esc(a.SessionsPerWeek)+'x/wk</span></td><td><b>'+esc(a.TutorName)+'</b><br><span class="help-text">'+esc(a.TutorPhone)+'</span></td><td>'+esc(parseArr(a.Subjects).join(', '))+'</td><td>'+inr(a.AgreedMonthlyFee)+'</td><td>'+statusBadge(a.Status)+'<br><span class="help-text">You: '+(a.StudentConfirmed?'Confirmed':'Pending')+' · Tutor: '+(a.TutorConfirmed?'Confirmed':'Pending')+'</span></td><td>'+(!a.StudentConfirmed&&(a.Status==='OFFERED'||a.Status==='PROPOSED'||a.Status==='ACCEPTED')?'<button class="btn btn-accent btn-sm" onclick="App.confirmAssignment(\'student\',\''+esc(a.AssignmentId)+'\')">Confirm Terms</button>':'—')+'</td></tr>').join('')+'</tbody></table></div>':'<div class="empty-state">No tuition assignments yet. Our coordinator will contact you once a suitable tutor is matched.</div>')+'</div>'+
+        '<div class="card"><h3>Recent Sessions &amp; Attendance</h3>'+(d.sessions.length?'<div class="table-wrap"><table><thead><tr><th>Date</th><th>Time</th><th>Duration</th><th>Status</th><th>Confirmation</th></tr></thead><tbody>'+
+          d.sessions.map(s=>'<tr><td>'+esc(s.SessionDate)+'</td><td>'+esc(s.StartTime)+'</td><td>'+esc(s.DurationMins)+'m</td><td>'+statusBadge(s.AttendanceStatus)+'</td><td>'+(isBool(s.StudentConfirmed)?'<span class="badge badge-green">Confirmed</span>':'<button class="btn btn-outline btn-sm" onclick="App.studentConfirmSession(\''+esc(s.SessionId)+'\')">Confirm</button>')+'</td></tr>').join('')+'</tbody></table></div>':'<div class="empty-state">No sessions yet. They appear here once tuition is active.</div>')+'</div>';
+      } else if(state.portalTab==='invoices'){
+        const [inv,pay]=await Promise.all([apiCall('studentGetInvoices',{},{allowRetry:true}),apiCall('studentGetPayments',{},{allowRetry:true})]);
+        state.lastInvoices=inv.invoices;
+        body().innerHTML='<div class="card" style="margin-bottom:1rem;background:var(--accent-light);border-color:#bae6fd"><h4 style="margin-bottom:.25rem">Payment Instructions</h4><p style="margin:0;font-size:.88rem">'+esc(inv.paymentInstructions)+'</p></div>'+
+        '<div class="card" style="margin-bottom:1rem"><h3>Monthly Invoices</h3>'+(inv.invoices.length?'<div class="table-wrap"><table><thead><tr><th>Invoice #</th><th>Month</th><th>Total</th><th>Paid</th><th>Balance</th><th>Due</th><th>Status</th><th>Actions</th></tr></thead><tbody>'+
+          inv.invoices.map(i=>'<tr><td><b>'+esc(i.InvoiceNumber)+'</b></td><td>'+esc(i.BillingMonth)+'</td><td>'+inr(i.TotalAmount)+'</td><td>'+inr(i.AmountPaid)+'</td><td><b>'+inr(i.BalanceDue)+'</b></td><td>'+esc(i.DueDate)+'</td><td>'+statusBadge(i.PaymentStatus)+'</td><td style="white-space:nowrap">'+(Number(i.BalanceDue)>0&&i.PaymentStatus!=='CANCELLED'?'<button class="btn btn-accent btn-sm" onclick="App.openPayModal(\''+esc(i.InvoiceId)+'\')">Pay via UPI</button> ':'')+(i.PdfUrl?'<a class="btn btn-outline btn-sm" href="'+esc(i.PdfUrl)+'" target="_blank" rel="noopener">PDF</a>':'')+'</td></tr>').join('')+'</tbody></table></div>':'<div class="empty-state">No invoices yet. Your first invoice is issued after tuition becomes active.</div>')+'</div>'+
+        '<div class="card"><h3>Payment Receipts</h3>'+(pay.length?'<div class="table-wrap"><table><thead><tr><th>Receipt #</th><th>Date</th><th>Type</th><th>Amount</th><th>Method</th><th>Reference</th></tr></thead><tbody>'+pay.map(p=>'<tr><td><b>'+esc(p.ReceiptNumber)+'</b></td><td>'+esc(p.PaymentDate)+'</td><td>'+statusBadge(p.TransactionType)+'</td><td>'+inr(p.Amount)+'</td><td>'+esc(p.PaymentMethod)+'</td><td>'+esc(p.TransactionRef)+'</td></tr>').join('')+'</tbody></table></div>':'<div class="empty-state">No payment receipts yet. After you pay and submit your UTR, a receipt appears here once we verify it.</div>')+'</div>';
+      } else { const t=await apiCall('studentGetTickets',{},{allowRetry:true}); renderPortalTicketsView('student-portal-body','student',t); }
+    }catch(e){ const b=body(); if(b) b.innerHTML='<div class="card"><p class="badge badge-red">Could not load</p><p>'+esc(e.message)+'</p><button class="btn btn-outline btn-sm" onclick="App.navigate(\'#/student\')">Retry</button></div>'; }
+  }
+
+  async function openPayModal(invoiceId){
+    try{
+      const info=await apiCall('studentGetUpiInfo',{invoiceId:invoiceId});
+      const hasUpi=!!info.upiLink;
+      openModal('Pay Invoice '+info.invoiceNumber,
+        '<p style="margin-bottom:.5rem">Amount due: <b style="font-size:1.15rem;color:var(--primary)">'+inr(info.balanceDue)+'</b></p>'+
+        (hasUpi?'<div class="qr-box" id="upi-qr" aria-label="UPI QR code"></div><div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.5rem"><a class="btn btn-accent btn-sm" href="'+esc(info.upiLink)+'">Open UPI App</a><button class="btn btn-outline btn-sm" type="button" onclick="App.copyText(\''+esc(info.merchantUpiId)+'\')">Copy UPI ID</button></div><p class="help-text">Pay to <b>'+esc(info.merchantUpiId)+'</b>. Use <b>'+esc(info.invoiceNumber)+'</b> as the payment note.</p>'
+          :'<div class="card" style="background:var(--warning-bg);border-color:#fde68a;margin-bottom:.75rem"><p style="margin:0;color:#92400e">UPI QR is not set up yet. Please use the payment instructions on your invoice, then submit your UTR below.</p></div>')+
+        '<hr style="border:none;border-top:1px solid var(--border);margin:1rem 0"><h4>Already paid? Submit your UTR</h4><form onsubmit="App.submitUtrClaim(event,\''+esc(invoiceId)+'\')"><div class="form-grid">'+
+        '<div class="form-group"><label class="req" for="utr-amt">Amount Paid (₹)</label><input id="utr-amt" type="number" inputmode="decimal" step="0.01" min="1" max="'+esc(info.balanceDue)+'" value="'+esc(info.balanceDue)+'" required /></div>'+
+        '<div class="form-group"><label class="req" for="utr-ref">UTR / Transaction Ref</label><input id="utr-ref" required minlength="8" maxlength="30" autocapitalize="characters" placeholder="e.g., 412345678901" /></div>'+
+        '<div class="form-group full"><label for="utr-note">Note (optional)</label><input id="utr-note" maxlength="200" /></div>'+
+        '<div class="form-group full"><button class="btn btn-primary btn-block" type="submit">Submit Payment Claim</button><span class="help-text">Your payment is confirmed only after TutorSync verifies the UTR against its records.</span></div></div></form>');
+      if(hasUpi) renderQr('upi-qr',info.upiLink);
+    }catch(e){}
+  }
+  function renderQr(elId,text,tries){
+    tries=tries||0; const el=document.getElementById(elId); if(!el) return;
+    if(window.QRCode){ el.innerHTML=''; try{ new window.QRCode(el,{text:text,width:200,height:200,correctLevel:window.QRCode.CorrectLevel.M}); }catch(e){ el.innerHTML='<p class="help-text">QR could not be drawn. Use the “Open UPI App” button.</p>'; } }
+    else if(tries<20) setTimeout(()=>renderQr(elId,text,tries+1),250);
+    else el.innerHTML='<p class="help-text">QR is unavailable offline. Use the “Open UPI App” button instead.</p>';
+  }
+  function copyText(t){ if(navigator.clipboard&&t){ navigator.clipboard.writeText(t).then(()=>toast('Copied.','success'),()=>toast('Copy failed.','error')); } else toast('Copy is not supported on this device.','error'); }
+  async function submitUtrClaim(e,invoiceId){
+    e.preventDefault();
+    const utr=document.getElementById('utr-ref').value.trim().toUpperCase();
+    if(!/^[A-Z0-9]{8,30}$/.test(utr)) return toast('Enter a valid UTR (8–30 letters/digits).','error');
+    if(!confirm('Submit this payment claim? Please double-check the UTR and amount.')) return;
+    try{
+      await apiCall('studentSubmitUtrClaim',{invoiceId:invoiceId,amount:document.getElementById('utr-amt').value,utr:utr,note:document.getElementById('utr-note').value});
+      closeModal(); toast('Claim submitted. We will verify it and issue your receipt.','success'); renderStudentPortal();
+    }catch(err){}
+  }
+
+  function setPortalTab(tab,role){ state.portalTab=tab; if(role==='student') renderStudentPortal(); else renderTutorPortal(); }
+  async function confirmAssignment(role,assignmentId){
+    if(!confirm('Confirm that you agree to the tuition fee, schedule and TutorSync terms for '+assignmentId+'?')) return;
+    try{ await apiCall(role==='student'?'studentConfirmAssignment':'tutorConfirmAssignment',{assignmentId}); toast('Assignment confirmed.','success'); if(role==='student') renderStudentPortal(); else renderTutorPortal(); }catch(e){}
+  }
+  async function studentConfirmSession(sessionId){ try{ await apiCall('studentConfirmSession',{sessionId}); toast('Session attendance confirmed.','success'); renderStudentPortal(); }catch(e){} }
+
+  /* ========================================================================
+   * TUTOR PORTAL
+   * ======================================================================== */
+  async function renderTutorPortal(){
+    if(!state.session||state.session.user.role!=='TUTOR') return navigate('#/login');
+    document.getElementById('app-root').innerHTML='<section class="section"><div class="container"><div class="topbar-portal"><div style="display:flex;align-items:center;gap:.65rem"><span class="icon-badge" style="margin:0">'+EDU_ICONS.atom+'</span><div><h2 style="margin:0">Tutor Portal</h2><span class="help-text" style="word-break:break-all">'+esc(state.session.user.email)+' · '+esc(state.session.user.linkedEntityId)+'</span></div></div>'+
+      portalTabs('tutor',[['overview','Assignments'],['opportunities','Opportunities'],['earnings','Earnings'],['payout','Payout Profile'],['support','Support']])+'</div><div id="tutor-portal-body">'+skel(5)+'</div></div></section>';
+    const body=()=>document.getElementById('tutor-portal-body');
+    try{
+      if(state.portalTab==='overview'){
+        const d=await apiCall('tutorGetDashboard',{},{allowRetry:true}); state.tutorActive=d.assignments.filter(a=>a.Status==='ACTIVE');
+        body().innerHTML='<div class="kpi-grid"><div class="kpi-card"><div class="kpi-label">Profile Status</div><div class="kpi-val">'+statusBadge(d.profile.Status)+'</div><div class="kpi-sub">'+esc(d.profile.TeachingMode)+'</div></div><div class="kpi-card"><div class="kpi-label">Assignments</div><div class="kpi-val">'+d.assignments.length+'</div></div><div class="kpi-card"><div class="kpi-label">Pending Payable</div><div class="kpi-val">'+inr(d.summary.pendingEarnings)+'</div></div><div class="kpi-card"><div class="kpi-label">Total Paid</div><div class="kpi-val">'+inr(d.summary.paidEarnings)+'</div></div></div>'+
+        '<div class="card" style="margin-bottom:1rem"><div style="display:flex;justify-content:space-between;align-items:center;gap:.5rem;flex-wrap:wrap;margin-bottom:.75rem"><h3 style="margin:0">My Assignments</h3>'+(state.tutorActive.length?'<button class="btn btn-primary btn-sm" onclick="App.openTutorLogSessionModal()">+ Log Session / Trial Feedback</button>':'')+'</div>'+
+          (d.assignments.length?'<div class="table-wrap"><table><thead><tr><th>ID</th><th>Student &amp; Area</th><th>Subjects</th><th>Fee / Comm</th><th>Status</th><th>Action</th></tr></thead><tbody>'+d.assignments.map(a=>'<tr><td><b>'+esc(a.AssignmentId)+'</b></td><td><b>'+esc(a.StudentName)+'</b><br><span class="help-text">'+esc(a.StudentArea)+' · '+esc(a.StudentPhone)+'</span></td><td>'+esc(parseArr(a.Subjects).join(', '))+' ('+esc(a.ClassGrade)+')</td><td>'+inr(a.AgreedMonthlyFee)+' <span class="help-text">('+esc(a.CommissionRatePct)+'% fee)</span></td><td>'+statusBadge(a.Status)+'<br><span class="help-text">You: '+(a.TutorConfirmed?'Confirmed':'Pending')+' · Student: '+(a.StudentConfirmed?'Confirmed':'Pending')+'</span></td><td>'+(!a.TutorConfirmed&&(a.Status==='OFFERED'||a.Status==='PROPOSED'||a.Status==='ACCEPTED')?'<button class="btn btn-accent btn-sm" onclick="App.confirmAssignment(\'tutor\',\''+esc(a.AssignmentId)+'\')">Confirm Terms</button>':'—')+'</td></tr>').join('')+'</tbody></table></div>':'<div class="empty-state">No assignments yet.<br><br><button class="btn btn-accent btn-sm" onclick="App.setPortalTab(\'opportunities\',\'tutor\')">Browse Open Opportunities</button></div>')+'</div>'+
+        '<div class="card"><h3>Logged Sessions</h3>'+(d.sessions.length?'<div class="table-wrap"><table><thead><tr><th>Date</th><th>Time</th><th>Assignment</th><th>Duration</th><th>Status</th><th>Notes</th></tr></thead><tbody>'+d.sessions.map(s=>'<tr><td>'+esc(s.SessionDate)+'</td><td>'+esc(s.StartTime)+'</td><td>'+esc(s.AssignmentId)+'</td><td>'+esc(s.DurationMins)+'m</td><td>'+statusBadge(s.AttendanceStatus)+'</td><td>'+esc(s.Notes)+'</td></tr>').join('')+'</tbody></table></div>':'<div class="empty-state">No sessions logged yet.</div>')+'</div>';
+      } else if(state.portalTab==='opportunities'){
+        const opps=await apiCall('tutorGetOpenOpportunities',{},{allowRetry:true});
+        body().innerHTML='<div class="card"><h3>Open Tuition Opportunities (Anonymized)</h3><p class="help-text">Student contact information is shared only after verification and assignment approval.</p>'+(opps.length?'<div class="table-wrap"><table><thead><tr><th>Ref ID</th><th>Class / Board</th><th>Subjects</th><th>Mode &amp; Area</th><th>Schedule</th><th>Budget</th><th>Action</th></tr></thead><tbody>'+opps.map(o=>'<tr><td><b>'+esc(o.OpportunityId)+'</b></td><td>'+esc(o.ClassGrade)+' · '+esc(o.Board)+'</td><td>'+esc(o.SubjectsRequired.join(', '))+'</td><td>'+esc(o.TeachingMode)+'<br><span class="help-text">'+esc(o.GeneralArea)+'</span></td><td>'+esc(o.PreferredDays.join(', '))+'<br><span class="help-text">'+esc(o.PreferredTime)+'</span></td><td>'+inr(o.BudgetPerMonth)+'/mo</td><td>'+(o.AlreadyExpressed?'<span class="badge badge-green">Interest Sent</span>':'<button class="btn btn-accent btn-sm" onclick="App.expressInterest(\''+esc(o.OpportunityId)+'\')">Express Interest</button>')+'</td></tr>').join('')+'</tbody></table></div>':'<div class="empty-state">No open opportunities right now. We will email you when a matching student is verified.</div>')+'</div>';
+      } else if(state.portalTab==='earnings'){
+        const e=await apiCall('tutorGetEarnings',{},{allowRetry:true}); state.lastTutorLedger=e.ledger;
+        body().innerHTML='<div class="card" style="margin-bottom:1rem"><div style="display:flex;justify-content:space-between;align-items:center;gap:.5rem;flex-wrap:wrap;margin-bottom:.75rem"><h3 style="margin:0">Monthly Earnings &amp; Commission Ledger</h3><button class="btn btn-outline btn-sm" onclick="App.downloadTutorEarningsCsv()">Download CSV Statement</button></div>'+
+        (e.ledger.length?'<div class="table-wrap"><table><thead><tr><th>Month</th><th>Assignment</th><th>Collected</th><th>Commission</th><th>Adj.</th><th>Net Payable</th><th>Payout</th></tr></thead><tbody>'+e.ledger.map(l=>'<tr><td>'+esc(l.BillingMonth)+'</td><td>'+esc(l.AssignmentId)+'</td><td>'+inr(l.EligibleCollectedAmount)+'</td><td>'+esc(l.CommissionRatePct)+'% ('+inr(l.CommissionAmount)+')</td><td>'+inr(l.TutorAdjustmentAmount||0)+'</td><td><b>'+inr(l.NetTutorPayable)+'</b></td><td>'+statusBadge(l.PayoutStatus)+'</td></tr>').join('')+'</tbody></table></div>':'<div class="empty-state">No collected earnings yet. Earnings accrue once student payments are verified.</div>')+'</div>'+
+        '<div class="card"><h3>Payout History</h3>'+(e.payouts.length?'<div class="table-wrap"><table><thead><tr><th>Payout ID</th><th>Period</th><th>Net Amount</th><th>Method / Ref</th><th>Date</th><th>Status</th><th>Statement</th></tr></thead><tbody>'+e.payouts.map(p=>'<tr><td><b>'+esc(p.PayoutId)+'</b></td><td>'+esc(p.PeriodLabel)+'</td><td><b>'+inr(p.NetPayoutAmount)+'</b></td><td>'+esc(p.PayoutMethod)+' '+esc(p.PayoutReference)+'</td><td>'+esc(p.PayoutDate||'—')+'</td><td>'+statusBadge(p.Status)+'</td><td>'+(p.StatementPdfUrl?'<a class="btn btn-outline btn-sm" href="'+esc(p.StatementPdfUrl)+'" target="_blank" rel="noopener">PDF</a>':'—')+'</td></tr>').join('')+'</tbody></table></div>':'<div class="empty-state">No payouts processed yet.</div>')+'</div>';
+      } else if(state.portalTab==='payout'){
+        const pp=await apiCall('tutorGetPayoutProfile',{},{allowRetry:true});
+        body().innerHTML='<div class="card" style="max-width:560px"><h3>Payout Profile</h3><p class="help-text">Used only to pay your earnings. Payouts are never sent without a recorded UTR.</p><form onsubmit="App.savePayoutProfile(event)"><div class="form-group" style="margin-bottom:.8rem"><label for="pp-upi">UPI ID</label><input id="pp-upi" value="'+esc(pp.upiId)+'" placeholder="yourname@bank" autocapitalize="none" /></div><div class="form-group" style="margin-bottom:.8rem"><label for="pp-bank">Bank Details (optional)</label><textarea id="pp-bank" rows="3" placeholder="Account holder name, account number, IFSC">'+esc(pp.bankDetails)+'</textarea></div><button class="btn btn-primary" type="submit">Save Payout Profile</button></form></div>';
+      } else { const t=await apiCall('tutorGetTickets',{},{allowRetry:true}); renderPortalTicketsView('tutor-portal-body','tutor',t); }
+    }catch(e){ const b=body(); if(b) b.innerHTML='<div class="card"><p class="badge badge-red">Could not load</p><p>'+esc(e.message)+'</p><button class="btn btn-outline btn-sm" onclick="App.navigate(\'#/tutor\')">Retry</button></div>'; }
+  }
+  async function savePayoutProfile(e){
+    e.preventDefault(); const upi=document.getElementById('pp-upi').value.trim();
+    if(upi&&!/^[a-zA-Z0-9._-]{2,}@[a-zA-Z]{2,}$/.test(upi)) return toast('Enter a valid UPI ID like name@bank.','error');
+    try{ await apiCall('tutorSavePayoutProfile',{upiId:upi,bankDetails:document.getElementById('pp-bank').value}); toast('Payout profile saved.','success'); }catch(err){}
+  }
+  function downloadTutorEarningsCsv(){
+    if(!state.lastTutorLedger||!state.lastTutorLedger.length) return toast('No earnings data to export.','error');
+    exportToCsv('TutorSync_Earnings_Statement.csv',['LedgerId','BillingMonth','AssignmentId','Collected','CommissionPct','CommissionAmount','Adjustment','NetPayable','PayoutStatus'],state.lastTutorLedger.map(l=>[l.LedgerId,l.BillingMonth,l.AssignmentId,l.EligibleCollectedAmount,l.CommissionRatePct,l.CommissionAmount,l.TutorAdjustmentAmount,l.NetTutorPayable,l.PayoutStatus]));
+  }
+  async function expressInterest(studentId){
+    const note=prompt('Optional note for the coordinator (availability, fee flexibility, etc.):'); if(note===null) return;
+    try{ await apiCall('tutorExpressInterest',{studentId,note}); toast('Interest recorded. The coordinator will contact you if shortlisted.','success'); renderTutorPortal(); }catch(e){}
+  }
+  function openTutorLogSessionModal(){
+    const act=state.tutorActive||[]; if(!act.length) return toast('No active assignments to log sessions for.','error');
+    openModal('Log Tuition Session / Trial Feedback','<form onsubmit="App.submitTutorSession(event)"><div class="form-grid">'+
+      '<div class="form-group full"><label class="req" for="ts-asg">Assignment</label><select id="ts-asg">'+act.map(a=>'<option value="'+esc(a.AssignmentId)+'">'+esc(a.AssignmentId)+' — '+esc(a.StudentName)+'</option>').join('')+'</select></div>'+
+      '<div class="form-group"><label class="req" for="ts-date">Date</label><input id="ts-date" type="date" value="'+new Date().toISOString().slice(0,10)+'" required /></div>'+
+      '<div class="form-group"><label class="req" for="ts-time">Start Time</label><input id="ts-time" type="time" value="17:00" required /></div>'+
+      '<div class="form-group"><label class="req" for="ts-dur">Duration (mins)</label><input id="ts-dur" type="number" inputmode="numeric" value="60" min="15" required /></div>'+
+      '<div class="form-group"><label class="req" for="ts-type">Session Type</label><select id="ts-type"><option value="REGULAR">Regular</option><option value="TRIAL">Trial / Demo</option></select></div>'+
+      '<div class="form-group full"><label class="req" for="ts-stat">Attendance Status</label><select id="ts-stat"><option value="COMPLETED">COMPLETED</option><option value="CANCELLED_STUDENT">CANCELLED_STUDENT</option><option value="CANCELLED_TUTOR">CANCELLED_TUTOR</option><option value="RESCHEDULED">RESCHEDULED</option></select></div>'+
+      '<div class="form-group full"><label for="ts-notes">Topics Covered / Trial Feedback</label><textarea id="ts-notes" rows="2"></textarea></div>'+
+      '<div class="form-group full"><button type="submit" class="btn btn-primary">Save Session</button></div></div></form>');
+  }
+  async function submitTutorSession(e){
+    e.preventDefault();
+    try{ await apiCall('tutorLogSession',{assignmentId:document.getElementById('ts-asg').value,sessionDate:document.getElementById('ts-date').value,startTime:document.getElementById('ts-time').value,durationMins:document.getElementById('ts-dur').value,sessionType:document.getElementById('ts-type').value,attendanceStatus:document.getElementById('ts-stat').value,notes:document.getElementById('ts-notes').value}); closeModal(); toast('Session logged.','success'); renderTutorPortal(); }catch(err){}
+  }
+
+  function renderPortalTicketsView(containerId,role,tickets){
+    document.getElementById(containerId).innerHTML='<div class="grid-2"><div class="card"><h3>Raise Support Request</h3><form onsubmit="App.submitPortalTicket(event,\''+role+'\')"><div class="form-group" style="margin-bottom:.75rem"><label class="req" for="pt-cat">Category</label><select id="pt-cat"><option value="GENERAL">General</option><option value="SCHEDULE">Schedule / Attendance</option><option value="BILLING">Billing / Invoice</option><option value="PAYOUT">Tutor Payout</option><option value="QUALITY_DISPUTE">Quality / Dispute</option></select></div><div class="form-group" style="margin-bottom:.75rem"><label class="req" for="pt-sub">Subject</label><input id="pt-sub" required /></div><div class="form-group" style="margin-bottom:.75rem"><label class="req" for="pt-desc">Details</label><textarea id="pt-desc" rows="3" required></textarea></div><button type="submit" class="btn btn-primary">Submit Ticket</button></form></div>'+
+    '<div class="card"><h3>My Support Tickets</h3>'+(tickets.length?tickets.map(t=>'<div style="border-bottom:1px solid var(--border);padding:.65rem 0"><div style="display:flex;justify-content:space-between;gap:.5rem;flex-wrap:wrap"><b>'+esc(t.TicketId)+': '+esc(t.Subject)+'</b>'+statusBadge(t.Status)+'</div><p style="margin:.25rem 0;font-size:.84rem">'+esc(t.Description)+'</p>'+(t.AdminResponse?'<div style="background:var(--surface);padding:.45rem;border-radius:6px;font-size:.82rem"><b>Admin Reply:</b> '+esc(t.AdminResponse)+'</div>':'')+'</div>').join(''):'<div class="empty-state">No support tickets yet.</div>')+'</div></div>';
+  }
+  async function submitPortalTicket(e,role){
+    e.preventDefault();
+    try{ await apiCall(role+'CreateTicket',{category:document.getElementById('pt-cat').value,subject:document.getElementById('pt-sub').value,description:document.getElementById('pt-desc').value}); toast('Support ticket submitted.','success'); if(role==='student') renderStudentPortal(); else renderTutorPortal(); }catch(err){}
+  }
+
+  /* ========================================================================
+   * ADMIN CONSOLE
+   * ======================================================================== */
+  const ADMIN_NAV=[
+    {group:'Overview',items:[{id:'gates',label:'Critical Gates Inbox'},{id:'dashboard',label:'Dashboard'}]},
+    {group:'Participants & Matching',items:[{id:'verification',label:'Verification Queue'},{id:'students',label:'Students'},{id:'tutors',label:'Tutors'},{id:'matching',label:'Matching Engine'},{id:'assignments',label:'Tuition Assignments'}]},
+    {group:'Operations',items:[{id:'sessions',label:'Sessions & Attendance'},{id:'notifications',label:'Notifications & Tickets'}]},
+    {group:'Finance',items:[{id:'invoices',label:'Invoices'},{id:'payments',label:'Student Payments'},{id:'ledger',label:'Tutor Earnings'},{id:'commissions',label:'Commission Management'},{id:'payouts',label:'Tutor Payouts'}]},
+    {group:'Governance',items:[{id:'reports',label:'Reports & CSV Export'},{id:'settings',label:'Settings & Automation'},{id:'audit',label:'Audit Log'}]}
+  ];
+
+  function renderAdminShell(){
+    if(!state.session||state.session.user.role!=='ADMIN') return navigate('#/login');
+    document.getElementById('app-root').innerHTML='<div class="portal-shell"><aside class="sidebar" id="admin-sidebar" aria-label="Admin navigation"><div style="display:flex;align-items:center;gap:.5rem;padding:.4rem .65rem .75rem;border-bottom:1px solid var(--border);margin-bottom:.25rem">'+EDU_ICONS.einsteinBadge+'<div style="line-height:1.2"><b style="color:var(--primary);font-size:.88rem">Admin Console</b><br><span class="help-text">Academic Ops</span></div></div>'+
+      ADMIN_NAV.map(g=>'<div class="sidebar-group">'+esc(g.group)+'</div>'+g.items.map(it=>'<button class="side-btn '+(state.adminModule===it.id?'active':'')+'" data-mod="'+it.id+'" onclick="App.loadAdminModule(\''+it.id+'\')">'+esc(it.label)+'</button>').join('')).join('')+
+      '</aside><div class="main-area" id="admin-main">'+skel(5)+'</div></div>';
+    loadAdminModule(state.adminModule||'gates');
+  }
+
+  async function loadAdminModule(modId){
+    state.adminModule=modId; closeSidebar();
+    const sb=document.getElementById('admin-sidebar'); if(sb) sb.querySelectorAll('.side-btn').forEach(b=>b.classList.toggle('active',b.getAttribute('data-mod')===modId));
+    const c=document.getElementById('admin-main'); if(!c) return;
+    c.innerHTML=skel(5); window.scrollTo(0,0);
+    try{
+      const map={gates:renderAdminGates,dashboard:renderAdminDashboard,verification:renderAdminVerification,students:renderAdminStudents,tutors:renderAdminTutors,matching:renderAdminMatching,assignments:renderAdminAssignments,sessions:renderAdminSessions,invoices:renderAdminInvoices,payments:renderAdminPayments,ledger:renderAdminLedger,commissions:renderAdminCommissions,payouts:renderAdminPayouts,notifications:renderAdminNotificationsAndTickets,reports:renderAdminReports,settings:renderAdminSettings,audit:renderAdminAudit};
+      if(map[modId]) await map[modId](c);
+    }catch(e){ c.innerHTML='<div class="card"><p class="badge badge-red">Error loading module</p><p>'+esc(e.message)+'</p><button class="btn btn-outline btn-sm" onclick="App.loadAdminModule(\''+modId+'\')">Retry</button></div>'; }
+  }
+
+  function renderDataTable(containerId,config){
+    const el=document.getElementById(containerId); if(!el) return;
+    const pageSize=20; let query='',filterVal='',page=1,sortCol=null,sortAsc=true;
+    function draw(){
+      let rows=config.rows.slice();
+      if(filterVal&&config.filterField) rows=rows.filter(r=>String(r[config.filterField])===filterVal);
+      if(query){ const q=query.toLowerCase(); rows=rows.filter(r=>config.columns.some(c=>String(r[c.key]||'').toLowerCase().indexOf(q)!==-1)); }
+      if(sortCol) rows.sort((a,b)=>{ const av=a[sortCol]||'',bv=b[sortCol]||''; return sortAsc?String(av).localeCompare(String(bv),undefined,{numeric:true}):String(bv).localeCompare(String(av),undefined,{numeric:true}); });
+      const total=rows.length, pages=Math.max(1,Math.ceil(total/pageSize)); if(page>pages) page=pages;
+      const slice=rows.slice((page-1)*pageSize,page*pageSize);
+      el.innerHTML='<div class="table-toolbar"><div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center"><input type="search" placeholder="Search..." aria-label="Search table" value="'+esc(query)+'" style="width:200px;max-width:100%" id="'+containerId+'-q" />'+
+        (config.filterOptions?'<select id="'+containerId+'-f" aria-label="Filter by status" style="width:170px"><option value="">All Statuses</option>'+config.filterOptions.map(o=>'<option value="'+esc(o)+'"'+(filterVal===o?' selected':'')+'>'+esc(o)+'</option>').join('')+'</select>':'')+'</div><div style="display:flex;gap:.4rem">'+(config.toolbarHtml||'')+'</div></div>'+
+        '<div class="table-wrap"><table><thead><tr>'+config.columns.map(c=>'<th data-col="'+esc(c.key)+'" scope="col">'+esc(c.label)+'</th>').join('')+(config.actions?'<th scope="col">Actions</th>':'')+'</tr></thead><tbody>'+
+        (slice.length?slice.map(r=>'<tr>'+config.columns.map(c=>'<td class="'+(c.num?'num':'')+'">'+(c.render?c.render(r):esc(r[c.key]))+'</td>').join('')+(config.actions?'<td>'+config.actions(r)+'</td>':'')+'</tr>').join(''):'<tr><td colspan="'+(config.columns.length+(config.actions?1:0))+'" class="empty-state">No matching records found.</td></tr>')+
+        '</tbody></table></div><div class="pagination"><span>Showing '+slice.length+' of '+total+' (Page '+page+'/'+pages+')</span><div style="display:flex;gap:.35rem"><button class="btn btn-outline btn-sm" '+(page<=1?'disabled':'')+' id="'+containerId+'-prev">Prev</button><button class="btn btn-outline btn-sm" '+(page>=pages?'disabled':'')+' id="'+containerId+'-next">Next</button></div></div>';
+      const qEl=document.getElementById(containerId+'-q'); qEl.oninput=()=>{ query=qEl.value; page=1; draw(); const n=document.getElementById(containerId+'-q'); if(n){ n.focus(); n.setSelectionRange(n.value.length,n.value.length); } };
+      const fEl=document.getElementById(containerId+'-f'); if(fEl) fEl.onchange=()=>{ filterVal=fEl.value; page=1; draw(); };
+      el.querySelectorAll('th[data-col]').forEach(th=>th.onclick=()=>{ const col=th.getAttribute('data-col'); if(sortCol===col) sortAsc=!sortAsc; else{ sortCol=col; sortAsc=true; } draw(); });
+      document.getElementById(containerId+'-prev').onclick=()=>{ if(page>1){ page--; draw(); } };
+      document.getElementById(containerId+'-next').onclick=()=>{ if(page<pages){ page++; draw(); } };
+    }
+    draw();
+  }
+
+  /* ---- Critical Gates Inbox ---- */
+  async function renderAdminGates(c){
+    const g=await apiCall('adminGetGates',{},{allowRetry:true});
+    const pct=Math.min(100,Math.round((g.gmail.used/Math.max(1,g.gmail.limit))*100)); const warn=pct>=80;
+    const total=g.tutorVetting.length+g.offerApprovals.length+g.utrClaims.length+g.payoutTransfers.length;
+    c.innerHTML='<div class="topbar-portal"><div><h2 style="margin:0">Critical Gates Inbox</h2><span class="help-text">'+total+' item'+(total===1?'':'s')+' need your decision. Everything else runs on autopilot.</span></div><button class="btn btn-outline btn-sm" onclick="App.loadAdminModule(\'gates\')">Refresh</button></div>'+
+    '<div class="card" style="margin-bottom:1rem'+(warn?';border-color:#f59e0b;background:#fffbeb':'')+'"><div style="display:flex;justify-content:space-between;gap:.5rem;flex-wrap:wrap;margin-bottom:.4rem"><b>Gmail daily sends</b><span>'+g.gmail.used+' / '+g.gmail.limit+'</span></div><div class="meter" role="progressbar" aria-valuenow="'+pct+'" aria-valuemin="0" aria-valuemax="100"><div style="width:'+pct+'%'+(warn?';background:#d97706':'')+'"></div></div>'+(warn?'<p class="help-text" style="margin:.4rem 0 0;color:#92400e">Close to the free Gmail limit. Automated emails pause near the cap; use the WhatsApp buttons for urgent messages.</p>':'<p class="help-text" style="margin:.4rem 0 0">Counted by TutorSync since this feature was enabled.</p>')+'</div>'+
+    '<div class="card" style="margin-bottom:1rem"><h3>Gate 1 — Tutor Vetting ('+g.tutorVetting.length+')</h3>'+(g.tutorVetting.length?g.tutorVetting.map(t=>'<div class="gate-card"><div><b>'+esc(t.FullName)+'</b> <span class="help-text">'+esc(t.TutorId)+' · '+esc(t.Phone)+'</span><br><span class="badge '+(t.Score>=70?'badge-green':t.Score>=45?'badge-amber':'badge-red')+'">Profile '+t.Score+'%</span></div><div style="display:flex;gap:.35rem;flex-wrap:wrap">'+(t.wa?'<a class="btn btn-wa btn-sm" href="'+esc(t.wa)+'" target="_blank" rel="noopener">WhatsApp</a>':'')+'<button class="btn btn-accent btn-sm" onclick="App.verifyEntity(\'Tutors\',\''+esc(t.TutorId)+'\',\'VERIFIED\')">Verify</button><button class="btn btn-danger btn-sm" onclick="App.verifyEntity(\'Tutors\',\''+esc(t.TutorId)+'\',\'REJECTED\')">Reject</button></div></div>').join(''):'<div class="empty-state">No tutors waiting for vetting.</div>')+'</div>'+
+    '<div class="card" style="margin-bottom:1rem"><h3>Gate 2 — Offer Approval ('+g.offerApprovals.length+')</h3><p class="help-text">Tutors who expressed interest. Creating an assignment sends the offer to both sides.</p>'+(g.offerApprovals.length?g.offerApprovals.map(m=>'<div class="gate-card"><div><b>'+esc(m.StudentName||m.StudentId)+'</b> ↔ <b>'+esc(m.TutorName||m.TutorId)+'</b><br><span class="help-text">'+esc(m.MatchId)+' · Score '+esc(m.Score)+'/100</span></div><button class="btn btn-accent btn-sm" onclick="App.openAssignmentModal(\''+esc(m.StudentId)+'\',\''+esc(m.TutorId)+'\',\''+esc(m.MatchId)+'\')">Create Offer</button></div>').join(''):'<div class="empty-state">No interested tutors waiting.</div>')+'</div>'+
+    '<div class="card" style="margin-bottom:1rem"><h3>Gate 3 — UTR Reconciliation ('+g.utrClaims.length+')</h3><p class="help-text">Check each UTR in your bank/UPI statement before verifying. Verifying records the payment, issues a receipt and credits the tutor ledger.</p>'+(g.utrClaims.length?g.utrClaims.map(cl=>'<div class="gate-card"><div><b>'+inr(cl.Amount)+'</b> · UTR <code>'+esc(cl.Utr)+'</code><br><span class="help-text">'+esc(cl.ClaimId)+' · Invoice '+esc(cl.InvoiceId)+' · '+esc(cl.StudentId)+' · '+esc(String(cl.ClaimedAt).slice(0,16).replace('T',' '))+'</span>'+(cl.Note?'<br><span class="help-text">Note: '+esc(cl.Note)+'</span>':'')+'</div><div style="display:flex;gap:.35rem;flex-wrap:wrap"><button class="btn btn-accent btn-sm" onclick="App.verifyClaim(\''+esc(cl.ClaimId)+'\',\''+esc(cl.Utr)+'\','+Number(cl.Amount)+')">Verify UTR &amp; Reconcile</button><button class="btn btn-danger btn-sm" onclick="App.rejectClaim(\''+esc(cl.ClaimId)+'\')">Reject</button></div></div>').join(''):'<div class="empty-state">No payment claims waiting.</div>')+'</div>'+
+    '<div class="card"><h3>Gate 4 — Payout Transfers ('+g.payoutTransfers.length+')</h3><p class="help-text">Transfer the money from your own bank/UPI app, then enter the UTR and date. A payout is never marked PAID without them.</p>'+(g.payoutTransfers.length?g.payoutTransfers.map(p=>'<div class="gate-card"><div><b>'+inr(p.NetPayoutAmount)+'</b> to '+esc(p.TutorId)+' '+statusBadge(p.Status)+'<br><span class="help-text">'+esc(p.PayoutId)+' · '+esc(p.PeriodLabel)+'</span></div><div style="display:flex;gap:.35rem;flex-wrap:wrap">'+(p.Status==='PENDING'?'<button class="btn btn-outline btn-sm" onclick="App.approvePayout(\''+esc(p.PayoutId)+'\')">Approve</button>':'')+'<button class="btn btn-accent btn-sm" onclick="App.openMarkPaidModal(\''+esc(p.PayoutId)+'\','+Number(p.NetPayoutAmount)+')">Mark Paid</button></div></div>').join(''):'<div class="empty-state">No payouts waiting.</div>')+'</div>';
+  }
+  async function verifyClaim(claimId,utr,amount){
+    if(!confirm('Confirm you have seen UTR '+utr+' for '+inr(amount)+' in your bank/UPI statement?')) return;
+    try{ const r=await apiCall('adminVerifyClaim',{claimId}); toast('Verified. Receipt '+(r.payment?r.payment.ReceiptNumber:'')+' issued.','success'); loadAdminModule('gates'); }catch(e){}
+  }
+  async function rejectClaim(claimId){
+    const note=prompt('Reason for rejecting this claim (shown in the audit log):'); if(!note) return;
+    try{ await apiCall('adminRejectClaim',{claimId,note}); toast('Claim rejected.','success'); loadAdminModule('gates'); }catch(e){}
+  }
+
+  /* ---- Dashboard ---- */
+  async function renderAdminDashboard(c){
+    const d=await apiCall('adminGetDashboard',{},{allowRetry:true}); const k=d.kpis;
+    c.innerHTML='<div class="topbar-portal"><div><h2 style="margin:0">Administrator Dashboard</h2><span class="help-text">Operations, verification, billing &amp; settlement overview</span></div><button class="btn btn-outline btn-sm" onclick="App.loadAdminModule(\'dashboard\')">Refresh</button></div>'+
+    '<div class="kpi-grid">'+
+    [['Students',k.totalStudents,k.verifiedStudents+' verified/active',''],['Tutors',k.totalTutors,k.verifiedTutors+' verified/active',''],['Active Tuitions',k.activeAssignments,k.pendingMatching+' awaiting match',''],['Pending Verification',k.pendingVerification,k.newRegistrations+' brand new','verification'],
+     ['Month Invoiced',inr(k.monthInvoiced),'Current billing cycle',''],['Month Collected',inr(k.monthCollected),'Reconciled payments',''],['Receivables',inr(k.outstandingReceivables),k.overdueCount+' overdue ('+inr(k.overdueAmount)+')',''],['Commission Earned',inr(k.commissionEarned),'From collected fees',''],['Tutor Payable',inr(k.tutorPayable),k.pendingPayouts+' open payout batches','payouts'],['Open Tickets',k.openTickets,'Support desk','notifications']
+    ].map(x=>'<div class="kpi-card"'+(x[3]?' style="cursor:pointer" onclick="App.loadAdminModule(\''+x[3]+'\')"':'')+'><div class="kpi-label">'+x[0]+'</div><div class="kpi-val">'+x[1]+'</div><div class="kpi-sub">'+x[2]+'</div></div>').join('')+'</div>'+
+    '<div class="card" style="margin-bottom:1.25rem"><h4 style="margin-bottom:.65rem">Quick Actions</h4><div style="display:flex;flex-wrap:wrap;gap:.5rem"><button class="btn btn-primary btn-sm" onclick="App.loadAdminModule(\'gates\')">Open Gates Inbox</button><button class="btn btn-primary btn-sm" onclick="App.openStudentModal()">+ Add Student</button><button class="btn btn-primary btn-sm" onclick="App.openTutorModal()">+ Add Tutor</button><button class="btn btn-outline btn-sm" onclick="App.loadAdminModule(\'verification\')">Verify ('+k.pendingVerification+')</button><button class="btn btn-outline btn-sm" onclick="App.loadAdminModule(\'matching\')">Create Match</button><button class="btn btn-outline btn-sm" onclick="App.openAssignmentModal()">Create Assignment</button><button class="btn btn-accent btn-sm" onclick="App.openGenerateInvoicesModal()">Generate Invoices</button><button class="btn btn-accent btn-sm" onclick="App.loadAdminModule(\'invoices\')">Record Payment</button><button class="btn btn-outline btn-sm" onclick="App.loadAdminModule(\'payouts\')">Prepare Payout</button><button class="btn btn-outline btn-sm" onclick="App.loadAdminModule(\'notifications\')">Send Notification</button></div></div>'+
+    '<div class="card"><h3>Recent Activity</h3>'+(d.recentActivity.length?'<div class="table-wrap"><table><thead><tr><th>Time</th><th>Actor</th><th>Action</th><th>Entity</th><th>Details</th></tr></thead><tbody>'+d.recentActivity.map(a=>'<tr><td style="white-space:nowrap">'+esc(String(a.Timestamp).slice(0,16).replace('T',' '))+'</td><td>'+esc(a.ActorRole)+'</td><td><b>'+esc(a.Action)+'</b></td><td>'+esc(a.EntityType)+' · '+esc(a.EntityId)+'</td><td>'+esc(a.Reason)+'</td></tr>').join('')+'</tbody></table></div>':'<div class="empty-state">No activity logged yet.</div>')+'</div>';
+  }
+
+  /* ---- Verification queue ---- */
+  async function renderAdminVerification(c){
+    const [students,tutors]=await Promise.all([apiCall('adminListStudents',{}),apiCall('adminListTutors',{})]);
+    const ps=students.filter(s=>s.Status==='NEW'||s.Status==='UNDER_REVIEW'), pt=tutors.filter(t=>t.Status==='NEW'||t.Status==='UNDER_REVIEW');
+    const btns=(sheet,id)=>'<button class="btn btn-accent btn-sm" onclick="App.verifyEntity(\''+sheet+'\',\''+esc(id)+'\',\'VERIFIED\')">Verify</button> <button class="btn btn-outline btn-sm" onclick="App.verifyEntity(\''+sheet+'\',\''+esc(id)+'\',\'UNDER_REVIEW\')">Review</button> <button class="btn btn-danger btn-sm" onclick="App.verifyEntity(\''+sheet+'\',\''+esc(id)+'\',\'REJECTED\')">Reject</button>';
+    c.innerHTML='<div class="topbar-portal"><h2 style="margin:0">Verification Queue</h2></div>'+
+    '<div class="card" style="margin-bottom:1.25rem"><h3>Pending Students ('+ps.length+')</h3>'+(ps.length?'<div class="table-wrap"><table><thead><tr><th>ID</th><th>Name</th><th>Phone / WA</th><th>Class / Board</th><th>Subjects</th><th>Budget</th><th>Status</th><th>Verify</th></tr></thead><tbody>'+ps.map(s=>'<tr><td><b>'+esc(s.StudentId)+'</b></td><td>'+esc(s.ParentOrStudentName)+'<br><span class="help-text">'+esc(s.Email)+'</span></td><td>'+esc(s.Phone)+' / '+esc(s.WhatsApp)+'</td><td>'+esc(s.ClassGrade)+' ('+esc(s.Board)+')</td><td>'+esc(parseArr(s.SubjectsRequired).join(', '))+'</td><td>'+inr(s.BudgetPerMonth)+'</td><td>'+statusBadge(s.Status)+'</td><td style="white-space:nowrap">'+waBtn(s.WhatsApp||s.Phone,'Hello '+s.ParentOrStudentName+', this is TutorSync regarding your tuition request '+s.StudentId+'.','WhatsApp')+' '+btns('Students',s.StudentId)+'</td></tr>').join('')+'</tbody></table></div>':'<div class="empty-state">All student registrations are verified.</div>')+'</div>'+
+    '<div class="card"><h3>Pending Tutors ('+pt.length+')</h3>'+(pt.length?'<div class="table-wrap"><table><thead><tr><th>ID</th><th>Name</th><th>Phone</th><th>Qualifications</th><th>Subjects</th><th>Expected Fee</th><th>Docs</th><th>Verify</th></tr></thead><tbody>'+pt.map(t=>'<tr><td><b>'+esc(t.TutorId)+'</b></td><td>'+esc(t.FullName)+'<br><span class="help-text">'+esc(t.Email)+'</span></td><td>'+esc(t.Phone)+'</td><td>'+esc(t.Qualifications)+' ('+esc(t.ExperienceYears)+'y)</td><td>'+esc(parseArr(t.Subjects).join(', '))+'</td><td>'+inr(t.ExpectedMonthlyFee)+'</td><td>'+(t.DocumentUrl?'<a href="'+esc(t.DocumentUrl)+'" target="_blank" rel="noopener">View</a>':'None')+'</td><td style="white-space:nowrap">'+waBtn(t.WhatsApp||t.Phone,'Hello '+t.FullName+', this is TutorSync regarding your tutor application '+t.TutorId+'.','WhatsApp')+' '+btns('Tutors',t.TutorId)+'</td></tr>').join('')+'</tbody></table></div>':'<div class="empty-state">All tutor applications are verified.</div>')+'</div>';
+  }
+  async function verifyEntity(sheet,entityId,status){
+    const notes=prompt(status==='REJECTED'?'Enter mandatory rejection reason:':'Optional verification notes:');
+    if(status==='REJECTED'&&!notes) return toast('Rejection reason is required.','error');
+    if(notes===null) return;
+    try{ await apiCall(sheet==='Students'?'adminVerifyStudent':'adminVerifyTutor',{entityId,status,notes}); toast(entityId+' marked '+status,'success'); state.publicDirectory.loaded=false; loadAdminModule(state.adminModule); }catch(e){}
+  }
+
+  /* ---- Students ---- */
+  async function renderAdminStudents(c){
+    const rows=await apiCall('adminListStudents',{}); state.adminCache.students=rows;
+    c.innerHTML='<div class="topbar-portal"><h2 style="margin:0">Student Management</h2><button class="btn btn-primary btn-sm" onclick="App.openStudentModal()">+ Add Student</button></div><div id="tbl-students"></div>';
+    renderDataTable('tbl-students',{rows,filterField:'Status',filterOptions:['NEW','UNDER_REVIEW','VERIFIED','ACTIVE','INACTIVE','REJECTED'],
+      columns:[{key:'StudentId',label:'ID'},{key:'ParentOrStudentName',label:'Name',render:r=>'<b>'+esc(r.ParentOrStudentName)+'</b><br><span class="help-text">'+esc(r.Phone)+' · '+esc(r.Email)+'</span>'},{key:'ClassGrade',label:'Class / Board',render:r=>esc(r.ClassGrade)+' ('+esc(r.Board)+')'},{key:'SubjectsRequired',label:'Subjects',render:r=>esc(parseArr(r.SubjectsRequired).join(', '))},{key:'TeachingMode',label:'Mode / PIN',render:r=>esc(r.TeachingMode)+' '+esc(r.PinCode)},{key:'BudgetPerMonth',label:'Budget',num:true,render:r=>inr(r.BudgetPerMonth)},{key:'Status',label:'Status',render:r=>statusBadge(r.Status)}],
+      actions:r=>'<div style="display:flex;gap:.3rem;flex-wrap:wrap">'+waBtn(r.WhatsApp||r.Phone,'Hello '+r.ParentOrStudentName+', this is TutorSync.','WA')+'<button class="btn btn-outline btn-sm" onclick="App.openStudentModal(\''+esc(r.StudentId)+'\')">Edit</button><button class="btn btn-outline btn-sm" onclick="App.archiveEntity(\'adminSoftDeleteStudent\',\''+esc(r.StudentId)+'\')">Archive</button></div>'});
+  }
+  function openStudentModal(id){
+    const s=id?(state.adminCache.students||[]).find(x=>x.StudentId===id):null;
+    openModal(s?'Edit Student '+s.StudentId:'Add Student','<form onsubmit="App.saveAdminStudent(event,\''+esc(id||'')+'\')"><div class="form-grid">'+
+      '<div class="form-group"><label class="req" for="as-name">Name</label><input id="as-name" value="'+esc(s?s.ParentOrStudentName:'')+'" required/></div><div class="form-group"><label class="req" for="as-email">Email</label><input id="as-email" type="email" value="'+esc(s?s.Email:'')+'" required/></div>'+
+      '<div class="form-group"><label class="req" for="as-phone">Phone</label><input id="as-phone" type="tel" inputmode="numeric" value="'+esc(s?s.Phone:'')+'" required/></div><div class="form-group"><label for="as-wa">WhatsApp</label><input id="as-wa" type="tel" inputmode="numeric" value="'+esc(s?s.WhatsApp:'')+'"/></div>'+
+      '<div class="form-group"><label class="req" for="as-cls">Class/Grade</label><input id="as-cls" value="'+esc(s?s.ClassGrade:'Class 10')+'" required/></div><div class="form-group"><label class="req" for="as-brd">Board</label><select id="as-brd">'+['CBSE','ICSE','WB','OTHER'].map(b=>'<option'+(s&&s.Board===b?' selected':'')+'>'+b+'</option>').join('')+'</select></div>'+
+      '<div class="form-group full"><label class="req" for="as-sub">Subjects (comma-separated)</label><input id="as-sub" value="'+esc(s?parseArr(s.SubjectsRequired).join(', '):'')+'" required/></div>'+
+      '<div class="form-group"><label class="req" for="as-mode">Mode</label><select id="as-mode">'+['OFFLINE','ONLINE','HYBRID'].map(m=>'<option'+(s&&s.TeachingMode===m?' selected':'')+'>'+m+'</option>').join('')+'</select></div><div class="form-group"><label class="req" for="as-bud">Budget/mo (₹)</label><input id="as-bud" type="number" inputmode="numeric" value="'+esc(s?s.BudgetPerMonth:4000)+'" required/></div>'+
+      '<div class="form-group"><label for="as-area">Area/Locality</label><input id="as-area" value="'+esc(s?s.AreaLocality:'')+'"/></div><div class="form-group"><label for="as-pin">PIN Code</label><input id="as-pin" inputmode="numeric" maxlength="6" value="'+esc(s?s.PinCode:'')+'"/></div>'+
+      '<div class="form-group"><label for="as-days">Preferred Days</label><input id="as-days" value="'+esc(s?parseArr(s.PreferredDays).join(', '):'Mon, Wed, Fri')+'"/></div><div class="form-group"><label for="as-stat">Status</label><select id="as-stat">'+['NEW','UNDER_REVIEW','VERIFIED','ACTIVE','INACTIVE','REJECTED'].map(st=>'<option'+((s?s.Status:'VERIFIED')===st?' selected':'')+'>'+st+'</option>').join('')+'</select></div>'+
+      '<div class="form-group full"><button type="submit" class="btn btn-primary">Save Student</button></div></div></form>');
+  }
+  async function saveAdminStudent(e,id){
+    e.preventDefault();
+    try{ await apiCall('adminSaveStudent',{studentId:id||undefined,name:document.getElementById('as-name').value,email:document.getElementById('as-email').value,phone:document.getElementById('as-phone').value,whatsapp:document.getElementById('as-wa').value,classGrade:document.getElementById('as-cls').value,board:document.getElementById('as-brd').value,subjectsRequired:document.getElementById('as-sub').value,teachingMode:document.getElementById('as-mode').value,budgetPerMonth:document.getElementById('as-bud').value,areaLocality:document.getElementById('as-area').value,pinCode:document.getElementById('as-pin').value,preferredDays:document.getElementById('as-days').value,status:document.getElementById('as-stat').value}); closeModal(); toast('Student saved.','success'); loadAdminModule('students'); }catch(err){}
+  }
+
+  /* ---- Tutors ---- */
+  async function renderAdminTutors(c){
+    const rows=await apiCall('adminListTutors',{}); state.adminCache.tutors=rows;
+    c.innerHTML='<div class="topbar-portal"><h2 style="margin:0">Tutor Management</h2><button class="btn btn-primary btn-sm" onclick="App.openTutorModal()">+ Add Tutor</button></div><div id="tbl-tutors"></div>';
+    renderDataTable('tbl-tutors',{rows,filterField:'Status',filterOptions:['NEW','UNDER_REVIEW','VERIFIED','ACTIVE','INACTIVE','REJECTED'],
+      columns:[{key:'TutorId',label:'ID'},{key:'FullName',label:'Tutor',render:r=>'<b>'+esc(r.FullName)+'</b><br><span class="help-text">'+esc(r.Phone)+' · '+esc(r.Email)+'</span>'},{key:'Qualifications',label:'Qual / Exp',render:r=>esc(r.Qualifications)+' ('+esc(r.ExperienceYears)+'y)'},{key:'Subjects',label:'Subjects',render:r=>esc(parseArr(r.Subjects).join(', '))},{key:'TeachingMode',label:'Mode / PINs',render:r=>esc(r.TeachingMode)+' · '+esc(parseArr(r.PinCodes).join(', '))},{key:'ExpectedMonthlyFee',label:'Exp. Fee',num:true,render:r=>inr(r.ExpectedMonthlyFee)},{key:'Status',label:'Status',render:r=>statusBadge(r.Status)}],
+      actions:r=>'<div style="display:flex;gap:.3rem;flex-wrap:wrap">'+waBtn(r.WhatsApp||r.Phone,'Hello '+r.FullName+', this is TutorSync.','WA')+'<button class="btn btn-outline btn-sm" onclick="App.openTutorModal(\''+esc(r.TutorId)+'\')">Edit</button><button class="btn btn-outline btn-sm" onclick="App.archiveEntity(\'adminSoftDeleteTutor\',\''+esc(r.TutorId)+'\')">Archive</button></div>'});
+  }
+  function openTutorModal(id){
+    const t=id?(state.adminCache.tutors||[]).find(x=>x.TutorId===id):null;
+    openModal(t?'Edit Tutor '+t.TutorId:'Add Tutor','<form onsubmit="App.saveAdminTutor(event,\''+esc(id||'')+'\')"><div class="form-grid">'+
+      '<div class="form-group"><label class="req" for="at-name">Full Name</label><input id="at-name" value="'+esc(t?t.FullName:'')+'" required/></div><div class="form-group"><label class="req" for="at-email">Email</label><input id="at-email" type="email" value="'+esc(t?t.Email:'')+'" required/></div>'+
+      '<div class="form-group"><label class="req" for="at-phone">Phone</label><input id="at-phone" type="tel" inputmode="numeric" value="'+esc(t?t.Phone:'')+'" required/></div><div class="form-group"><label class="req" for="at-qual">Qualifications</label><input id="at-qual" value="'+esc(t?t.Qualifications:'')+'" required/></div>'+
+      '<div class="form-group"><label for="at-exp">Exp (Yrs)</label><input id="at-exp" type="number" value="'+esc(t?t.ExperienceYears:2)+'"/></div><div class="form-group"><label class="req" for="at-fee">Expected Fee (₹)</label><input id="at-fee" type="number" inputmode="numeric" value="'+esc(t?t.ExpectedMonthlyFee:4000)+'" required/></div>'+
+      '<div class="form-group full"><label class="req" for="at-sub">Subjects (comma-separated)</label><input id="at-sub" value="'+esc(t?parseArr(t.Subjects).join(', '):'')+'" required/></div><div class="form-group full"><label class="req" for="at-cls">Classes (comma-separated)</label><input id="at-cls" value="'+esc(t?parseArr(t.ClassesGrades).join(', '):'Class 9, Class 10')+'" required/></div>'+
+      '<div class="form-group"><label class="req" for="at-brd">Boards</label><input id="at-brd" value="'+esc(t?parseArr(t.BoardExpertise).join(', '):'CBSE, ICSE')+'" required/></div><div class="form-group"><label for="at-mode">Mode</label><select id="at-mode">'+['HYBRID','OFFLINE','ONLINE'].map(m=>'<option'+(t&&t.TeachingMode===m?' selected':'')+'>'+m+'</option>').join('')+'</select></div>'+
+      '<div class="form-group"><label for="at-pins">PIN Codes</label><input id="at-pins" value="'+esc(t?parseArr(t.PinCodes).join(', '):'')+'"/></div><div class="form-group"><label for="at-stat">Status</label><select id="at-stat">'+['NEW','UNDER_REVIEW','VERIFIED','ACTIVE','INACTIVE','REJECTED'].map(st=>'<option'+((t?t.Status:'VERIFIED')===st?' selected':'')+'>'+st+'</option>').join('')+'</select></div>'+
+      '<div class="form-group full"><button type="submit" class="btn btn-primary">Save Tutor</button></div></div></form>');
+  }
+  async function saveAdminTutor(e,id){
+    e.preventDefault(); const ex=id?(state.adminCache.tutors||[]).find(x=>x.TutorId===id):null;
+    try{ await apiCall('adminSaveTutor',{tutorId:id||undefined,fullName:document.getElementById('at-name').value,email:document.getElementById('at-email').value,phone:document.getElementById('at-phone').value,qualifications:document.getElementById('at-qual').value,experienceYears:document.getElementById('at-exp').value,expectedMonthlyFee:document.getElementById('at-fee').value,subjects:document.getElementById('at-sub').value,classesGrades:document.getElementById('at-cls').value,boardExpertise:document.getElementById('at-brd').value,teachingMode:document.getElementById('at-mode').value,pinCodes:document.getElementById('at-pins').value,availabilityDays:ex?ex.AvailabilityDays:'Mon, Tue, Wed, Thu, Fri, Sat',preferredTiming:ex?ex.PreferredTiming:'Evening',languages:ex?ex.Languages:'English',shortBio:ex?ex.ShortBio:'Verified Tutor',preferredLocations:ex?ex.PreferredLocations:'',documentUrl:ex?ex.DocumentUrl:'',whatsapp:ex?ex.WhatsApp:'',gender:ex?ex.Gender:'',maxTravelDistanceKm:ex?ex.MaxTravelDistanceKm:0,currentStudentCount:ex?ex.CurrentStudentCount:0,status:document.getElementById('at-stat').value}); closeModal(); toast('Tutor saved.','success'); loadAdminModule('tutors'); }catch(err){}
+  }
+  async function archiveEntity(action,entityId){
+    const reason=prompt('Reason for archiving '+entityId+'?'); if(reason===null) return;
+    try{ await apiCall(action,{entityId,reason}); toast('Record archived.','success'); state.publicDirectory.loaded=false; loadAdminModule(state.adminModule); }catch(e){}
+  }
+
+  /* ---- Matching ---- */
+  async function renderAdminMatching(c){
+    const [students,matches]=await Promise.all([apiCall('adminListStudents',{}),apiCall('adminListMatches',{})]);
+    const el=students.filter(s=>s.Status==='VERIFIED'||s.Status==='ACTIVE');
+    c.innerHTML='<div class="topbar-portal"><h2 style="margin:0">Matching Engine</h2></div><div class="card" style="margin-bottom:1.25rem"><div style="display:flex;gap:.75rem;flex-wrap:wrap;align-items:flex-end"><div class="form-group" style="flex:1;min-width:230px"><label for="match-stu-sel">Select Verified / Active Student</label><select id="match-stu-sel">'+el.map(s=>'<option value="'+esc(s.StudentId)+'">'+esc(s.StudentId)+' — '+esc(s.ParentOrStudentName)+' ('+esc(s.ClassGrade)+', '+esc(s.Board)+', '+inr(s.BudgetPerMonth)+')</option>').join('')+'</select></div><button class="btn btn-primary" onclick="App.runMatching()"'+(el.length?'':' disabled')+'>Find Matching Tutors</button></div><div id="match-results" style="margin-top:1rem"></div></div><div class="card"><h3>Saved Shortlists &amp; Tutor Interest</h3><div id="tbl-matches"></div></div>';
+    renderDataTable('tbl-matches',{rows:matches,filterField:'ShortlistStatus',filterOptions:['SUGGESTED','SHORTLISTED','CONTACTED','CONVERTED_TO_ASSIGNMENT','REJECTED'],
+      columns:[{key:'MatchId',label:'Match ID'},{key:'StudentName',label:'Student'},{key:'TutorName',label:'Tutor'},{key:'MatchScore',label:'Score',render:r=>'<b>'+esc(r.MatchScore)+'/100</b>'},{key:'TutorExpressedInterest',label:'Tutor Applied',render:r=>isBool(r.TutorExpressedInterest)?'<span class="badge badge-blue">Yes</span>':'No'},{key:'ShortlistStatus',label:'Status',render:r=>statusBadge(r.ShortlistStatus)},{key:'MatchingNotes',label:'Notes'}],
+      actions:r=>'<button class="btn btn-accent btn-sm" onclick="App.openAssignmentModal(\''+esc(r.StudentId)+'\',\''+esc(r.TutorId)+'\',\''+esc(r.MatchId)+'\')">Create Assignment</button>'});
+  }
+  async function runMatching(){
+    const sid=document.getElementById('match-stu-sel').value; if(!sid) return;
+    try{
+      const res=await apiCall('adminRunMatching',{studentId:sid}); const wrap=document.getElementById('match-results');
+      wrap.innerHTML='<p class="help-text">'+esc(res.disclaimer)+'</p>'+(res.candidates.length?'<div class="table-wrap"><table><thead><tr><th>Score</th><th>Tutor</th><th>Compatibility</th><th>Fee vs Budget</th><th>Workload</th><th>Status</th><th>Actions</th></tr></thead><tbody>'+res.candidates.map(x=>'<tr><td><div class="score-bar"><div class="score-fill" style="width:'+x.matchScore+'%"></div></div><b>'+x.matchScore+'</b></td><td><b>'+esc(x.fullName)+'</b> ('+esc(x.tutorId)+')<br><span class="help-text">'+esc(x.phone)+' · '+esc(x.qualifications)+'</span></td><td style="font-size:.8rem">'+esc(x.explanation)+'<br><span class="badge">Gender: '+esc(x.breakdown.genderIndicator)+'</span></td><td>'+inr(x.expectedMonthlyFee)+' vs '+inr(res.student.BudgetPerMonth)+'</td><td>'+x.activeWorkload+' students</td><td>'+statusBadge(x.shortlistStatus)+(x.tutorExpressedInterest?' <span class="badge badge-blue">Applied</span>':'')+'</td><td style="white-space:nowrap">'+waBtn(x.whatsapp||x.phone,'Hello '+x.fullName+', TutorSync has a student requirement ('+res.student.ClassGrade+', '+res.student.Board+') that may suit you.','WA')+' <button class="btn btn-outline btn-sm" onclick="App.saveMatch(\''+esc(sid)+'\',\''+esc(x.tutorId)+'\',\'SHORTLISTED\')">Shortlist</button> <button class="btn btn-accent btn-sm" onclick="App.openAssignmentModal(\''+esc(sid)+'\',\''+esc(x.tutorId)+'\',\''+esc(x.matchId)+'\')">Assign</button> <button class="btn btn-outline btn-sm" onclick="App.saveMatch(\''+esc(sid)+'\',\''+esc(x.tutorId)+'\',\'REJECTED\')">Reject</button></td></tr>').join('')+'</tbody></table></div>':'<div class="empty-state">No compatible verified tutors found.</div>');
+    }catch(e){}
+  }
+  async function saveMatch(studentId,tutorId,shortlistStatus){
+    const matchingNotes=prompt('Optional matching notes:'); if(matchingNotes===null) return;
+    try{ await apiCall('adminSaveMatchAction',{studentId,tutorId,shortlistStatus,matchingNotes}); toast('Match status saved: '+shortlistStatus,'success'); runMatching(); }catch(e){}
+  }
+
+  /* ---- Assignments ---- */
+  async function renderAdminAssignments(c){
+    const rows=await apiCall('adminListAssignments',{}); state.adminCache.assignments=rows;
+    c.innerHTML='<div class="topbar-portal"><h2 style="margin:0">Tuition Assignments</h2><button class="btn btn-primary btn-sm" onclick="App.openAssignmentModal()">+ New Assignment</button></div><div id="tbl-assignments"></div>';
+    renderDataTable('tbl-assignments',{rows,filterField:'Status',filterOptions:['PROPOSED','OFFERED','ACCEPTED','ACTIVE','ON_HOLD','COMPLETED','CANCELLED'],
+      columns:[{key:'AssignmentId',label:'ID'},{key:'StudentName',label:'Student'},{key:'TutorName',label:'Tutor'},{key:'Subjects',label:'Class / Subjects',render:r=>esc(r.ClassGrade)+': '+esc(parseArr(r.Subjects).join(', '))},{key:'AgreedMonthlyFee',label:'Fee / Comm',render:r=>inr(r.AgreedMonthlyFee)+' ('+esc(r.CommissionRatePct)+'%)'},{key:'TrialStatus',label:'Trial',render:r=>r.TrialStatus&&r.TrialStatus!=='NONE'?statusBadge(r.TrialStatus)+(r.TrialDate?'<br><span class="help-text">'+esc(r.TrialDate)+'</span>':''):'<span class="help-text">—</span>'},{key:'Status',label:'Confirmations / Status',render:r=>statusBadge(r.Status)+'<br><span class="help-text">Stu:'+(isBool(r.StudentConfirmed)?'Y':'N')+' · Tut:'+(isBool(r.TutorConfirmed)?'Y':'N')+'</span>'}],
+      actions:r=>'<div style="display:flex;gap:.3rem;flex-wrap:wrap">'+(r.Status!=='ACTIVE'?'<button class="btn btn-accent btn-sm" onclick="App.changeAsgStatus(\''+esc(r.AssignmentId)+'\',\'ACTIVE\')">Activate</button>':'')+(r.Status==='ACTIVE'?'<button class="btn btn-outline btn-sm" onclick="App.changeAsgStatus(\''+esc(r.AssignmentId)+'\',\'ON_HOLD\')">Hold</button>':'')+'<button class="btn btn-outline btn-sm" onclick="App.setTrialPrompt(\''+esc(r.AssignmentId)+'\')">Trial</button><button class="btn btn-outline btn-sm" onclick="App.changeAsgStatus(\''+esc(r.AssignmentId)+'\',\'CANCELLED\')">Cancel</button></div>'});
+  }
+  async function setTrialPrompt(assignmentId){
+    const st=prompt('Trial status: NONE, TRIAL_SCHEDULED or TRIAL_COMPLETED','TRIAL_SCHEDULED'); if(!st) return;
+    const dt=st.toUpperCase()==='NONE'?'':(prompt('Trial date (YYYY-MM-DD, optional):',new Date().toISOString().slice(0,10))||'');
+    try{ await apiCall('adminSetTrialStatus',{assignmentId,trialStatus:st.toUpperCase(),trialDate:dt}); toast('Trial status updated.','success'); loadAdminModule('assignments'); }catch(e){}
+  }
+  async function openAssignmentModal(preStu,preTut,matchId){
+    try{
+      const [students,tutors]=await Promise.all([apiCall('adminListStudents',{}),apiCall('adminListTutors',{})]);
+      const vs=students.filter(s=>s.Status==='VERIFIED'||s.Status==='ACTIVE'), vt=tutors.filter(t=>t.Status==='VERIFIED'||t.Status==='ACTIVE');
+      const ps=preStu?vs.find(s=>s.StudentId===preStu):null, pt=preTut?vt.find(t=>t.TutorId===preTut):null;
+      openModal('Create Tuition Assignment','<form onsubmit="App.saveAssignment(event,\''+esc(matchId||'')+'\')"><div class="form-grid">'+
+        '<div class="form-group"><label class="req" for="aa-stu">Student</label><select id="aa-stu">'+vs.map(s=>'<option value="'+esc(s.StudentId)+'"'+(s.StudentId===preStu?' selected':'')+'>'+esc(s.StudentId)+' — '+esc(s.ParentOrStudentName)+'</option>').join('')+'</select></div>'+
+        '<div class="form-group"><label class="req" for="aa-tut">Tutor</label><select id="aa-tut">'+vt.map(t=>'<option value="'+esc(t.TutorId)+'"'+(t.TutorId===preTut?' selected':'')+'>'+esc(t.TutorId)+' — '+esc(t.FullName)+'</option>').join('')+'</select></div>'+
+        '<div class="form-group full"><label class="req" for="aa-sub">Subjects (comma-separated)</label><input id="aa-sub" value="'+esc(ps?parseArr(ps.SubjectsRequired).join(', '):'Mathematics, Science')+'" required/></div>'+
+        '<div class="form-group"><label class="req" for="aa-fee">Agreed Monthly Fee (₹)</label><input id="aa-fee" type="number" inputmode="numeric" min="500" required value="'+esc(ps&&ps.BudgetPerMonth?ps.BudgetPerMonth:(pt&&pt.ExpectedMonthlyFee?pt.ExpectedMonthlyFee:4000))+'"/></div>'+
+        '<div class="form-group"><label class="req" for="aa-comm">Commission Rate (%)</label><input id="aa-comm" type="number" inputmode="decimal" step="0.5" value="10" required/></div>'+
+        '<div class="form-group full"><label for="aa-reason">Commission Override Reason (only if outside 8–10%)</label><input id="aa-reason" placeholder="Required only if overriding the standard 8–10%"/></div>'+
+        '<div class="form-group"><label for="aa-spw">Sessions/Week</label><input id="aa-spw" type="number" value="3" min="1"/></div><div class="form-group"><label for="aa-dur">Duration (Mins)</label><input id="aa-dur" type="number" value="60" min="15"/></div>'+
+        '<div class="form-group"><label for="aa-start">Start Date</label><input id="aa-start" type="date" value="'+new Date().toISOString().slice(0,10)+'"/></div><div class="form-group"><label for="aa-due">Payment Due Day (1-28)</label><input id="aa-due" type="number" min="1" max="28" value="7"/></div>'+
+        '<div class="form-group full"><button type="submit" class="btn btn-primary">Create &amp; Offer Assignment</button></div></div></form>');
+    }catch(e){}
+  }
+  async function saveAssignment(e,matchId){
+    e.preventDefault();
+    try{ await apiCall('adminSaveAssignment',{matchId,studentId:document.getElementById('aa-stu').value,tutorId:document.getElementById('aa-tut').value,subjects:document.getElementById('aa-sub').value,agreedMonthlyFee:document.getElementById('aa-fee').value,commissionRatePct:document.getElementById('aa-comm').value,commissionOverrideReason:document.getElementById('aa-reason').value,sessionsPerWeek:document.getElementById('aa-spw').value,sessionDurationMins:document.getElementById('aa-dur').value,startDate:document.getElementById('aa-start').value,paymentDueDay:document.getElementById('aa-due').value,status:'OFFERED'}); closeModal(); toast('Assignment offered to student & tutor.','success'); loadAdminModule(state.adminModule==='gates'?'gates':'assignments'); }catch(err){}
+  }
+  async function changeAsgStatus(assignmentId,status){
+    let force=false;
+    if(status==='ACTIVE'){ force=confirm('Activate this assignment? If dual portal confirmation is still pending, this records an administrator activation.'); if(!force) return; }
+    else if(status==='CANCELLED'&&!confirm('Cancel assignment '+assignmentId+'? This cannot be undone from here.')) return;
+    const reason=prompt('Optional status change note:'); if(reason===null) return;
+    try{ await apiCall('adminUpdateAssignmentStatus',{assignmentId,status,adminForce:force,reason}); toast('Assignment updated to '+status,'success'); loadAdminModule('assignments'); }catch(e){}
+  }
+
+  /* ---- Sessions ---- */
+  async function renderAdminSessions(c){
+    const [sessions,assignments]=await Promise.all([apiCall('adminListSessions',{}),apiCall('adminListAssignments',{})]); state.adminCache.assignments=assignments;
+    c.innerHTML='<div class="topbar-portal"><h2 style="margin:0">Sessions &amp; Attendance</h2><button class="btn btn-primary btn-sm" onclick="App.openBatchSessionModal()">+ Schedule Batch Sessions</button></div><div id="tbl-sessions"></div>';
+    renderDataTable('tbl-sessions',{rows:sessions,filterField:'AttendanceStatus',filterOptions:['SCHEDULED','COMPLETED','CANCELLED_STUDENT','CANCELLED_TUTOR','RESCHEDULED'],
+      columns:[{key:'SessionId',label:'Session ID'},{key:'AssignmentId',label:'Assignment'},{key:'SessionDate',label:'Date / Time',render:r=>esc(r.SessionDate)+' '+esc(r.StartTime)},{key:'DurationMins',label:'Mins',num:true},{key:'AttendanceStatus',label:'Status',render:r=>statusBadge(r.AttendanceStatus)},{key:'Notes',label:'Notes / Audit',render:r=>esc(r.Notes)+(isBool(r.AdminCorrected)?'<br><span class="badge badge-amber">Corrected: '+esc(r.AdminCorrectionReason)+'</span>':'')}],
+      actions:r=>'<button class="btn btn-outline btn-sm" onclick="App.correctSessionPrompt(\''+esc(r.SessionId)+'\')">Correct</button>'});
+  }
+  function openBatchSessionModal(){
+    const act=(state.adminCache.assignments||[]).filter(a=>a.Status==='ACTIVE'); if(!act.length) return toast('No ACTIVE assignments available.','error');
+    openModal('Schedule Batch Sessions','<form onsubmit="App.submitBatchSessions(event)"><div class="form-grid"><div class="form-group full"><label class="req" for="bs-asg">Active Assignment</label><select id="bs-asg">'+act.map(a=>'<option value="'+esc(a.AssignmentId)+'">'+esc(a.AssignmentId)+' ('+esc(a.StudentName)+' / '+esc(a.TutorName)+')</option>').join('')+'</select></div><div class="form-group"><label class="req" for="bs-date">First Session Date</label><input id="bs-date" type="date" value="'+new Date().toISOString().slice(0,10)+'" required/></div><div class="form-group"><label class="req" for="bs-time">Start Time</label><input id="bs-time" type="time" value="17:00" required/></div><div class="form-group"><label class="req" for="bs-cnt">Count</label><input id="bs-cnt" type="number" min="1" max="30" value="8" required/></div><div class="form-group full"><button type="submit" class="btn btn-primary">Generate Schedule</button></div></div></form>');
+  }
+  async function submitBatchSessions(e){
+    e.preventDefault();
+    try{ const res=await apiCall('adminGenerateSessions',{assignmentId:document.getElementById('bs-asg').value,startDate:document.getElementById('bs-date').value,startTime:document.getElementById('bs-time').value,count:document.getElementById('bs-cnt').value}); closeModal(); toast(res.createdCount+' sessions scheduled.','success'); loadAdminModule('sessions'); }catch(err){}
+  }
+  async function correctSessionPrompt(sessionId){
+    const st=prompt('New status (COMPLETED, SCHEDULED, CANCELLED_STUDENT, CANCELLED_TUTOR, RESCHEDULED):','COMPLETED'); if(!st) return;
+    const reason=prompt('Mandatory audit reason for admin correction:'); if(!reason) return toast('Correction reason is required.','error');
+    try{ await apiCall('adminSaveSession',{sessionId,attendanceStatus:st.toUpperCase(),adminCorrectionReason:reason}); toast('Session corrected and audited.','success'); loadAdminModule('sessions'); }catch(e){}
+  }
+
+  /* ---- Invoices ---- */
+  async function renderAdminInvoices(c){
+    const rows=await apiCall('adminListInvoices',{}); state.adminCache.invoices=rows;
+    c.innerHTML='<div class="topbar-portal"><h2 style="margin:0">Monthly Billing &amp; Invoices</h2><button class="btn btn-accent btn-sm" onclick="App.openGenerateInvoicesModal()">Generate Monthly Batch</button></div><div id="tbl-invoices"></div>';
+    renderDataTable('tbl-invoices',{rows,filterField:'PaymentStatus',filterOptions:['ISSUED','PARTIALLY_PAID','PAID','OVERDUE','CANCELLED'],
+      columns:[{key:'InvoiceNumber',label:'Invoice #'},{key:'BillingMonth',label:'Month'},{key:'StudentName',label:'Student / Tutor',render:r=>'<b>'+esc(r.StudentName)+'</b><br><span class="help-text">'+esc(r.TutorName)+'</span>'},{key:'TotalAmount',label:'Total',num:true,render:r=>inr(r.TotalAmount)},{key:'BalanceDue',label:'Balance',num:true,render:r=>'<b>'+inr(r.BalanceDue)+'</b>'},{key:'PaymentStatus',label:'Status',render:r=>statusBadge(r.PaymentStatus)+'<br><span class="help-text">Mail: '+esc(r.DeliveryStatus)+'</span>'},{key:'PdfUrl',label:'PDF',render:r=>r.PdfUrl?'<a href="'+esc(r.PdfUrl)+'" target="_blank" rel="noopener">PDF</a>':'—'}],
+      actions:r=>'<div style="display:flex;gap:.3rem;flex-wrap:wrap">'+(Number(r.BalanceDue)>0&&r.PaymentStatus!=='CANCELLED'?'<button class="btn btn-accent btn-sm" onclick="App.openRecordPaymentModal(\''+esc(r.InvoiceId)+'\','+Number(r.BalanceDue)+')">Record Pay</button>':'')+(r.PaymentStatus==='OVERDUE'?waBtn((state.adminCache.stuPhones||{})[r.StudentId]||'','Reminder: invoice '+r.InvoiceNumber+' ('+inr(r.BalanceDue)+') is overdue. Please pay via UPI and submit the UTR in your TutorSync portal.','WA'):'')+(r.PaymentStatus!=='PAID'&&r.PaymentStatus!=='CANCELLED'?'<button class="btn btn-outline btn-sm" onclick="App.adjustInvoicePrompt(\''+esc(r.InvoiceId)+'\')">Adjust</button><button class="btn btn-outline btn-sm" onclick="App.voidInvoicePrompt(\''+esc(r.InvoiceId)+'\')">Void</button>':'')+'<button class="btn btn-outline btn-sm" onclick="App.resendInvoice(\''+esc(r.InvoiceId)+'\')">Resend</button></div>'});
+    try{ const st=await apiCall('adminListStudents',{},{silent:true,suppressErrorToast:true}); const m={}; st.forEach(s=>m[s.StudentId]=s.WhatsApp||s.Phone); state.adminCache.stuPhones=m; }catch(e){}
+  }
+  function openGenerateInvoicesModal(){
+    openModal('Generate Monthly Student Invoices','<form onsubmit="App.submitGenerateInvoices(event)"><p>Idempotent billing: skips assignments already billed for the chosen month and excludes ON_HOLD/CANCELLED assignments unless a final bill is approved.</p><div class="form-group" style="margin-bottom:.85rem"><label class="req" for="gi-month">Billing Month (YYYY-MM)</label><input id="gi-month" value="'+new Date().toISOString().slice(0,7)+'" pattern="\\d{4}-\\d{2}" required/></div><label class="chip-label" style="border:none;padding:0;margin-bottom:1rem"><input type="checkbox" id="gi-send" checked/> Email PDF invoices to students/parents (uses Gmail quota)</label><button type="submit" class="btn btn-primary btn-block">Run Monthly Billing</button></form>');
+  }
+  async function submitGenerateInvoices(e){
+    e.preventDefault();
+    try{ const res=await apiCall('adminGenerateMonthlyInvoices',{billingMonth:document.getElementById('gi-month').value,sendEmails:document.getElementById('gi-send').checked}); closeModal(); toast('Billing complete: '+res.generated+' generated, '+res.skipped+' skipped.','success'); loadAdminModule('invoices'); }catch(err){}
+  }
+  function openRecordPaymentModal(invoiceId,bal){
+    openModal('Record Student Payment','<form onsubmit="App.submitRecordPayment(event,\''+esc(invoiceId)+'\')"><div class="form-grid"><div class="form-group"><label class="req" for="rp-amt">Amount Received (₹)</label><input id="rp-amt" type="number" inputmode="decimal" step="0.01" min="1" max="'+bal+'" value="'+bal+'" required/></div><div class="form-group"><label class="req" for="rp-date">Payment Date</label><input id="rp-date" type="date" value="'+new Date().toISOString().slice(0,10)+'" required/></div><div class="form-group"><label class="req" for="rp-method">Method</label><select id="rp-method"><option value="UPI">UPI</option><option value="BANK_TRANSFER">Bank Transfer</option><option value="CASH">Cash</option><option value="OTHER">Other</option></select></div><div class="form-group"><label class="req" for="rp-ref">Transaction Ref / UTR</label><input id="rp-ref" required placeholder="Unique UTR / UPI Ref"/></div><div class="form-group full"><label for="rp-notes">Notes</label><input id="rp-notes" placeholder="Optional reconciliation notes"/></div><div class="form-group full"><button type="submit" class="btn btn-accent">Reconcile Payment &amp; Accrue Commission</button></div></div></form>');
+  }
+  async function submitRecordPayment(e,invoiceId){
+    e.preventDefault(); if(!confirm('Record this payment? It will update the invoice and the tutor ledger.')) return;
+    try{ const res=await apiCall('adminRecordPayment',{invoiceId,amount:document.getElementById('rp-amt').value,paymentDate:document.getElementById('rp-date').value,paymentMethod:document.getElementById('rp-method').value,transactionRef:document.getElementById('rp-ref').value,notes:document.getElementById('rp-notes').value}); closeModal(); toast('Payment recorded ('+res.payment.ReceiptNumber+'). Tutor ledger accrued.','success'); loadAdminModule('invoices'); }catch(err){}
+  }
+  async function adjustInvoicePrompt(invoiceId){
+    const amt=prompt('Enter adjustment amount (negative e.g. -500 for discount, positive for extra fee):','0'); if(amt===null) return;
+    const notes=prompt('Reason for invoice adjustment:'); if(!notes) return toast('Adjustment reason required.','error');
+    try{ await apiCall('adminAdjustInvoice',{invoiceId,adjustmentAmount:Number(amt),adjustmentNotes:notes}); toast('Invoice adjusted and PDF regenerated.','success'); loadAdminModule('invoices'); }catch(e){}
+  }
+  async function voidInvoicePrompt(invoiceId){
+    if(!confirm('Void (cancel) this invoice? Only invoices with no recorded payments can be voided.')) return;
+    const reason=prompt('Reason for voiding:'); if(!reason) return;
+    try{ await apiCall('adminVoidInvoice',{invoiceId,reason}); toast('Invoice voided.','success'); loadAdminModule('invoices'); }catch(e){}
+  }
+  async function resendInvoice(invoiceId){ try{ await apiCall('adminResendInvoiceEmail',{invoiceId}); toast('Invoice email resent.','success'); }catch(e){} }
+
+  /* ---- Payments / Ledger / Commissions / Payouts ---- */
+  async function renderAdminPayments(c){
+    const rows=await apiCall('adminListPayments',{});
+    c.innerHTML='<div class="topbar-portal"><h2 style="margin:0">Student Payments &amp; Receipts</h2></div><div id="tbl-payments"></div>';
+    renderDataTable('tbl-payments',{rows,filterField:'TransactionType',filterOptions:['PAYMENT','REFUND_REVERSAL'],
+      columns:[{key:'ReceiptNumber',label:'Receipt #'},{key:'PaymentDate',label:'Date'},{key:'StudentName',label:'Student'},{key:'InvoiceId',label:'Invoice ID'},{key:'TransactionType',label:'Type',render:r=>statusBadge(r.TransactionType)},{key:'Amount',label:'Amount',num:true,render:r=>'<b>'+inr(r.Amount)+'</b>'},{key:'TransactionRef',label:'Method / Ref',render:r=>esc(r.PaymentMethod)+' · '+esc(r.TransactionRef)}],
+      actions:r=>r.TransactionType==='PAYMENT'?'<button class="btn btn-outline btn-sm" onclick="App.refundPrompt(\''+esc(r.PaymentId)+'\','+Number(r.Amount)+')">Refund</button>':'—'});
+  }
+  async function refundPrompt(paymentId,maxAmt){
+    const amount=prompt('Refund amount (max ₹'+maxAmt+'):',String(maxAmt)); if(!amount) return;
+    const notes=prompt('Mandatory refund / reversal reason:'); if(!notes) return toast('Refund reason required.','error');
+    if(!confirm('Record a refund of '+inr(amount)+'? This reverses the tutor ledger accordingly.')) return;
+    try{ await apiCall('adminRecordRefund',{paymentId,amount:Number(amount),notes}); toast('Refund contra-entry recorded.','success'); loadAdminModule('payments'); }catch(e){}
+  }
+  async function renderAdminLedger(c){
+    const rows=await apiCall('adminListTutorLedger',{});
+    c.innerHTML='<div class="topbar-portal"><h2 style="margin:0">Tutor Earnings Ledger</h2><button class="btn btn-accent btn-sm" onclick="App.createPayoutBatchPrompt()">Create Payout Batch (All Pending)</button></div><div id="tbl-ledger"></div>';
+    renderDataTable('tbl-ledger',{rows,filterField:'PayoutStatus',filterOptions:['PENDING','IN_BATCH','PAID','REVERSED'],
+      columns:[{key:'LedgerId',label:'Ledger ID'},{key:'TutorName',label:'Tutor'},{key:'BillingMonth',label:'Month'},{key:'EligibleCollectedAmount',label:'Collected',num:true,render:r=>inr(r.EligibleCollectedAmount)},{key:'CommissionAmount',label:'Commission',num:true,render:r=>esc(r.CommissionRatePct)+'% ('+inr(r.CommissionAmount)+')'},{key:'NetTutorPayable',label:'Net Payable',num:true,render:r=>'<b>'+inr(r.NetTutorPayable)+'</b>'},{key:'PayoutStatus',label:'Status',render:r=>statusBadge(r.PayoutStatus)}],
+      actions:r=>r.PayoutStatus==='PENDING'?'<button class="btn btn-outline btn-sm" onclick="App.adjustLedgerPrompt(\''+esc(r.LedgerId)+'\')">Adjust</button>':'—'});
+  }
+  async function adjustLedgerPrompt(ledgerId){
+    const adj=prompt('Tutor payout adjustment (+/- INR):','0'); if(adj===null) return;
+    const reason=prompt('Mandatory adjustment reason:'); if(!reason) return toast('Reason is required.','error');
+    try{ await apiCall('adminAddTutorAdjustment',{ledgerId,adjustmentAmount:Number(adj),reason}); toast('Tutor ledger adjusted.','success'); loadAdminModule('ledger'); }catch(e){}
+  }
+  async function renderAdminCommissions(c){
+    const [settings,assignments,ledger]=await Promise.all([apiCall('adminGetSettings',{}),apiCall('adminListAssignments',{}),apiCall('adminListTutorLedger',{})]);
+    const def=settings.find(s=>s.SettingKey==='DEFAULT_COMMISSION_PCT'); const ov=assignments.filter(a=>isBool(a.IsCommissionOverride)); let tot=0; ledger.forEach(l=>tot+=Number(l.CommissionAmount));
+    c.innerHTML='<div class="topbar-portal"><h2 style="margin:0">Commission Management</h2></div><div class="kpi-grid"><div class="kpi-card"><div class="kpi-label">Default Commission</div><div class="kpi-val">'+(def?esc(def.SettingValue):10)+'%</div><div class="kpi-sub">Standard range: 8%–10%</div></div><div class="kpi-card"><div class="kpi-label">Total Commission Earned</div><div class="kpi-val">'+inr(tot)+'</div><div class="kpi-sub">On collected fees only</div></div><div class="kpi-card"><div class="kpi-label">Assignment Overrides</div><div class="kpi-val">'+ov.length+'</div><div class="kpi-sub">Audited custom rates</div></div></div><div class="card"><h3>Commission Overrides Log</h3>'+(ov.length?'<div class="table-wrap"><table><thead><tr><th>Assignment</th><th>Student / Tutor</th><th>Rate</th><th>Override Reason</th></tr></thead><tbody>'+ov.map(a=>'<tr><td>'+esc(a.AssignmentId)+'</td><td>'+esc(a.StudentName)+' / '+esc(a.TutorName)+'</td><td><b>'+esc(a.CommissionRatePct)+'%</b></td><td>'+esc(a.CommissionOverrideReason)+'</td></tr>').join('')+'</tbody></table></div>':'<div class="empty-state">No commission overrides recorded.</div>')+'</div>';
+  }
+  async function renderAdminPayouts(c){
+    const rows=await apiCall('adminListPayouts',{});
+    c.innerHTML='<div class="topbar-portal"><h2 style="margin:0">Tutor Payouts &amp; Settlements</h2><button class="btn btn-accent btn-sm" onclick="App.createPayoutBatchPrompt()">+ Prepare Payout Batch</button></div><div id="tbl-payouts"></div>';
+    renderDataTable('tbl-payouts',{rows,filterField:'Status',filterOptions:['PENDING','APPROVED','PAID','CANCELLED'],
+      columns:[{key:'PayoutId',label:'Payout ID'},{key:'BatchCode',label:'Batch'},{key:'TutorName',label:'Tutor'},{key:'GrossCollectedTotal',label:'Gross',num:true,render:r=>inr(r.GrossCollectedTotal)},{key:'CommissionTotal',label:'Comm.',num:true,render:r=>inr(r.CommissionTotal)},{key:'NetPayoutAmount',label:'Net Payout',num:true,render:r=>'<b>'+inr(r.NetPayoutAmount)+'</b>'},{key:'Status',label:'Status',render:r=>statusBadge(r.Status)},{key:'PayoutReference',label:'Disbursement Ref',render:r=>r.PayoutReference?esc(r.PayoutMethod)+' · '+esc(r.PayoutReference):'—'}],
+      actions:r=>'<div style="display:flex;gap:.3rem;flex-wrap:wrap">'+(r.Status==='PENDING'?'<button class="btn btn-outline btn-sm" onclick="App.approvePayout(\''+esc(r.PayoutId)+'\')">Approve</button>':'')+((r.Status==='PENDING'||r.Status==='APPROVED')?'<button class="btn btn-accent btn-sm" onclick="App.openMarkPaidModal(\''+esc(r.PayoutId)+'\','+Number(r.NetPayoutAmount)+')">Mark Paid</button>':'')+(r.StatementPdfUrl?'<a class="btn btn-outline btn-sm" href="'+esc(r.StatementPdfUrl)+'" target="_blank" rel="noopener">Statement</a>':'')+'</div>'});
+  }
+  async function createPayoutBatchPrompt(){
+    const label=prompt('Enter payout period label (e.g., '+new Date().toISOString().slice(0,7)+'):',new Date().toISOString().slice(0,7)); if(!label) return;
+    try{ const res=await apiCall('adminCreatePayoutBatch',{periodLabel:label}); toast('Created payout batch '+res.batchCode+' ('+res.payouts.length+' payouts).','success'); loadAdminModule(state.adminModule==='ledger'?'ledger':'payouts'); }catch(e){}
+  }
+  async function approvePayout(payoutId){ try{ await apiCall('adminApprovePayout',{payoutId}); toast('Payout approved.','success'); loadAdminModule(state.adminModule); }catch(e){} }
+  function openMarkPaidModal(payoutId,amount){
+    openModal('Record Tutor Payout — '+payoutId,'<form onsubmit="App.submitMarkPayoutPaid(event,\''+esc(payoutId)+'\')"><p>Net amount to disburse: <b>'+inr(amount)+'</b>. Transfer it first from your own bank/UPI app, then record the UTR below.</p><div class="form-grid"><div class="form-group"><label class="req" for="mp-method">Payout Method</label><select id="mp-method"><option value="UPI">UPI</option><option value="IMPS">IMPS</option><option value="NEFT">NEFT</option><option value="BANK_TRANSFER">Bank Transfer</option><option value="CASH">Cash</option></select></div><div class="form-group"><label class="req" for="mp-date">Payout Date</label><input id="mp-date" type="date" value="'+new Date().toISOString().slice(0,10)+'" required/></div><div class="form-group full"><label class="req" for="mp-ref">Bank / UPI Transaction Reference (UTR)</label><input id="mp-ref" required placeholder="Mandatory UTR / payment ref"/></div><div class="form-group full"><label for="mp-ev">Evidence / Receipt Drive URL (optional)</label><input id="mp-ev" type="url" inputmode="url" placeholder="https://drive.google.com/..."/></div><div class="form-group full"><button type="submit" class="btn btn-accent">Confirm Paid &amp; Email Statement</button></div></div></form>');
+  }
+  async function submitMarkPayoutPaid(e,payoutId){
+    e.preventDefault(); if(!confirm('Mark this payout as PAID? Only do this after the transfer has actually been made.')) return;
+    try{ await apiCall('adminMarkPayoutPaid',{payoutId,payoutMethod:document.getElementById('mp-method').value,payoutDate:document.getElementById('mp-date').value,payoutReference:document.getElementById('mp-ref').value,evidenceUrl:document.getElementById('mp-ev').value}); closeModal(); toast('Payout marked PAID and statement emailed to tutor.','success'); loadAdminModule(state.adminModule); }catch(err){}
+  }
+
+  /* ---- Notifications & Tickets ---- */
+  async function renderAdminNotificationsAndTickets(c){
+    const [ntfs,tickets]=await Promise.all([apiCall('adminListNotifications',{}),apiCall('adminGetTickets',{})]);
+    c.innerHTML='<div class="topbar-portal"><h2 style="margin:0">Notifications &amp; Support Desk</h2><button class="btn btn-primary btn-sm" onclick="App.openManualNotifyModal()">+ Send Email Alert</button></div><div class="card" style="margin-bottom:1.25rem"><h3>Support Tickets</h3><div id="tbl-tickets"></div></div><div class="card"><h3>Email Delivery Log</h3><div id="tbl-ntfs"></div></div>';
+    renderDataTable('tbl-tickets',{rows:tickets,filterField:'Status',filterOptions:['OPEN','IN_PROGRESS','RESOLVED','CLOSED'],
+      columns:[{key:'TicketId',label:'ID'},{key:'RaisedByRole',label:'From',render:r=>esc(r.RaisedByRole)+'<br><span class="help-text">'+esc(r.ContactEmail)+'</span>'},{key:'Subject',label:'Subject / Message',render:r=>'<b>'+esc(r.Subject)+'</b><br><span class="help-text">'+esc(r.Description)+'</span>'},{key:'Status',label:'Status',render:r=>statusBadge(r.Status)}],
+      actions:r=>'<div style="display:flex;gap:.3rem;flex-wrap:wrap">'+waBtn(r.ContactPhone,'Hello '+(r.ContactName||'')+', regarding your TutorSync ticket '+r.TicketId+':','WA')+'<button class="btn btn-outline btn-sm" onclick="App.resolveTicketPrompt(\''+esc(r.TicketId)+'\')">Respond</button></div>'});
+    renderDataTable('tbl-ntfs',{rows:ntfs,filterField:'Status',filterOptions:['SENT','FAILED'],columns:[{key:'SentAt',label:'Time',render:r=>esc(String(r.SentAt||r.CreatedAt).slice(0,16).replace('T',' '))},{key:'RecipientEmail',label:'Recipient'},{key:'TemplateType',label:'Type'},{key:'Subject',label:'Subject'},{key:'Status',label:'Status',render:r=>statusBadge(r.Status)}]});
+  }
+  function openManualNotifyModal(){
+    openModal('Send Manual Email Notification','<form onsubmit="App.submitManualNotify(event)"><div class="form-group" style="margin-bottom:.75rem"><label class="req" for="mn-email">Recipient Email</label><input id="mn-email" type="email" required/></div><div class="form-group" style="margin-bottom:.75rem"><label class="req" for="mn-sub">Subject</label><input id="mn-sub" required/></div><div class="form-group" style="margin-bottom:.75rem"><label class="req" for="mn-msg">Message</label><textarea id="mn-msg" rows="4" required></textarea></div><button type="submit" class="btn btn-primary">Send Email</button></form>');
+  }
+  async function submitManualNotify(e){
+    e.preventDefault();
+    try{ await apiCall('adminSendManualNotification',{email:document.getElementById('mn-email').value,subject:document.getElementById('mn-sub').value,message:document.getElementById('mn-msg').value}); closeModal(); toast('Notification sent.','success'); loadAdminModule('notifications'); }catch(err){}
+  }
+  async function resolveTicketPrompt(ticketId){
+    const status=prompt('Status (IN_PROGRESS, RESOLVED, CLOSED):','RESOLVED'); if(!status) return;
+    const adminResponse=prompt('Response to send to the user:'); if(adminResponse===null) return;
+    try{ await apiCall('adminResolveTicket',{ticketId,status:status.toUpperCase(),adminResponse}); toast('Ticket updated.','success'); loadAdminModule('notifications'); }catch(e){}
+  }
+
+  /* ---- Reports ---- */
+  function renderAdminReports(c){
+    const reports=[['student_registrations','Student Registration Report'],['tutor_registrations','Tutor Registration Report'],['verified_participants','Verified Participants Report'],['matching','Matching Report'],['active_tuition','Active Tuition Report'],['monthly_billing','Monthly Billing Report'],['collections','Collection Report'],['outstanding_invoices','Outstanding Invoices Report'],['commissions','Commission Report'],['tutor_payable','Tutor Payable Report'],['payouts','Payout Report'],['revenue','Revenue Report'],['cancellations','Assignment Cancellation Report']];
+    c.innerHTML='<div class="topbar-portal"><h2 style="margin:0">Reports &amp; CSV Export</h2></div><div class="card" style="margin-bottom:1rem"><div style="display:flex;gap:.75rem;flex-wrap:wrap;align-items:flex-end"><div class="form-group" style="min-width:220px;flex:1"><label for="rep-type">Report</label><select id="rep-type">'+reports.map(r=>'<option value="'+r[0]+'">'+r[1]+'</option>').join('')+'</select></div><div class="form-group"><label for="rep-month">Month Filter (YYYY-MM, optional)</label><input id="rep-month" placeholder="e.g. '+new Date().toISOString().slice(0,7)+'"/></div><button class="btn btn-primary" onclick="App.runReport()">Run Report</button><button class="btn btn-outline" onclick="App.exportCurrentReportCsv()">Export CSV</button></div></div><div class="card" id="rep-output"><div class="empty-state">Select a report and click Run Report.</div></div>';
+  }
+  async function runReport(){
+    try{
+      const d=await apiCall('adminGetReportData',{reportType:document.getElementById('rep-type').value,month:document.getElementById('rep-month').value.trim()}); state.currentReport=d;
+      document.getElementById('rep-output').innerHTML='<h3>'+esc(d.title)+' ('+d.rows.length+' rows)</h3>'+(d.rows.length?'<div class="table-wrap"><table><thead><tr>'+d.headers.map(h=>'<th>'+esc(h)+'</th>').join('')+'</tr></thead><tbody>'+d.rows.map(r=>'<tr>'+r.map(x=>'<td>'+esc(x)+'</td>').join('')+'</tr>').join('')+'</tbody></table></div>':'<div class="empty-state">No records found for this report.</div>');
+    }catch(e){}
+  }
+  function exportCurrentReportCsv(){ if(!state.currentReport) return toast('Run a report first.','error'); exportToCsv(state.currentReport.title.replace(/\s+/g,'_')+'.csv',state.currentReport.headers,state.currentReport.rows); }
+  function exportToCsv(filename,headers,rows){
+    const cell=v=>{ let s=String(v===null||v===undefined?'':v); if(/^[=+\-@]/.test(s)) s="'"+s; return '"'+s.replace(/"/g,'""')+'"'; };
+    const lines=[headers.map(cell).join(',')].concat(rows.map(r=>r.map(cell).join(',')));
+    const blob=new Blob(['\uFEFF'+lines.join('\r\n')],{type:'text/csv;charset=utf-8;'}); const url=URL.createObjectURL(blob);
+    const a=document.createElement('a'); a.href=url; a.download=filename; document.body.appendChild(a); a.click(); document.body.removeChild(a); setTimeout(()=>URL.revokeObjectURL(url),1000);
+  }
+
+  /* ---- Settings & Automation ---- */
+  async function renderAdminSettings(c){
+    const rows=await apiCall('adminGetSettings',{}); const editable=rows.filter(r=>r.SettingKey.indexOf('DRIVE_')!==0);
+    c.innerHTML='<div class="topbar-portal"><h2 style="margin:0">Application Settings &amp; Automation</h2></div><div class="card" style="margin-bottom:1.25rem"><h3>Configuration</h3><p class="help-text">Set <b>MERCHANT_UPI_ID</b> to enable UPI QR codes on student invoices.</p><form onsubmit="App.saveSettings(event)">'+editable.map(s=>'<div class="form-group" style="margin-bottom:.8rem"><label>'+esc(s.SettingKey)+' <span class="help-text">('+esc(s.Description)+')</span></label><input data-setting="'+esc(s.SettingKey)+'" value="'+esc(s.SettingValue)+'" /></div>').join('')+'<button type="submit" class="btn btn-primary">Save Settings</button></form></div>'+
+    '<div class="card"><h3>Scheduled Automation &amp; Triggers</h3><p class="help-text">All jobs are idempotent and protected by LockService.</p><div style="display:flex;flex-wrap:wrap;gap:.5rem"><button class="btn btn-primary btn-sm" onclick="App.installTriggersRemote()">Install / Repair Time-Driven Triggers</button>'+
+      [['jobGenerateMonthlyInvoices','Run Monthly Invoices'],['jobDispatchPendingInvoices','Dispatch Pending Emails'],['jobCheckOverdueInvoices','Check Overdue Invoices'],['jobPendingRegistrationAlert','Pending Reg Alert'],['jobTutorPayoutReminder','Payout Reminder'],['jobMonthlyAdminReport','Monthly Admin Digest'],['jobAutopilotMatching','Run Auto-Match Outreach'],['jobAutopilotPayoutBatch','Run Auto Payout Batching']].map(j=>'<button class="btn btn-outline btn-sm" onclick="App.runTriggerManual(\''+j[0]+'\')">'+j[1]+'</button>').join('')+'</div></div>';
+  }
+  async function saveSettings(e){
+    e.preventDefault();
+    const updates=Array.from(e.target.querySelectorAll('input[data-setting]')).map(el=>({SettingKey:el.getAttribute('data-setting'),SettingValue:el.value}));
+    try{ await apiCall('adminUpdateSettings',{settings:updates}); toast('Settings saved.','success'); }catch(err){}
+  }
+  async function installTriggersRemote(){ try{ await apiCall('adminInstallTriggers',{}); toast('Scheduled triggers installed.','success'); }catch(e){} }
+  async function runTriggerManual(jobName){ if(!confirm('Run '+jobName+' now?')) return; try{ const res=await apiCall('adminRunTriggerManual',{jobName}); toast(jobName+' done: '+JSON.stringify(res),'success'); }catch(e){} }
+
+  /* ---- Audit ---- */
+  async function renderAdminAudit(c){
+    const rows=await apiCall('adminGetAuditLogs',{});
+    c.innerHTML='<div class="topbar-portal"><h2 style="margin:0">System &amp; Financial Audit Log</h2></div><div id="tbl-audit"></div>';
+    renderDataTable('tbl-audit',{rows,filterField:'EntityType',filterOptions:['Students','Tutors','Matches','Assignments','Sessions','Invoices','Payments','PaymentClaims','TutorLedger','Payouts','Settings','SupportTickets'],
+      columns:[{key:'Timestamp',label:'UTC Time',render:r=>esc(String(r.Timestamp).slice(0,19).replace('T',' '))},{key:'ActorUserId',label:'Actor',render:r=>esc(r.ActorRole)+'<br><span class="help-text">'+esc(r.ActorUserId)+'</span>'},{key:'Action',label:'Action',render:r=>'<b>'+esc(r.Action)+'</b>'},{key:'EntityType',label:'Entity',render:r=>esc(r.EntityType)+' · '+esc(r.EntityId)},{key:'Reason',label:'Reason / Note'}]});
+  }
+
+  /* ---------- Init ---------- */
+  window.addEventListener('hashchange',renderRoute);
+  window.addEventListener('resize',updateNav);
+  window.addEventListener('keydown',function(ev){ if(ev.key==='Escape') closeModal(); });
+  window.addEventListener('DOMContentLoaded',()=>{ renderRoute(); loadPublicConfig(); });
+
+  return {
+    navigate,scrollToSection,scrollTrack,toggleMobileMenu,closeSidebar,openModal,closeModal,goToMyPortal,logout,
+    getDirTab:()=>state.dirTab,setDirTab,onDirFilterChange,openDirectoryModal,requestMatchFromDir,applyTeachFromDir,
+    toggleStudentLocationFields,submitStudentReg,toggleTutorLocFields,submitTutorReg,submitPublicContact,validatePhoneField,lookupPin,lookupTutorPin,
+    switchAuthMode,requestLoginOtp,submitAuth,
+    setPortalTab,confirmAssignment,studentConfirmSession,openPayModal,submitUtrClaim,copyText,
+    expressInterest,openTutorLogSessionModal,submitTutorSession,downloadTutorEarningsCsv,submitPortalTicket,savePayoutProfile,
+    loadAdminModule,verifyEntity,verifyClaim,rejectClaim,openStudentModal,saveAdminStudent,openTutorModal,saveAdminTutor,archiveEntity,
+    runMatching,saveMatch,openAssignmentModal,saveAssignment,changeAsgStatus,setTrialPrompt,
+    openBatchSessionModal,submitBatchSessions,correctSessionPrompt,
+    openGenerateInvoicesModal,submitGenerateInvoices,openRecordPaymentModal,submitRecordPayment,adjustInvoicePrompt,voidInvoicePrompt,resendInvoice,
+    refundPrompt,adjustLedgerPrompt,createPayoutBatchPrompt,approvePayout,openMarkPaidModal,submitMarkPayoutPaid,
+    openManualNotifyModal,submitManualNotify,resolveTicketPrompt,
+    runReport,exportCurrentReportCsv,saveSettings,installTriggersRemote,runTriggerManual
+  };
+})();
+</script>
+</body>
+</html>
